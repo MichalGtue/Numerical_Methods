@@ -1,7 +1,7 @@
 #Libraries
 import numpy as np
 import matplotlib.pyplot as plt
-
+import time
 # Task 1
 #You cannot change the range using numpy.random.rand() will always give you a number from 0 to 1.
 #We can just multiply it by 2pi 
@@ -32,7 +32,7 @@ ax.set_title('Distribution of get_random_radian')
 ax.set_xlabel('Value')
 ax.set_ylabel('Frequency')
 
-#Print out for testing
+#####################################################################Print out for testing
 #plt.show()
 
 #Mean
@@ -44,3 +44,25 @@ Random_Radian_f_stdev = np.std(get_random_radian(Random_radian_big_number))
 print('Your mean with', Random_radian_big_number, 'is', Random_Radian_f_mean, 'and your standard deviation is', Random_Radian_f_stdev)
 
 #Task 3
+
+pos = np.array([[0, 0]])
+
+def get_xy_velocities(N):
+    random_rad_function = get_random_radian(N)[0]
+    random_x_y = np.array([np.cos(random_rad_function) * 0.5, np.sin(random_rad_function) * 0.5])
+    return random_x_y
+
+#Check if magnitude = 0.5
+#print(np.linalg.norm(get_xy_velocities(0)))
+
+#Here range is the number of steps
+for N in range(1, 1000):  
+    Current_Step = get_xy_velocities(N)
+    pos = np.vstack((pos, pos[-1, :] + Current_Step))
+
+fig31 = plt.figure(figsize=(8,7))
+
+ax31 = plt.subplot(1, 1, 1)
+ax31.plot(pos[:,0], pos[:,1])
+ax31.set_title('sin(x)')
+plt.show()
