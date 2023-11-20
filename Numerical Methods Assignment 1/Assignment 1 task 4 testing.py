@@ -70,6 +70,7 @@ fig31 = plt.figure(figsize=(8,7))
 
 def rand_arr(N):
     rand_rad = get_random_radian(N)
-    return rand_rad
+    rand_array = np.array([np.cos(rand_rad) * 0.5, np.sin(rand_rad) * 0.5])
+    return rand_array
 
-print('Hello sara')
+print(np.array([2,1]))
