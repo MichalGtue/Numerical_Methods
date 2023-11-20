@@ -60,9 +60,18 @@ for N in range(1, 1000):
     Current_Step = get_xy_velocities(N)
     pos = np.vstack((pos, pos[-1, :] + Current_Step))
 
-fig31 = plt.figure(figsize=(8,7))
 
+#Making the figure itself
+fig31 = plt.figure(figsize=(8,7))
 ax31 = plt.subplot(1, 1, 1)
 ax31.plot(pos[:,0], pos[:,1])
-ax31.set_title('sin(x)')
+
+#Making the figure pretty
+ax31.set_title('Random Path of a single Prispner')
+ax31.set_xlabel('Position in x')
+ax31.set_ylabel('Position in y')
+ax31.set_xlim(-20, 20)
+ax31.set_ylim(-20, 20)
+
+###################################Remove for testing
 plt.show()
