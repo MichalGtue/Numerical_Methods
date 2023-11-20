@@ -53,7 +53,7 @@ def get_xy_velocities(N):
     return random_x_y
 
 #Check if magnitude = 0.5
-#print(np.linalg.norm(get_xy_velocities(0)))
+#print(np.linalg.norm(get_xy_velocities(0))) #Norm does pythagoras
 
 #Here range is the number of steps
 #I found vstack which adds the new step to the position array as a new row
