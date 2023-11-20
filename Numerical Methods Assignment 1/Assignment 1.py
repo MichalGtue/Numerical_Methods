@@ -56,22 +56,39 @@ def get_xy_velocities(N):
 #print(np.linalg.norm(get_xy_velocities(0)))
 
 #Here range is the number of steps
+#I found vstack which adds the new step to the position array as a new row
 for N in range(1, 1000):  
     Current_Step = get_xy_velocities(N)
-    pos = np.vstack((pos, pos[-1, :] + Current_Step))
+    pos = np.vstack((pos, pos[-1, :] + Current_Step)) # New row = old row plus new step
 
+
+#Extracting x and y coordinates
+
+Task_3_x = pos[:,0]
+Task_3_y = pos[:,1]
 
 #Making the figure itself
 fig31 = plt.figure(figsize=(8,7))
 ax31 = plt.subplot(1, 1, 1)
-ax31.plot(pos[:,0], pos[:,1])
+line, = ax31.plot(Task_3_x, Task_3_y)
 
 #Making the figure pretty
 ax31.set_title('Random Path of a single Prispner')
 ax31.set_xlabel('Position in x')
 ax31.set_ylabel('Position in y')
-ax31.set_xlim(-20, 20)
-ax31.set_ylim(-20, 20)
+
+
+plt.show(block=False)
+for i in range(1000):
+    line.set_data(Task_3_x[i-20:i+1], Task_3_y[i-20:i+1])
+    fig.canvas.draw()
+    fig.canvas.flush_events()
+    plt.pause(0.001)
+
 
 ###################################Remove for testing
 plt.show()
+
+
+#Task 4 
+
