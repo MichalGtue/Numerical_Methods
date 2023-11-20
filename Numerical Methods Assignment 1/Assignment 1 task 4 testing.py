@@ -26,7 +26,7 @@ def get_random_radian(N):
 #Task 3
 #Task 4
 
-pos = np.zeros([5, 2])
+
 
 Number_of_Steps = 500
 def get_xy_velocities(N):
@@ -45,22 +45,7 @@ def get_xy_velocities(N):
 #Task_3_y = pos[:,1]
 
 #Making the figure itself
-fig31 = plt.figure(figsize=(8,7))
-#ax31 = plt.subplot(1, 1, 1)
-#line, = ax31.plot(Task_3_x, Task_3_y)
-#
-##Making the figure pretty
-#ax31.set_title('Random Path of a single Prispner')
-#ax31.set_xlabel('Position in x')
-#ax31.set_ylabel('Position in y')
-#
-#
-#
-#for i in range(1000):
-#    line.set_data(Task_3_x[i-20:i+1], Task_3_y[i-20:i+1])
-#    fig31.canvas.draw()
-#    fig31.canvas.flush_events()
-#    plt.pause(0.001)
+
 
 
 ###################################Remove for testing
@@ -68,9 +53,42 @@ fig31 = plt.figure(figsize=(8,7))
 
 #Task 4 
 
+
+
 def rand_arr(N):
-    rand_rad = get_random_radian(N)
-    rand_array = np.array([np.cos(rand_rad) * 0.5, np.sin(rand_rad) * 0.5])
+    pos = np.zeros([N, 2])
+    rand_rad = get_random_radian(N) # To use the same direction for a pair of xy coordinates
+    x_values = np.cos(rand_rad) * 0.5
+    y_values = np.sin(rand_rad) * 0.5
+    rand_array = np.column_stack([x_values, y_values])
+    pos = np.add(pos, rand_array)
     return rand_array
 
-print(np.array([2,1]))
+
+Steps_num = 10
+
+pos=np.zeros([500, 2])
+for i in range(Steps_num):
+    pos = np.add(pos, rand_arr(500))
+
+print(pos)
+
+Task_3_x = pos[:,0]
+Task_3_y = pos[:,1]
+
+#Making the figure itself
+fig31 = plt.figure(figsize=(8,7))
+ax31 = plt.subplot(1, 1, 1)
+line, = ax31.plot(Task_3_x, Task_3_y)
+
+print(pos)
+
+
+
+
+
+#print(rand_arr(100)) # Gives N amount of pairs of xy coordinates
+
+#print(rand_arr(6))
+
+#print(pos.shape)
