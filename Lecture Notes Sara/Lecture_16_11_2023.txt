@@ -1,0 +1,86 @@
+def mystery(a,b):
+    if b==1:
+        return a
+    else:
+        return a + mystery(a,b-1)
+
+print mystery(5,7)
+print mystery(5,-7)
+
+def mystery(a,b):
+    assert b
+
+
+
+    fro math import exp
+    f=lambda x:X**2+exp(x)
+    printf(x)
+
+    import numpy as np 
+
+
+    #practice y=sin(x) for 8 points x belonging [0.2pi]
+    import math
+    x=[i*/8*2*math.pi for i in range(0,8)]
+    x 
+
+
+
+    ln[5]: x={i for i in range (0,8)}
+
+
+
+#random module
+
+import random as rnd 
+
+
+import numpy as np 
+import time
+
+start = time.time()
+x=np.linspace(0,2*np.pi,100_00_00)
+y = np.exp(-x) * (2+np.sin(2*np.pi*x))
+total_time = time.time() - start
+print(f’{total_time = }’)
+
+
+#practice given function f(x)=x**2+2*x-4
+
+import numpy as np
+import time 
+def f(x):
+    return x**2+2*x-4
+x=np.linspace(0,20,1_000_000)
+y=[]
+start=time.time()
+for val in x:
+    y.append(f(val))
+
+print(f'execution time for NumPy is : {time.time()-start}')
+
+
+
+from mpl_toolkits.mplot3d import Axes3D
+from matplotlib import cm
+import matplotlib.pyplot as plt
+import numpy as np
+
+fig = plt.figure()
+ax = fig.add_subplot(111, projection=’3d’)
+
+# Make data.
+x = np.arange(-2, 2, 0.025)
+y = np.arange(-2, 2, 0.025)
+x,y = np.meshgrid(x, y)
+z = x * y * np.exp(-x**2 - y**2)
+
+# Plot the surface.
+surf = ax.plot_surface(x,y,z,
+cmap=cm.magma,linewidth=0, antialiased=False)
+# Customize the z axis.
+ax.set_zlim(-0.25, 0.25)
+
+# Add a color bar which maps values to colors.
+fig.colorbar(surf, shrink=0.5, aspect=5)
+plt.show()
