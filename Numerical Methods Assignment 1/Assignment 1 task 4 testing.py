@@ -72,6 +72,4 @@ def rand_arr(N):
     rand_rad = get_random_radian(N)
     return rand_rad
 
-print(rand_arr(4))
-
-## Sara test
+print('Hello')
