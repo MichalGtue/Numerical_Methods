@@ -55,7 +55,7 @@ def get_xy_velocities(N):
 
 
 
-def rand_arr(N):
+def new_step(N):
     pos = np.zeros([N, 2])
     rand_rad = get_random_radian(N) # To use the same direction for a pair of xy coordinates
     x_values = np.cos(rand_rad) * 0.5
@@ -65,30 +65,51 @@ def rand_arr(N):
     return rand_array
 
 
-Steps_num = 10
+Steps_num = 500
+Number_of_Prisoners = 1000
 
-pos=np.zeros([500, 2])
-for i in range(Steps_num):
-    pos = np.add(pos, rand_arr(500))
+pos=np.zeros([Number_of_Prisoners, 2])
+#for i in range(Steps_num):
+#    pos = np.add(pos, rand_arr(500))
 
-print(pos)
+print(pos[:,0])
+
+
 
 Task_3_x = pos[:,0]
 Task_3_y = pos[:,1]
-
 #Making the figure itself
-fig31 = plt.figure(figsize=(8,7))
-ax31 = plt.subplot(1, 1, 1)
-line, = ax31.plot(Task_3_x, Task_3_y)
-
-print(pos)
 
 
+fig, ax = plt.subplots()
+line, = ax.plot([], [], 'o')
+ax.set_xlim(-20, 20)
+ax.set_ylim(-20,20)
 
 
+# Show the plot without blocking
+plt.show(block=False)
 
-#print(rand_arr(100)) # Gives N amount of pairs of xy coordinates
+for i in range(Steps_num):
+    pos = np.add(pos, new_step(Number_of_Prisoners))
+    line.set_data(pos[:, 0], pos[:, 1])
+    fig.canvas.draw()
+    fig.canvas.flush_events()
+    plt.pause(0.01)
 
-#print(rand_arr(6))
 
-#print(pos.shape)
+from matplotlib import cm
+fig42, ax42 = plt.subplots()
+
+
+ax42.hist2d(pos[:, 0], pos[:, 1], bins=15, cmap=cm.plasma)
+
+
+ax42.set_xlabel('Position in the x direction')
+ax42.set_ylabel('Position in the y direction')
+ax42.set_title('2D Histogram of the path taken by 500 prisoners after 1000 steps')
+
+ax42.set_xlim(-50, 50)
+ax42.set_ylim(-50, 50)
+
+plt.show()
