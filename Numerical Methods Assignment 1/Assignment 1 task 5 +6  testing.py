@@ -133,6 +133,14 @@ pos = np.zeros([Number_of_Prisoners, 2])
 Number_Of_Dimensions = 2
 for i in range(Number_of_Steps):
     pos = np.add(pos, new_step(Number_of_Prisoners))
+    if i == 99:
+        pos_after_100_steps = pos
+    if i == 199:
+        pos_after_200_steps = pos
+    if i == 299:
+        pos_after_300_steps = pos
+    if i == 399:
+        pos_after_400_steps = pos
     current_d = mean_square_displacement_f(pos) / (2* Number_Of_Dimensions * (i+1))
     dcoeff_vs_time[i, :] = [i + 1, current_d]
 
@@ -152,4 +160,28 @@ fig51, ax51 = plt.subplots()
 ax51.scatter(dcoeff_vs_time[:,0], dcoeff_vs_time[:,1])
 ax51.plot(x_values_for_task_5, expected_diffusion_coeff)
 
+
+
+
+fig61 = plt.figure(figsize=(15,8))
+
+ax61 = plt.subplot(2, 4, 1)
+ax61.hist2d(pos_after_100_steps[:, 0], pos_after_100_steps[:, 1], bins=15, cmap=cm.plasma)
+ax61.set_title('Histogram after 100 steps')
+
+ax62 = plt.subplot(2, 4, 2)
+ax62.hist2d(pos_after_200_steps[:, 0], pos_after_200_steps[:, 1], bins=15, cmap=cm.plasma)
+ax62.set_title('Histogram after 200 steps')
+
+ax63 = plt.subplot(2, 4, 5)
+ax63.hist2d(pos_after_300_steps[:, 0], pos_after_300_steps[:, 1], bins=15, cmap=cm.plasma)
+ax63.set_title('Histogram after 300 steps')
+
+ax64 = plt.subplot(2, 4, 6)
+ax64.hist2d(pos_after_400_steps[:, 0], pos_after_400_steps[:, 1], bins=15, cmap=cm.plasma)
+ax64.set_title('Histogram after 400 steps')
+
+ax65 = plt.subplot(1, 2, 2)
+ax65.hist2d(pos[:, 0], pos[:, 1], bins=15, cmap=cm.plasma)
+ax65.set_title('Histogram after the last step')
 plt.show()
