@@ -134,7 +134,7 @@ for i in range(Number_of_Steps):
 #I assume that a 2d histogram is just a heatmeap
 
 
-ffig42, ax42 = plt.subplots()
+fig42, ax42 = plt.subplots()
 
 
 ax42.hist2d(pos[:, 0], pos[:, 1], bins=15, cmap=cm.plasma)
@@ -147,3 +147,5 @@ ax42.set_title('2D Histogram of the path taken by 500 prisoners after 1000 steps
 
 
 plt.show()
+
+#Task 5
