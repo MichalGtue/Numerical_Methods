@@ -74,7 +74,7 @@ ax31 = plt.subplot(1, 1, 1)
 line, = ax31.plot(Task_3_x, Task_3_y)
 
 #Making the figure pretty
-ax31.set_title('Random Path of a single Prispner')
+ax31.set_title('Random Path of a single prisoner')
 ax31.set_xlabel('Position in x')
 ax31.set_ylabel('Position in y')
 
