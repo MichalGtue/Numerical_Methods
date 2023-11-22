@@ -225,5 +225,7 @@ hist2d65 = ax65.hist2d(pos[:, 0], pos[:, 1], bins=15, cmap=cm.plasma)
 ax65.set_title('Histogram after the last step')
 plt.colorbar(hist2d65[3], ax=ax65)
 
+#################################################### MAYBE ADD BIG TITLE
 
 plt.show()
+
