@@ -74,4 +74,3 @@ x = bs(Aprime, bprime)
 print(x)
 
 
-print('testttttt')
