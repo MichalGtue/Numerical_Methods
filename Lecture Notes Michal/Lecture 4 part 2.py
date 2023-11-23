@@ -72,3 +72,6 @@ from gaussjordan import backsubstitution_draft as bs
 x = bs(Aprime, bprime)
 
 print(x)
+
+
+print('test')
