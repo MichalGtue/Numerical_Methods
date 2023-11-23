@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import time
 from matplotlib import cm
+from mpl_toolkits.mplot3d import Axes3D
 # Task 1
 #You cannot change the range using numpy.random.rand() will always give you a number from 0 to 1.
 #We can just multiply it by 2pi 
@@ -85,7 +86,7 @@ for i in range(1000):
     line.set_data(Task_3_x[i-20:i+1], Task_3_y[i-20:i+1])
     fig.canvas.draw()
     fig.canvas.flush_events()
-    plt.pause(0.001)
+    plt.pause(0.0001)
 
 
 ###################################Remove for testing
@@ -227,5 +228,39 @@ plt.colorbar(hist2d65[3], ax=ax65)
 
 #################################################### MAYBE ADD BIG TITLE
 
+#Task 7
+
+t=100
+
+x = np.arange(-15, 15, 0.005)
+y = np.arange(-15, 15, 0.005)
+
+x,y = np.meshgrid(x, y)
+
+z = 1/(4 * np.pi * expected_diffusion_coeff * t) *  np.exp(-(x**2 + y**2)/(4 * expected_diffusion_coeff * t))
+z1 = 1/(4 * np.pi * expected_diffusion_coeff * t) *  np.exp(-(x**2 + y**2)/(4 * expected_diffusion_coeff * t*2))
+z2 = 1/(4 * np.pi * expected_diffusion_coeff * t) *  np.exp(-(x**2 + y**2)/(4 * expected_diffusion_coeff * t*3))
+z3 = 1/(4 * np.pi * expected_diffusion_coeff * t) *  np.exp(-(x**2 + y**2)/(4 * expected_diffusion_coeff * t*4))
+z4 = 1/(4 * np.pi * expected_diffusion_coeff * t) *  np.exp(-(x**2 + y**2)/(4 * expected_diffusion_coeff * t*5))
+
+
+fig71 = plt.figure(figsize=(18,8))
+ax71 = fig71.add_subplot(2, 4, 1, projection='3d')
+ax72 = fig71.add_subplot(2, 4, 2, projection='3d')
+ax73 = fig71.add_subplot(2, 4, 5, projection='3d')
+ax74 = fig71.add_subplot(2, 4, 6, projection='3d')
+ax75 = fig71.add_subplot(1, 2, 2, projection='3d')
+
+surf1 = ax71.plot_surface(x,y,z, cmap=cm.magma, linewidth=0, antialiased=0)
+surf2 = ax72.plot_surface(x,y,z1, cmap=cm.magma, linewidth=0, antialiased=0)
+surf3 = ax73.plot_surface(x,y,z2, cmap=cm.magma, linewidth=0, antialiased=0)
+surf4 = ax74.plot_surface(x,y,z3, cmap=cm.magma, linewidth=0, antialiased=0)
+surf5 = ax75.plot_surface(x,y,z4, cmap=cm.magma, linewidth=0, antialiased=0)
+
+
+
+
 plt.show()
 
+
+## For task 8 store the initial position and check the new step if its outside the radius
