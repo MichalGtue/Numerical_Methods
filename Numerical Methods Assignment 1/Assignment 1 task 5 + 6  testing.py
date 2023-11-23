@@ -98,21 +98,25 @@ ax.plot(x1_for_8, y2_for_8)
 
 plt.show(block=False)
 
+escape_counter = 0
+
+
 for i in range(Number_of_Steps):
     pos_ini = pos.copy()
     pos = np.add(pos, new_step(Number_of_Prisoners))
     for n in range(len(pos[:,0])):
         if np.linalg.norm(pos[n,:]) >= 12:
-            pos[n,:] = pos_ini[n,:]
-            new_maybe_correct_step = new_step(1)
-            while np.linalg.norm(np.add(pos[n,:], new_maybe_correct_step)) >= 12:
-                new_maybe_correct_step = new_step(1)
-            pos[n,:] = np.add(pos[n,:], new_maybe_correct_step)
+               pos[n,:] = pos_ini[n,:]
+               new_maybe_correct_step = new_step(1)
+               while (np.linalg.norm(np.add(pos[n, :], new_maybe_correct_step)) >= 12 ):
+                   new_maybe_correct_step = new_step(1)
+               pos[n,:] = np.add(pos[n,:], new_maybe_correct_step)
     line.set_data(pos[:, 0], pos[:, 1])
     fig.canvas.draw()
     fig.canvas.flush_events()
     plt.pause(0.01)
 
+print(escape_counter)
 
 
 
