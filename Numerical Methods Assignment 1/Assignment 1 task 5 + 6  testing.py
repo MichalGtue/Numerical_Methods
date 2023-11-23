@@ -86,13 +86,33 @@ line, = ax.plot([], [], 'o')
 ax.set_xlim(-20, 20)
 ax.set_ylim(-20,20)
 
+boundry_condition = 12*np.cos(0.1*np.pi)
 
-# Show the plot without blocking
+x1_for_8 = np.linspace(-12,12,10**4)
+x2_for_8 = np.linspace(-12, boundry_condition, 10**4)
+y1_for_8 = np.sqrt(12**2 - (x2_for_8**2))
+y2_for_8 = -1* np.sqrt(12**2 - (x1_for_8**2))
+ax.plot(x2_for_8, y1_for_8)
+ax.plot(x1_for_8, y2_for_8)
+
+
 plt.show(block=False)
 
 for i in range(Number_of_Steps):
+    pos_ini = pos.copy()
     pos = np.add(pos, new_step(Number_of_Prisoners))
+    for n in range(len(pos[:,0])):
+        if np.linalg.norm(pos[n,:]) >= 12:
+            pos[n,:] = pos_ini[n,:]
+            new_maybe_correct_step = new_step(1)
+            while np.linalg.norm(np.add(pos[n,:], new_maybe_correct_step)) >= 12:
+                new_maybe_correct_step = new_step(1)
+            pos[n,:] = np.add(pos[n,:], new_maybe_correct_step)
     line.set_data(pos[:, 0], pos[:, 1])
+    fig.canvas.draw()
+    fig.canvas.flush_events()
+    plt.pause(0.01)
+
 
 
 

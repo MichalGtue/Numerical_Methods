@@ -37,6 +37,9 @@ ax.set_ylabel('Frequency')
 #####################################################################Print out for testing
 #plt.show()
 
+#################################### So that it doesnt keep spam printing
+plt.close()
+
 #Mean
 Random_Radian_f_mean = np.mean(get_random_radian(Random_radian_big_number))
 
@@ -87,6 +90,9 @@ for i in range(1000):
     fig.canvas.draw()
     fig.canvas.flush_events()
     plt.pause(0.0001)
+
+#################################### So that it doesnt keep spam printing
+plt.close()
 
 
 ###################################Remove for testing
@@ -152,8 +158,12 @@ for i in range(Number_of_Steps):
     line41.set_data(pos[:, 0], pos[:, 1])
     fig41.canvas.draw()
     fig41.canvas.flush_events()
-    plt.pause(0.01)
+    plt.pause(0.001)
 ## Takes a while to print out you have to be patient
+
+#################################### So that it doesnt keep spam printing
+plt.close()
+
 
 
 #I assume that a 2d histogram is just a heatmeap
@@ -169,6 +179,9 @@ ax42.set_xlabel('Position in the x direction')
 ax42.set_ylabel('Position in the y direction')
 ax42.set_title('2D Histogram of the path taken by 500 prisoners after 1000 steps')
 
+
+#################################### So that it doesnt keep spam printing
+plt.close()
 
 
 
@@ -188,6 +201,9 @@ ax51.set_xlabel('Number of Steps')
 ax51.set_ylabel('Diffusion Coefficient')
 ax51.set_title('Expected Diffusion Coefficient vs number of steps')
 
+
+#################################### So that it doesnt keep spam printing
+plt.close()
 
 
 
@@ -228,6 +244,13 @@ plt.colorbar(hist2d65[3], ax=ax65)
 
 #################################################### MAYBE ADD BIG TITLE
 
+
+
+#################################### So that it doesnt keep spam printing
+plt.close()
+
+
+
 #Task 7
 
 t=100
@@ -237,11 +260,13 @@ y = np.arange(-15, 15, 0.005)
 
 x,y = np.meshgrid(x, y)
 
-z = 1/(4 * np.pi * expected_diffusion_coeff * t) *  np.exp(-(x**2 + y**2)/(4 * expected_diffusion_coeff * t))
-z1 = 1/(4 * np.pi * expected_diffusion_coeff * t) *  np.exp(-(x**2 + y**2)/(4 * expected_diffusion_coeff * t*2))
-z2 = 1/(4 * np.pi * expected_diffusion_coeff * t) *  np.exp(-(x**2 + y**2)/(4 * expected_diffusion_coeff * t*3))
-z3 = 1/(4 * np.pi * expected_diffusion_coeff * t) *  np.exp(-(x**2 + y**2)/(4 * expected_diffusion_coeff * t*4))
-z4 = 1/(4 * np.pi * expected_diffusion_coeff * t) *  np.exp(-(x**2 + y**2)/(4 * expected_diffusion_coeff * t*5))
+expected_diffusion_coeff_numerically = 0.0625
+
+z = 1/(4 * np.pi * expected_diffusion_coeff_numerically * t) *  np.exp(-(x**2 + y**2)/(4 * expected_diffusion_coeff_numerically * t))
+z1 = 1/(4 * np.pi * expected_diffusion_coeff_numerically * t) *  np.exp(-(x**2 + y**2)/(4 * expected_diffusion_coeff_numerically * t*2))
+z2 = 1/(4 * np.pi * expected_diffusion_coeff_numerically * t) *  np.exp(-(x**2 + y**2)/(4 * expected_diffusion_coeff_numerically * t*3))
+z3 = 1/(4 * np.pi * expected_diffusion_coeff_numerically * t) *  np.exp(-(x**2 + y**2)/(4 * expected_diffusion_coeff_numerically * t*4))
+z4 = 1/(4 * np.pi * expected_diffusion_coeff_numerically * t) *  np.exp(-(x**2 + y**2)/(4 * expected_diffusion_coeff_numerically * t*5))
 
 
 fig71 = plt.figure(figsize=(18,8))
@@ -259,8 +284,58 @@ surf5 = ax75.plot_surface(x,y,z4, cmap=cm.magma, linewidth=0, antialiased=0)
 
 
 
+#################################### So that it doesnt keep spam printing
+plt.close()
 
-plt.show()
+
+
 
 
 ## For task 8 store the initial position and check the new step if its outside the radius
+
+#Task 8
+
+#Copied but modified from task 4
+fig81, ax81 = plt.subplots()
+line81, = ax81.plot([], [], 'o')
+
+#Making it pretty
+plt.show(block=False)
+ax81.set_xlim(-20, 20)
+ax81.set_ylim(-20,20)
+ax81.set_title('Path of 1000 prisoners after 500 steps with bounds')
+ax81.set_xlabel('x position')
+ax81.set_ylabel('y position')
+
+
+
+
+
+x1_for_8 = np.linspace(-12,12,10**4)
+y1_for_8 = np.sqrt(12**2 - (x1_for_8**2))
+y2_for_8 = -1* np.sqrt(12**2 - (x1_for_8**2))
+ax81.plot(x1_for_8, y1_for_8, "r-")
+ax81.plot(x1_for_8, y2_for_8, "r-")
+
+
+plt.show(block=False)
+pos=np.zeros([Number_of_Prisoners, 2])
+pos = pos + 0.0
+
+for i in range(Number_of_Steps):
+    pos_ini = pos.copy()
+    pos = np.add(pos, new_step(Number_of_Prisoners))
+    for n in range(len(pos[:,0])):
+        if np.linalg.norm(pos[n,:]) >= 12: # First check to see if the new position is outside the bounds
+            pos[n,:] = pos_ini[n,:]     # Go back to initial position
+            new_maybe_correct_step = new_step(1)
+            while np.linalg.norm(np.add(pos[n,:], new_maybe_correct_step)) >= 12: # Check to see if new step is outside the bounds
+                new_maybe_correct_step = new_step(1)
+            pos[n,:] = np.add(pos[n,:], new_maybe_correct_step)
+    line81.set_data(pos[:, 0], pos[:, 1])
+    fig81.canvas.draw()
+    fig81.canvas.flush_events()
+    plt.pause(0.001)
+
+  
+  # Task 9
