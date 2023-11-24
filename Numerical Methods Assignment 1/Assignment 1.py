@@ -237,6 +237,8 @@ y = np.arange(-15, 15, 0.005)
 
 x,y = np.meshgrid(x, y)
 
+expected_diffusion_coeff = 0.0625
+
 z = 1/(4 * np.pi * expected_diffusion_coeff * t) *  np.exp(-(x**2 + y**2)/(4 * expected_diffusion_coeff * t))
 z1 = 1/(4 * np.pi * expected_diffusion_coeff * t) *  np.exp(-(x**2 + y**2)/(4 * expected_diffusion_coeff * t*2))
 z2 = 1/(4 * np.pi * expected_diffusion_coeff * t) *  np.exp(-(x**2 + y**2)/(4 * expected_diffusion_coeff * t*3))
