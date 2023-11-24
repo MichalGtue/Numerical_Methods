@@ -260,6 +260,8 @@ y = np.arange(-15, 15, 0.005)
 
 x,y = np.meshgrid(x, y)
 
+expected_diffusion_coeff = 0.0625
+
 expected_diffusion_coeff_numerically = 0.0625
 
 z = 1/(4 * np.pi * expected_diffusion_coeff_numerically * t) *  np.exp(-(x**2 + y**2)/(4 * expected_diffusion_coeff_numerically * t))
@@ -289,6 +291,7 @@ plt.close()
 
 
 
+plt.show()
 
 
 ## For task 8 store the initial position and check the new step if its outside the radius
