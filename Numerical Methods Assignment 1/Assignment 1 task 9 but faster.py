@@ -2,6 +2,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import time
+import sympy
 # Task 1
 #You cannot change the range using numpy.random.rand() will always give you a number from 0 to 1.
 #We can just multiply it by 2pi 
@@ -54,25 +55,25 @@ def get_xy_velocities(N):
 #Task 4 
 
 
-
+step_size = 0.5
 def new_step(N):
     pos = np.zeros([N, 2])
     rand_rad = get_random_radian(N) # To use the same direction for a pair of xy coordinates
-    x_values = np.cos(rand_rad) * 0.5
-    y_values = np.sin(rand_rad) * 0.5
+    x_values = np.cos(rand_rad) * step_size
+    y_values = np.sin(rand_rad) * step_size
     rand_array = np.column_stack([x_values, y_values])
     pos = np.add(pos, rand_array)
     return rand_array
 
 
-Steps_num = 500
+
 Number_of_Prisoners = 1000
 
 pos=np.zeros([Number_of_Prisoners, 2])
 #for i in range(Steps_num):
 #    pos = np.add(pos, rand_arr(500))
 
-print(pos[:,0])
+
 
 
 
@@ -85,34 +86,70 @@ fig, ax = plt.subplots()
 line, = ax.plot([], [], 'o')
 ax.set_xlim(-20, 20)
 ax.set_ylim(-20,20)
+#
+boundry_condition = 12*np.cos(0.1*np.pi)
+#
+x1_for_8 = np.linspace(-12,12,10**4)
+x2_for_8 = np.linspace(-12, boundry_condition, 10**4)
+y1_for_8 = np.sqrt(12**2 - (x2_for_8**2))
+y2_for_8 = -1* np.sqrt(12**2 - (x1_for_8**2))
+ax.plot(x2_for_8, y1_for_8)
+ax.plot(x1_for_8, y2_for_8)
+#
+#
+#plt.show(block=False)
 
 
-# Show the plot without blocking
-plt.show(block=False)
 
-for i in range(Steps_num):
-    pos = np.add(pos, new_step(Number_of_Prisoners))
+#Check if correctly crosses the border
+
+
+escape_times = []
+
+
+
+to_be_removed = []
+
+
+
+Number_of_Prisoners = 1
+Number_of_Steps = 1
+pos=np.zeros([Number_of_Prisoners, 2])
+step_number = 0
+
+
+while len(pos[:,0]) > 0:
+    step_number = step_number + 1
+    for p in range(len(pos[:, 0])):
+        if pos [p, 0] == 13 and pos[p,1] == 2:
+            to_be_removed.append(p)
+            escape_times.append(step_number-1)
+    pos = np.delete(pos, to_be_removed, axis=0)
+    to_be_removed = []
+    pos_ini = pos.copy()
+    pos = np.add(pos, new_step(len(pos[:,0])))
+    for n in range(len(pos[:,0])):
+        if np.linalg.norm(pos[n,:]) >= 12:
+            if pos[n, 1] >= 0 and boundry_condition <= pos[n, 0]:
+                pos[n,:] = [13,2]
+            else:
+               pos[n,:] = pos_ini[n,:]
+               new_maybe_correct_step = new_step(1)
+               while (np.linalg.norm(np.add(pos[n, :], new_maybe_correct_step)) >= 12 ):
+                   new_maybe_correct_step = new_step(1)
+               pos[n,:] = np.add(pos[n,:], new_maybe_correct_step)
     line.set_data(pos[:, 0], pos[:, 1])
     fig.canvas.draw()
     fig.canvas.flush_events()
-    plt.pause(0.01)
+    plt.pause(0.000000000001)
+##### Remove the above '#' to see the plots. I commented them out cause its makes the simulation much longer
+
+fig91, ax91 = plt.subplots(1,1)
 
 
-from matplotlib import cm
-fig42, ax42 = plt.subplots()
+ax91.hist(escape_times, bins=10)
 
-
-ax42.hist2d(pos[:, 0], pos[:, 1], bins=15, cmap=cm.plasma)
-
-
-ax42.set_xlabel('Position in the x direction')
-ax42.set_ylabel('Position in the y direction')
-ax42.set_title('2D Histogram of the path taken by 500 prisoners after 1000 steps')
-
-ax42.set_xlim(-50, 50)
-ax42.set_ylim(-50, 50)
 
 plt.show()
 
-## test
-print('test')
+print(np.mean(escape_times), np.median(escape_times))
