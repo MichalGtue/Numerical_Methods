@@ -10,7 +10,6 @@ import sympy
 Random_N_2pi = 2 * np.pi * np.random.rand()
 
 # print(Random_N_2pi) # <- For testing
-
 #Task 2 
 #From numpy.org Parameters:
 
@@ -50,8 +49,8 @@ def get_xy_velocities(N):
 
 
 ###################################Remove for testing
-
-
+boundry_condition = 12*np.cos(0.1 * np.pi)
+boundry_condition_for_checking = 12*sympy.cos(0.1*sympy.pi)
 #Task 4 
 
 
@@ -82,17 +81,17 @@ Task_3_y = pos[:,1]
 #Making the figure itself
 
 
-#fig, ax = plt.subplots()
-#line, = ax.plot([], [], 'o')
-#ax.set_xlim(-20, 20)
-#ax.set_ylim(-20,20)
-#x1_for_8 = np.linspace(-12,12,10**4)
-#x2_for_8 = np.linspace(-12, boundry_condition, 10**4)
-#y1_for_8 = np.sqrt(12**2 - (x2_for_8**2))
-#y2_for_8 = -1* np.sqrt(12**2 - (x1_for_8**2))
-#ax.plot(x2_for_8, y1_for_8)
-#ax.plot(x1_for_8, y2_for_8)
-#
+fig, ax = plt.subplots()
+line, = ax.plot([], [], 'o')
+ax.set_xlim(-20, 20)
+ax.set_ylim(-20,20)
+x1_for_8 = np.linspace(-12,12,10**4)
+x2_for_8 = np.linspace(-12, boundry_condition, 10**4)
+y1_for_8 = np.sqrt(12**2 - (x2_for_8**2))
+y2_for_8 = -1* np.sqrt(12**2 - (x1_for_8**2))
+ax.plot(x2_for_8, y1_for_8)
+ax.plot(x1_for_8, y2_for_8)
+
 
 
 
@@ -124,7 +123,7 @@ step_number=0
 
 
 
-Number_of_Prisoners = 10000
+Number_of_Prisoners = 500
 Number_of_Steps = 1
 pos=np.zeros([Number_of_Prisoners, 2])
 step_number = 0
