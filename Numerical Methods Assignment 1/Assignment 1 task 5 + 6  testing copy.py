@@ -124,7 +124,7 @@ step_number=0
 
 
 
-Number_of_Prisoners = 100
+Number_of_Prisoners = 10000
 Number_of_Steps = 1
 pos=np.zeros([Number_of_Prisoners, 2])
 step_number = 0
@@ -170,3 +170,12 @@ while len(pos[:,0]) > 0:
 print(escape_times)
 
 
+fig91, ax91 = plt.subplots(1,1)
+
+
+ax91.hist(escape_times, bins=10)
+
+
+plt.show()
+
+print(np.mean(escape_times), np.median(escape_times))
