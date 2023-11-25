@@ -96,7 +96,7 @@ ax91.plot(x1_for_9, y2_for_9, "r-")
 
 escape_times = []
 to_be_removed = []
-Number_of_Prisoners = 5000
+Number_of_Prisoners = 1000
 #Number_of_Steps = 1 # Since were running it until they leave we dont know how many steps it will take
 pos=np.zeros([Number_of_Prisoners, 2])
 step_number = 0
@@ -140,7 +140,8 @@ boundry_condition_for_checking = 12*sympy.cos(0.1*sympy.pi)
 
 f1 = sympy.Piecewise((sympy.sqrt(12**2 - x_for_checking**2), x_for_checking >= boundry_condition_for_checking), (0, True))
 
-
+# To change number of prisoners use the code that a couple of lines above
+# Its quite slow with # of prisoners > 10000
 
 while len(pos[:,0]) > 0:
     step_number = step_number + 1
@@ -160,15 +161,22 @@ while len(pos[:,0]) > 0:
                 f2 = slope_for_testing * x_for_checking + y_intercept_for_testing  ## Draw a straight line between new point and initial point
                 solution_to_be_tested = sympy.solve(f1 - f2, x_for_checking)
                 if len(solution_to_be_tested)==1 and solution_to_be_tested[0] >= boundry_condition:
-                   pos[n,:] = [13,2]      
+                   pos[n,:] = [13,2]      ## 13, 2 is just an arbitrary position outside the domain and its a unique position and we know that we can remove a prisoner if their position is 13,2 
                 elif len(solution_to_be_tested) == 2 and solution_to_be_tested[1] >= boundry_condition:
                    pos[n,:] = [13,2]
                 else:
                    pos[n,:] = pos_ini[n,:]
                    new_maybe_correct_step = new_step(1)
+                   number_of_tries = 0  ## To make it a bit faster we only give them 5 tries to make a new move otherwise we send them back to their original position
                    while (np.linalg.norm(np.add(pos[n, :], new_maybe_correct_step)) >= 12 ):
                        new_maybe_correct_step = new_step(1)
-                   pos[n,:] = np.add(pos[n,:], new_maybe_correct_step)   
+                       number_of_tries = number_of_tries + 1
+                       if number_of_tries == 5:
+                           break
+                   if number_of_tries != 5:
+                       pos[n,:] = np.add(pos[n,:], new_maybe_correct_step)       
+                   elif number_of_tries != 5:
+                       pos[n,:] = pos_ini[n,:]              
             else:
                pos[n,:] = pos_ini[n,:]
                new_maybe_correct_step = new_step(1)
