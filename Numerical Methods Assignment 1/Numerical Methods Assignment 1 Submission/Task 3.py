@@ -17,7 +17,6 @@ Random_N_2pi = 2 * np.pi * np.random.rand()
 
 #    d0, d1, …, dnint, optional The dimensions of the returned array, must be non-negative. If no argument is given a single Python float is returned.
 
-
 #Add documentation and maybe add case where if not an integer give error
 def get_random_radian(N):
     radian_array = Random_N_2pi = 2 * np.pi * np.random.rand(N)
@@ -43,7 +42,6 @@ for N in range(1, 1000):
     Current_Step = get_xy_velocities(N)
     pos = np.vstack((pos, pos[-1, :] + Current_Step)) # New row = old row plus new step
 
-
 #Extracting x and y coordinates
 
 Task_3_x = pos[:,0]
@@ -55,10 +53,9 @@ ax31 = plt.subplot(1, 1, 1)
 line, = ax31.plot(Task_3_x, Task_3_y)
 
 #Making the figure pretty
-ax31.set_title('Random Path of a single prisoner')
-ax31.set_xlabel('Position in x')
-ax31.set_ylabel('Position in y')
-
+ax31.set_title('Figure 3.1: Random 1000 step path of a single prisoner animated simulation', size=12, weight='bold')
+ax31.set_xlabel('Prisoner position in x')
+ax31.set_ylabel('Prisoner position in y')
 
 plt.show(block=False)
 for i in range(1000):
