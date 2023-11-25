@@ -238,22 +238,28 @@ def mean_escape_time(r, s, t):
     return residence_time
 
 
-fig101 = plt.figure(figsize=(8,7))
+fig101 = plt.figure(figsize=(10,7))
 
 x_ticks = ['0.1π', '0.2π', '0.3π', '0.4π', '0.5π']
 
 #Mean
 ax101 = plt.subplot(1, 3, 1)
 ax101.plot(Gapsize_mean_escape_time[:,0], Gapsize_mean_escape_time[:,1])
+ax101.set_xticks(Gapsize_mean_escape_time[:,0])
 ax101.set_xticklabels(x_ticks)
 
 #Median
 ax102 = plt.subplot(1,3,2)
 ax102.plot(Gapsize_median_escape_time[:,0], Gapsize_median_escape_time[:,1])
+ax102.set_xticks(Gapsize_mean_escape_time[:,0])
+ax102.set_xticklabels(x_ticks)
 
 #Mode
 ax103 = plt.subplot(1,3,3)
 ax103.plot(Gapszie_mode_escape_time[:,0], Gapszie_mode_escape_time[:,1])
+ax103.set_xticks(Gapsize_mean_escape_time[:,0])
+ax103.set_xticklabels(x_ticks)
+
 
 plt.show()
 
