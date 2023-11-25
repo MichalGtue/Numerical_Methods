@@ -161,10 +161,10 @@ while len(pos[:,0]) > 0:
                while (np.linalg.norm(np.add(pos[n, :], new_maybe_correct_step)) >= 12 ):
                    new_maybe_correct_step = new_step(1)
                pos[n,:] = np.add(pos[n,:], new_maybe_correct_step)
-#    line.set_data(pos[:, 0], pos[:, 1])
-#    fig.canvas.draw()
-#    fig.canvas.flush_events()
-#    plt.pause(0.01)
+    line.set_data(pos[:, 0], pos[:, 1])
+    fig.canvas.draw()
+    fig.canvas.flush_events()
+    plt.pause(0.01)
 
 print(escape_times)
 
