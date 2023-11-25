@@ -9,3 +9,5 @@ from mpl_toolkits.mplot3d import Axes3D
 #We can just multiply it by 2pi 
 
 Random_N_2pi = 2 * np.pi * np.random.rand()
+
+# print(Random_N_2pi) # <- For testing
