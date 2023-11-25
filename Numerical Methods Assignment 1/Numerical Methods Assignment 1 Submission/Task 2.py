@@ -26,7 +26,7 @@ def get_random_radian(N):
 
 Random_radian_big_number = 10**8 #Bigger exponent = more time
 
-fig, ax21 = plt.subplots(1, 1, figsize=(8,7))
+fig21, ax21 = plt.subplots(1, 1, figsize=(8,7))
 ax21.hist(get_random_radian(Random_radian_big_number), bins=50) 
 
 #To make graph nicer
@@ -43,3 +43,4 @@ Random_Radian_f_mean = np.mean(get_random_radian(Random_radian_big_number))
 Random_Radian_f_stdev = np.std(get_random_radian(Random_radian_big_number))
 
 print('The randon radian array ', Random_radian_big_number, ' has a median of', Random_Radian_f_mean, 'and its standard deviation is', Random_Radian_f_stdev, '.')
+

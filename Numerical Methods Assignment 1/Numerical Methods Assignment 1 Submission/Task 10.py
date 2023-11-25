@@ -165,6 +165,7 @@ for a in range(1, 6):
     escape_times = []
     to_be_removed = []
     step_number = 0
+    boundry_condition_for_loop = 12 * np.cos(0.1 * a * np.pi) - 0.7
     boundry_condition_for_checking = 12*sympy.cos(0.1*a*sympy.pi) # Pretty much same but using sympy
     f1 = sympy.Piecewise((sympy.sqrt(12**2 - x_for_checking**2), x_for_checking >= boundry_condition_for_checking), (0, True))
     while len(pos[:,0]) > 0: # This makes it so that 
@@ -179,7 +180,7 @@ for a in range(1, 6):
         pos = np.add(pos, new_step(len(pos[:,0])))
         for n in range(len(pos[:,0])):
             if np.linalg.norm(pos[n,:]) >= 12: # Check if they hit the boundry
-                if pos[n,0] > 11:  # Can be removed but its much slower without
+                if pos[n,0] > boundry_condition_for_loop - 0.7:  # Can be removed but its much slower without
                     slope_for_testing = (pos[n,1]-pos_ini[n,1])/(pos[n,0]-pos_ini[n,0])
                     y_intercept_for_testing = pos[n,1] - (slope_for_testing)*pos[n,0]
                     f2 = slope_for_testing * x_for_checking + y_intercept_for_testing  ## Draw a straight line between new point and initial point
@@ -242,24 +243,32 @@ fig101 = plt.figure(figsize=(10,7))
 
 x_ticks = ['0.1π', '0.2π', '0.3π', '0.4π', '0.5π']
 
+x_values_for_task_10 = np.linspace(0, 0.5*np.pi, 1000)
+y_values_for_task_10 = mean_escape_time(12, 0.5, 1) + 0*x_values_for_task_10
+
 #Mean
 ax101 = plt.subplot(1, 3, 1)
 ax101.plot(Gapsize_mean_escape_time[:,0], Gapsize_mean_escape_time[:,1])
 ax101.set_xticks(Gapsize_mean_escape_time[:,0])
 ax101.set_xticklabels(x_ticks)
+ax101.plot(x_values_for_task_10, y_values_for_task_10)
+
+
 
 #Median
 ax102 = plt.subplot(1,3,2)
 ax102.plot(Gapsize_median_escape_time[:,0], Gapsize_median_escape_time[:,1])
 ax102.set_xticks(Gapsize_mean_escape_time[:,0])
 ax102.set_xticklabels(x_ticks)
+ax102.plot(x_values_for_task_10, y_values_for_task_10)
+
 
 #Mode
 ax103 = plt.subplot(1,3,3)
 ax103.plot(Gapszie_mode_escape_time[:,0], Gapszie_mode_escape_time[:,1])
 ax103.set_xticks(Gapsize_mean_escape_time[:,0])
 ax103.set_xticklabels(x_ticks)
-
+ax103.plot(x_values_for_task_10, y_values_for_task_10)
 
 plt.show()
 
