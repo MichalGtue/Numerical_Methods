@@ -53,9 +53,9 @@ ax31 = plt.subplot(1, 1, 1)
 line, = ax31.plot(Task_3_x, Task_3_y)
 
 #Making the figure pretty
-ax31.set_title('Figure 3.1: Random 1000 step path of a single prisoner animated simulation', size=12, weight='bold')
-ax31.set_xlabel('Prisoner position in x')
-ax31.set_ylabel('Prisoner position in y')
+ax31.set_title('Figure 3.1: Animation for a random 1000 step path of a single prisoner', size=10, weight='bold')
+ax31.set_xlabel('Prisoner position in x direction')
+ax31.set_ylabel('Prisoner position in y direction')
 
 plt.show(block=False)
 for i in range(1000):
