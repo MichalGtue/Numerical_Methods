@@ -72,7 +72,6 @@ ax41.set_ylabel('Prisoners position in y direction')
 for i in range(Number_of_Steps):
     pos = np.add(pos, new_step(Number_of_Prisoners))
     line41.set_data(pos[:, 0], pos[:, 1])
-    line41.set_color(colors)
     fig41.canvas.draw()
     fig41.canvas.flush_events()
     plt.pause(0.001)
