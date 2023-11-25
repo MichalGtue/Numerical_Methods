@@ -129,6 +129,7 @@ z4 = 1/(4 * np.pi * expected_diffusion_coeff_numerically * t) *  np.exp(-(x**2 +
 
 
 fig71 = plt.figure(figsize=(18,8))
+ax64.set_title('Histogram for prisoner positions after 400 steps', size=7, weight='bold')
 ax71 = fig71.add_subplot(2, 4, 1, projection='3d')
 ax72 = fig71.add_subplot(2, 4, 2, projection='3d')
 ax73 = fig71.add_subplot(2, 4, 5, projection='3d')
