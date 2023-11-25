@@ -43,4 +43,4 @@ Random_Radian_f_mean = np.mean(get_random_radian(Random_radian_big_number))
 #Standard Deviatio
 Random_Radian_f_stdev = np.std(get_random_radian(Random_radian_big_number))
 
-print('Your mean with', Random_radian_big_number, 'is', Random_Radian_f_mean, 'and your standard deviation is', Random_Radian_f_stdev)
+print('The randon radian array ', Random_radian_big_number, ' has a median of', Random_Radian_f_mean, 'and its standard deviation is', Random_Radian_f_stdev '.')
