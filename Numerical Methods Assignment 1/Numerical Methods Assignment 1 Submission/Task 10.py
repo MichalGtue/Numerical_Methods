@@ -210,7 +210,7 @@ for a in range(1, 6):
                    pos[n,:] = np.add(pos[n,:], new_maybe_correct_step)
     #    line91.set_data(pos[:, 0], pos[:, 1])
     #    fig91.canvas.draw()
-    #    fig91.canvas.flush_events()
+    #    fig91.canvas.flush_events()   ## IF you want to see it uncomment the 4 lines
     #    plt.pause(0.0001)
     Mean_escape_time_list.append(np.mean(escape_times))
     Median_escape_time_list.append(np.median(escape_times))
@@ -220,7 +220,7 @@ for a in range(1, 6):
 
 
 
-## To make the histogram print faster we comment out the 4 lines above
+
 
 
 
