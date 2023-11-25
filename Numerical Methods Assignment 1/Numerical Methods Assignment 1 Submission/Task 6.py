@@ -23,8 +23,6 @@ def get_random_radian(N):
     radian_array = Random_N_2pi = 2 * np.pi * np.random.rand(N)
     return radian_array
 
-
-
 step_size = 0.5
 
 pos = np.array([[0, 0]])
@@ -118,31 +116,31 @@ fig61 = plt.figure(figsize=(18,8))
 
 ax61 = plt.subplot(2, 4, 1)
 hist2d61 = ax61.hist2d(pos_after_100_steps[:, 0], pos_after_100_steps[:, 1], bins=15, cmap=cm.plasma)
-ax61.set_title('Histogram after 100 steps')
+ax61.set_title('Figure 6.1: Histogram for prisoner positions after 100 steps', size=7, weight='bold')
 plt.colorbar(hist2d61[3], ax=ax61)
 
 
 ax62 = plt.subplot(2, 4, 2)
 hist2d62 = ax62.hist2d(pos_after_200_steps[:, 0], pos_after_200_steps[:, 1], bins=15, cmap=cm.plasma)
-ax62.set_title('Histogram after 200 steps')
+ax62.set_title('Figure 6.2: Histogram for prisoner positions after 200 steps', size=7, weight='bold')
 plt.colorbar(hist2d62[3], ax=ax62)
 
 
 ax63 = plt.subplot(2, 4, 5)
 hist2d63 = ax63.hist2d(pos_after_300_steps[:, 0], pos_after_300_steps[:, 1], bins=15, cmap=cm.plasma)
-ax63.set_title('Histogram after 300 steps')
+ax63.set_title('Figure 6.3: Histogram for prisoner positions after 300 steps', size=7, weight='bold')
 plt.colorbar(hist2d63[3], ax=ax63)
 
 
 ax64 = plt.subplot(2, 4, 6)
 hist2d64 = ax64.hist2d(pos_after_400_steps[:, 0], pos_after_400_steps[:, 1], bins=15, cmap=cm.plasma)
-ax64.set_title('Histogram after 400 steps')
+ax64.set_title('Figure 6.4: Histogram for prisoner positions after 400 steps', size=7, weight='bold')
 plt.colorbar(hist2d64[3], ax=ax64)
 
 
 ax65 = plt.subplot(1, 2, 2)
 hist2d65 = ax65.hist2d(pos[:, 0], pos[:, 1], bins=15, cmap=cm.plasma)
-ax65.set_title('Histogram after the last step')
+ax65.set_title('Figure 6.5: Histogram for prisoner positions after the last step', size=12, weight='bold')
 plt.colorbar(hist2d65[3], ax=ax65)
 
 #################################################### MAYBE ADD BIG TITLE

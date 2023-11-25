@@ -56,22 +56,23 @@ pos=np.zeros([Number_of_Prisoners, 2])
 
 
 #Task 4 graph 1
-fig41, ax41 = plt.subplots()
+fig41, ax41 = plt.subplots(figsize=(8,7))
 line41, = ax41.plot([], [], 'o')
 
 #Making it pretty
+
 plt.show(block=False)
 ax41.set_xlim(-50, 50)
 ax41.set_ylim(-50,50)
-ax41.set_title('Path of 1000 prisoners after 500 steps')
-ax41.set_xlabel('x position')
-ax41.set_ylabel('y position')
-
+ax41.set_title('Figure 4.1: Animation for the random 500 step paths of 1000 prisoners', size=10, weight='bold')
+ax41.set_xlabel('Prisoners position in x direction')
+ax41.set_ylabel('Prisoners position in y direction')
 
 
 for i in range(Number_of_Steps):
     pos = np.add(pos, new_step(Number_of_Prisoners))
     line41.set_data(pos[:, 0], pos[:, 1])
+    line41.set_color(colors)
     fig41.canvas.draw()
     fig41.canvas.flush_events()
     plt.pause(0.001)
@@ -90,4 +91,4 @@ plt.colorbar(hist2d42[3], ax=ax42)
 
 ax42.set_xlabel('Position in the x direction')
 ax42.set_ylabel('Position in the y direction')
-ax42.set_title('2D Histogram of the path taken by 500 prisoners after 1000 steps')
+ax42.set_title('Figure 4.2: 2D Histogram for the 500 step paths of 1000 prisoners', size=10, weight='bold')

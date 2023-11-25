@@ -97,9 +97,9 @@ line81, = ax81.plot([], [], 'o')
 plt.show(block=False)
 ax81.set_xlim(-20, 20)
 ax81.set_ylim(-20,20)
-ax81.set_title('Path of 1000 prisoners after 500 steps with bounds')
-ax81.set_xlabel('x position')
-ax81.set_ylabel('y position')
+ax81.set_title('Figure 8.1: Animation for the random 500 step paths of 1000 prisoners with bounds')
+ax81.set_xlabel('Prisoners position in x direction')
+ax81.set_ylabel('Prisoners position in y direction')
 
 
 radius_of_bounds = 12

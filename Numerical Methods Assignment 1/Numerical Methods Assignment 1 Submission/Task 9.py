@@ -196,7 +196,9 @@ fig91, ax91 = plt.subplots(1,1)
 number_of_bins = 10
 
 logbins = np.logspace(np.log10(np.min(escape_times)),np.log10(np.max(escape_times)),number_of_bins+1)
-
+ax91.set_title('Figure 9.1: Animation for a random 500 step path of 1000 prisoners bounded by a fence with a gap from 0 to 0.1 radians', size=10, weight='bold')
+ax91.set_xlabel('Prisoners position in x direction')
+ax91.set_ylabel('Prisoners position in y direction')
 ax91.hist(escape_times, bins=logbins)
 plt.xscale('log')
 
