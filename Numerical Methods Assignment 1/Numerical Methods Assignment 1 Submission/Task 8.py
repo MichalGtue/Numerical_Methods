@@ -87,40 +87,48 @@ def mean_square_displacement_f(j):
 dcoeff_vs_time = np.zeros((Number_of_Steps, 2))
 Number_Of_Dimensions = 2
 
+#Prereqs
+
+#Copied but modified from task 4
+fig81, ax81 = plt.subplots()
+line81, = ax81.plot([], [], 'o')
+
+#Making it pretty
+plt.show(block=False)
+ax81.set_xlim(-20, 20)
+ax81.set_ylim(-20,20)
+ax81.set_title('Path of 1000 prisoners after 500 steps with bounds')
+ax81.set_xlabel('x position')
+ax81.set_ylabel('y position')
+
+
+
+
+
+x1_for_8 = np.linspace(-12,12,10**4)
+y1_for_8 = np.sqrt(12**2 - (x1_for_8**2))
+y2_for_8 = -1* np.sqrt(12**2 - (x1_for_8**2))
+ax81.plot(x1_for_8, y1_for_8, "r-")
+ax81.plot(x1_for_8, y2_for_8, "r-")
+
+
+plt.show(block=False)
+pos=np.zeros([Number_of_Prisoners, 2])
+pos = pos + 0.0
 
 for i in range(Number_of_Steps):
+    pos_ini = pos.copy()
     pos = np.add(pos, new_step(Number_of_Prisoners))
-    if i == 99:
-        pos_after_100_steps = pos       #Kinda ugly but it works
-    if i == 199:
-        pos_after_200_steps = pos
-    if i == 299:
-        pos_after_300_steps = pos
-    if i == 399:
-        pos_after_400_steps = pos
-    current_d = mean_square_displacement_f(pos) / (2* Number_Of_Dimensions * (i+1))
-    dcoeff_vs_time[i, :] = [i + 1, current_d]
-#    line41.set_data(pos[:, 0], pos[:, 1])
-#    fig41.canvas.draw()
-#    fig41.canvas.flush_events()
-#    plt.pause(0.001)
-#Also uncomment the lines above to see 
+    for n in range(len(pos[:,0])):
+        if np.linalg.norm(pos[n,:]) >= 12: # First check to see if the new position is outside the bounds
+            pos[n,:] = pos_ini[n,:]     # Go back to initial position
+            new_maybe_correct_step = new_step(1)
+            while np.linalg.norm(np.add(pos[n,:], new_maybe_correct_step)) >= 12: # Check to see if new step is outside the bounds
+                new_maybe_correct_step = new_step(1)
+            pos[n,:] = np.add(pos[n,:], new_maybe_correct_step)
+    line81.set_data(pos[:, 0], pos[:, 1])
+    fig81.canvas.draw()
+    fig81.canvas.flush_events()
+    plt.pause(0.001)
 
-
-x_values_for_task_5 = np.linspace(0, 500, 100)
-expected_diffusion_coeff = (step_size**2)/(2*Number_Of_Dimensions* 1) + 0*x_values_for_task_5
-
-fig51, ax51 = plt.subplots()
-ax51.scatter(dcoeff_vs_time[:,0], dcoeff_vs_time[:,1])
-ax51.plot(x_values_for_task_5, expected_diffusion_coeff, label='Expected Diffusion Coefficient')
-#Make the label for the straight line show
-
-
-#Making ax51 pretty
-ax51.set_xlabel('Number of Steps')
-ax51.set_ylabel('Diffusion Coefficient')
-ax51.set_title('Expected Diffusion Coefficient vs number of steps')
-
-
-
-plt.show()
+# Make it so that the graph prints as a square so that its clear that the boundry is a circle and not an oval

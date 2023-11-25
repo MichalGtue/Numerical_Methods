@@ -107,20 +107,44 @@ for i in range(Number_of_Steps):
 #Also uncomment the lines above to see 
 
 
-x_values_for_task_5 = np.linspace(0, 500, 100)
-expected_diffusion_coeff = (step_size**2)/(2*Number_Of_Dimensions* 1) + 0*x_values_for_task_5
-
-fig51, ax51 = plt.subplots()
-ax51.scatter(dcoeff_vs_time[:,0], dcoeff_vs_time[:,1])
-ax51.plot(x_values_for_task_5, expected_diffusion_coeff, label='Expected Diffusion Coefficient')
-#Make the label for the straight line show
 
 
-#Making ax51 pretty
-ax51.set_xlabel('Number of Steps')
-ax51.set_ylabel('Diffusion Coefficient')
-ax51.set_title('Expected Diffusion Coefficient vs number of steps')
+#Prereq
+
+#Task 6
+#Again the naming, first number is the task number and the second is the number  of the graph
+
+fig61 = plt.figure(figsize=(18,8))
+
+ax61 = plt.subplot(2, 4, 1)
+hist2d61 = ax61.hist2d(pos_after_100_steps[:, 0], pos_after_100_steps[:, 1], bins=15, cmap=cm.plasma)
+ax61.set_title('Histogram after 100 steps')
+plt.colorbar(hist2d61[3], ax=ax61)
 
 
+ax62 = plt.subplot(2, 4, 2)
+hist2d62 = ax62.hist2d(pos_after_200_steps[:, 0], pos_after_200_steps[:, 1], bins=15, cmap=cm.plasma)
+ax62.set_title('Histogram after 200 steps')
+plt.colorbar(hist2d62[3], ax=ax62)
+
+
+ax63 = plt.subplot(2, 4, 5)
+hist2d63 = ax63.hist2d(pos_after_300_steps[:, 0], pos_after_300_steps[:, 1], bins=15, cmap=cm.plasma)
+ax63.set_title('Histogram after 300 steps')
+plt.colorbar(hist2d63[3], ax=ax63)
+
+
+ax64 = plt.subplot(2, 4, 6)
+hist2d64 = ax64.hist2d(pos_after_400_steps[:, 0], pos_after_400_steps[:, 1], bins=15, cmap=cm.plasma)
+ax64.set_title('Histogram after 400 steps')
+plt.colorbar(hist2d64[3], ax=ax64)
+
+
+ax65 = plt.subplot(1, 2, 2)
+hist2d65 = ax65.hist2d(pos[:, 0], pos[:, 1], bins=15, cmap=cm.plasma)
+ax65.set_title('Histogram after the last step')
+plt.colorbar(hist2d65[3], ax=ax65)
+
+#################################################### MAYBE ADD BIG TITLE
 
 plt.show()

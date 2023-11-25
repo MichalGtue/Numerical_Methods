@@ -107,20 +107,39 @@ for i in range(Number_of_Steps):
 #Also uncomment the lines above to see 
 
 
-x_values_for_task_5 = np.linspace(0, 500, 100)
-expected_diffusion_coeff = (step_size**2)/(2*Number_Of_Dimensions* 1) + 0*x_values_for_task_5
 
-fig51, ax51 = plt.subplots()
-ax51.scatter(dcoeff_vs_time[:,0], dcoeff_vs_time[:,1])
-ax51.plot(x_values_for_task_5, expected_diffusion_coeff, label='Expected Diffusion Coefficient')
-#Make the label for the straight line show
+#Prereqs
+
+t=100
+
+x = np.arange(-15, 15, 0.005)
+y = np.arange(-15, 15, 0.005)
+
+x,y = np.meshgrid(x, y)
 
 
-#Making ax51 pretty
-ax51.set_xlabel('Number of Steps')
-ax51.set_ylabel('Diffusion Coefficient')
-ax51.set_title('Expected Diffusion Coefficient vs number of steps')
 
+expected_diffusion_coeff_numerically = 0.0625
+
+z = 1/(4 * np.pi * expected_diffusion_coeff_numerically * t) *  np.exp(-(x**2 + y**2)/(4 * expected_diffusion_coeff_numerically * t))
+z1 = 1/(4 * np.pi * expected_diffusion_coeff_numerically * t) *  np.exp(-(x**2 + y**2)/(4 * expected_diffusion_coeff_numerically * t*2))
+z2 = 1/(4 * np.pi * expected_diffusion_coeff_numerically * t) *  np.exp(-(x**2 + y**2)/(4 * expected_diffusion_coeff_numerically * t*3))
+z3 = 1/(4 * np.pi * expected_diffusion_coeff_numerically * t) *  np.exp(-(x**2 + y**2)/(4 * expected_diffusion_coeff_numerically * t*4))
+z4 = 1/(4 * np.pi * expected_diffusion_coeff_numerically * t) *  np.exp(-(x**2 + y**2)/(4 * expected_diffusion_coeff_numerically * t*5))
+
+
+fig71 = plt.figure(figsize=(18,8))
+ax71 = fig71.add_subplot(2, 4, 1, projection='3d')
+ax72 = fig71.add_subplot(2, 4, 2, projection='3d')
+ax73 = fig71.add_subplot(2, 4, 5, projection='3d')
+ax74 = fig71.add_subplot(2, 4, 6, projection='3d')
+ax75 = fig71.add_subplot(1, 2, 2, projection='3d')
+
+surf1 = ax71.plot_surface(x,y,z, cmap=cm.magma, linewidth=0, antialiased=0)
+surf2 = ax72.plot_surface(x,y,z1, cmap=cm.magma, linewidth=0, antialiased=0)
+surf3 = ax73.plot_surface(x,y,z2, cmap=cm.magma, linewidth=0, antialiased=0)
+surf4 = ax74.plot_surface(x,y,z3, cmap=cm.magma, linewidth=0, antialiased=0)
+surf5 = ax75.plot_surface(x,y,z4, cmap=cm.magma, linewidth=0, antialiased=0)
 
 
 plt.show()
