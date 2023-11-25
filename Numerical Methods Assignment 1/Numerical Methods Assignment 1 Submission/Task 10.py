@@ -238,7 +238,7 @@ def mean_escape_time(r, s, t):
     return residence_time
 
 
-fig101 = plt.figure(figsize=(10,7))
+fig101 = plt.figure(figsize=(14,7))
 
 x_ticks = ['0.1π', '0.2π', '0.3π', '0.4π', '0.5π']
 
