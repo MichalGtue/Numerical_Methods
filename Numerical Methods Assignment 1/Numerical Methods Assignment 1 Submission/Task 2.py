@@ -27,12 +27,13 @@ def get_random_radian(N):
 Random_radian_big_number = 10**8 #Bigger exponent = more time
 
 fig, ax = plt.subplots(1, 1)
-ax.hist(get_random_radian(Random_radian_big_number), bins=30) 
+ax.hist(get_random_radian(Random_radian_big_number), bins=50, squeeze=False, figsize=(12,5)) 
 
 #To make graph nicer
-ax.set_title('Distribution of get_random_radian')
-ax.set_xlabel('Value')
-ax.set_ylabel('Frequency')
+ax.set_title('Histogram for the distribution of function "get_random_radian" for N random radians', size=15, weight='bold')
+ax.set_xlabel('Radian value (0, 2π)')
+ax.set_ylabel('Frequency of random radian value')
+ax.set_ylim([3,3.5])
 
 plt.show()
 
