@@ -77,18 +77,19 @@ Number_Of_Dimensions = 2
 
 # Prereqs
 
+radius_of_bounds = 12
 
 fig91, ax91 = plt.subplots()
 line91, = ax91.plot([], [], 'o')
 ax91.set_xlim(-20, 20)
 ax91.set_ylim(-20,20)
 #
-boundry_condition = 12*np.cos(0.1*np.pi)
+boundry_condition = radius_of_bounds*np.cos(0.1*np.pi)
 #
-x1_for_9 = np.linspace(-12,12,10**4)
-x2_for_9 = np.linspace(-12, boundry_condition, 10**4)
-y1_for_9 = np.sqrt(12**2 - (x2_for_9**2))
-y2_for_9 = -1* np.sqrt(12**2 - (x1_for_9**2))
+x1_for_9 = np.linspace(-radius_of_bounds,radius_of_bounds,10**4)
+x2_for_9 = np.linspace(-radius_of_bounds, boundry_condition, 10**4)
+y1_for_9 = np.sqrt(radius_of_bounds**2 - (x2_for_9**2))
+y2_for_9 = -1* np.sqrt(radius_of_bounds**2 - (x1_for_9**2))
 ax91.plot(x2_for_9, y1_for_9, "r-")
 ax91.plot(x1_for_9, y2_for_9, "r-")
 
@@ -115,13 +116,13 @@ step_number = 0
 #    pos_ini = pos.copy()
 #    pos = np.add(pos, new_step(len(pos[:,0])))
 #    for n in range(len(pos[:,0])):
-#        if np.linalg.norm(pos[n,:]) >= 12:
+#        if np.linalg.norm(pos[n,:]) >= radius_of_bounds:
 #            if pos[n, 1] >= 0 and boundry_condition <= pos[n, 0]:
 #                pos[n,:] = [13,2]
 #            else:
 #               pos[n,:] = pos_ini[n,:]
 #               new_maybe_correct_step = new_step(1)
-#               while (np.linalg.norm(np.add(pos[n, :], new_maybe_correct_step)) >= 12 ):
+#               while (np.linalg.norm(np.add(pos[n, :], new_maybe_correct_step)) >= radius_of_bounds ):
 #                   new_maybe_correct_step = new_step(1)
 #               pos[n,:] = np.add(pos[n,:], new_maybe_correct_step)
 #    line91.set_data(pos[:, 0], pos[:, 1])
@@ -136,14 +137,14 @@ step_number = 0
 #Check if correctly crosses the border
 x_for_checking = sympy.symbols('x', positive=True)
 
-boundry_condition_for_checking = 12*sympy.cos(0.1*sympy.pi)
+boundry_condition_for_checking = radius_of_bounds*sympy.cos(0.1*sympy.pi)
 
-f1 = sympy.Piecewise((sympy.sqrt(12**2 - x_for_checking**2), x_for_checking >= boundry_condition_for_checking), (0, True))
+f1 = sympy.Piecewise((sympy.sqrt(radius_of_bounds**2 - x_for_checking**2), x_for_checking >= boundry_condition_for_checking), (0, True))
 
 # To change number of prisoners use the code that a couple of lines above
 # Its quite slow with # of prisoners > 10000
 
-while len(pos[:,0]) > 0:
+while len(pos[:,0]) > 0: # This makes it so that 
     step_number = step_number + 1
     for p in range(len(pos[:, 0])):  ## Check if any prisoner is in 13, 2 and remove it 
         if pos [p, 0] == 13 and pos[p,1] == 2:
@@ -154,7 +155,7 @@ while len(pos[:,0]) > 0:
     pos_ini = pos.copy()
     pos = np.add(pos, new_step(len(pos[:,0])))
     for n in range(len(pos[:,0])):
-        if np.linalg.norm(pos[n,:]) >= 12: # Check if they hit the boundry
+        if np.linalg.norm(pos[n,:]) >= radius_of_bounds: # Check if they hit the boundry
             if pos[n,0] > 11:  # Can be removed but its much slower without
                 slope_for_testing = (pos[n,1]-pos_ini[n,1])/(pos[n,0]-pos_ini[n,0])
                 y_intercept_for_testing = pos[n,1] - (slope_for_testing)*pos[n,0]
@@ -168,7 +169,7 @@ while len(pos[:,0]) > 0:
                    pos[n,:] = pos_ini[n,:]
                    new_maybe_correct_step = new_step(1)
                    number_of_tries = 0  ## To make it a bit faster we only give them 5 tries to make a new move otherwise we send them back to their original position
-                   while (np.linalg.norm(np.add(pos[n, :], new_maybe_correct_step)) >= 12 ):
+                   while (np.linalg.norm(np.add(pos[n, :], new_maybe_correct_step)) >= radius_of_bounds ):
                        new_maybe_correct_step = new_step(1)
                        number_of_tries = number_of_tries + 1
                        if number_of_tries == 5:
@@ -183,17 +184,20 @@ while len(pos[:,0]) > 0:
                while (np.linalg.norm(np.add(pos[n, :], new_maybe_correct_step)) >= 12 ):
                    new_maybe_correct_step = new_step(1)
                pos[n,:] = np.add(pos[n,:], new_maybe_correct_step)
-    line91.set_data(pos[:, 0], pos[:, 1])
-    fig91.canvas.draw()
-    fig91.canvas.flush_events()
-    plt.pause(0.0001)
+#    line91.set_data(pos[:, 0], pos[:, 1])
+#    fig91.canvas.draw()
+#    fig91.canvas.flush_events()
+#    plt.pause(0.0001)
 
-
+## To make the histogram print faster we comment out the 4 lines above
 
 fig91, ax91 = plt.subplots(1,1)
 
+number_of_bins = 10
 
-ax91.hist(escape_times, bins=10)
+logbins = np.logspace(np.log10(np.min(escape_times)),np.log10(np.max(escape_times)),number_of_bins+1)
 
+ax91.hist(escape_times, bins=logbins)
+plt.xscale('log')
 
 plt.show()

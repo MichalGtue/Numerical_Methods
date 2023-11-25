@@ -102,12 +102,12 @@ ax81.set_xlabel('x position')
 ax81.set_ylabel('y position')
 
 
+radius_of_bounds = 12
 
 
-
-x1_for_8 = np.linspace(-12,12,10**4)
-y1_for_8 = np.sqrt(12**2 - (x1_for_8**2))
-y2_for_8 = -1* np.sqrt(12**2 - (x1_for_8**2))
+x1_for_8 = np.linspace(-radius_of_bounds,radius_of_bounds,10**4)
+y1_for_8 = np.sqrt(radius_of_bounds**2 - (x1_for_8**2))
+y2_for_8 = -1* np.sqrt(radius_of_bounds**2 - (x1_for_8**2))
 ax81.plot(x1_for_8, y1_for_8, "r-")
 ax81.plot(x1_for_8, y2_for_8, "r-")
 
@@ -120,10 +120,10 @@ for i in range(Number_of_Steps):
     pos_ini = pos.copy()
     pos = np.add(pos, new_step(Number_of_Prisoners))
     for n in range(len(pos[:,0])):
-        if np.linalg.norm(pos[n,:]) >= 12: # First check to see if the new position is outside the bounds
+        if np.linalg.norm(pos[n,:]) >= radius_of_bounds: # First check to see if the new position is outside the bounds
             pos[n,:] = pos_ini[n,:]     # Go back to initial position
             new_maybe_correct_step = new_step(1)
-            while np.linalg.norm(np.add(pos[n,:], new_maybe_correct_step)) >= 12: # Check to see if new step is outside the bounds
+            while np.linalg.norm(np.add(pos[n,:], new_maybe_correct_step)) >= radius_of_bounds: # Check to see if new step is outside the bounds
                 new_maybe_correct_step = new_step(1)
             pos[n,:] = np.add(pos[n,:], new_maybe_correct_step)
     line81.set_data(pos[:, 0], pos[:, 1])
