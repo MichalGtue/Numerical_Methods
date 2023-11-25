@@ -247,18 +247,27 @@ ax101 = plt.subplot(1, 3, 1)
 ax101.plot(Gapsize_mean_escape_time[:,0], Gapsize_mean_escape_time[:,1])
 ax101.set_xticks(Gapsize_mean_escape_time[:,0])
 ax101.set_xticklabels(x_ticks)
+ax101.set_title('Figure 10.1: Mean prisoner escape time as a function of fence gap size', size=6, weight='bold')
+ax101.set_xlabel('Gap Size (radians)')
+ax101.set_ylabel('Mean escape time t (s)')
 
 #Median
 ax102 = plt.subplot(1,3,2)
 ax102.plot(Gapsize_median_escape_time[:,0], Gapsize_median_escape_time[:,1])
 ax102.set_xticks(Gapsize_mean_escape_time[:,0])
 ax102.set_xticklabels(x_ticks)
+ax102.set_title('Figure 10.2: Median prisoner escape time as a function of fence gap size', size=6, weight='bold')
+ax102.set_xlabel('Gap Size (radians)')
+ax102.set_ylabel('Mean escape time t (s)')
 
 #Mode
 ax103 = plt.subplot(1,3,3)
 ax103.plot(Gapszie_mode_escape_time[:,0], Gapszie_mode_escape_time[:,1])
 ax103.set_xticks(Gapsize_mean_escape_time[:,0])
 ax103.set_xticklabels(x_ticks)
+ax103.set_title('Figure 10.3: Mode prisoner escape time as a function of fence gap size', size=6, weight='bold')
+ax103.set_xlabel('Gap Size (radians)')
+ax103.set_ylabel('Mean escape time t (s)')
 
 
 plt.show()
