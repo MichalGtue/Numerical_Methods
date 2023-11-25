@@ -30,9 +30,9 @@ fig, ax21 = plt.subplots(1, 1)
 ax21.hist(get_random_radian(Random_radian_big_number), bins=50) 
 
 #To make graph nicer
-ax21.set_title('Figure 2.1: Histogram for the distribution of function "get_random_radian" for N random radians', size=12, weight='bold')
+ax21.set_title('Figure 2.1: Histogram for the distribution of function "get_random_radian" for N random radians', size=8, weight='bold')
 ax21.set_xlabel('Radian value (0, 2π)')
-ax21.set_ylabel('Frequency of random radian value')
+ax21.set_ylabel('Frequency of random radian value (in 10^6)')
 ax21.set_ylim([1.5*10**6,2.5*10**6])
 
 plt.show()
