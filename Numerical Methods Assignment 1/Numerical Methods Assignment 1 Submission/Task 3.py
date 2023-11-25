@@ -63,6 +63,6 @@ ax31.set_ylabel('Position in y')
 plt.show(block=False)
 for i in range(1000):
     line.set_data(Task_3_x[i-20:i+1], Task_3_y[i-20:i+1])
-    fig.canvas.draw()
-    fig.canvas.flush_events()
+    fig31.canvas.draw()
+    fig31.canvas.flush_events()
     plt.pause(0.0001)
