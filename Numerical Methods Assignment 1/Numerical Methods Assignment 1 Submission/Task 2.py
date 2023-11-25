@@ -26,7 +26,7 @@ def get_random_radian(N):
 
 Random_radian_big_number = 10**8 #Bigger exponent = more time
 
-fig, ax21 = plt.subplots(1, 1, figsize = (12, 5))
+fig, ax21 = plt.subplots(1, 1, figsize=(8,7))
 ax21.hist(get_random_radian(Random_radian_big_number), bins=50) 
 
 #To make graph nicer
