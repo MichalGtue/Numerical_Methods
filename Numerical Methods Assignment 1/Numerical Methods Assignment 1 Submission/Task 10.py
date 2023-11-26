@@ -81,21 +81,22 @@ Number_Of_Dimensions = 2
 #Uncomment to see the movement of the prisoners
 #This makes the simulation much slower
 
-#fig91, ax91 = plt.subplots()
-#line91, = ax91.plot([], [], 'o')
-#ax91.set_xlim(-20, 20)
-#ax91.set_ylim(-20,20)
-##
+radius_of_bounds = 12
+boundry_condition = radius_of_bounds*np.cos(0.1*np.pi)
 
-boundry_condition = 12*np.cos(0.1*np.pi)
-
-##
-#x1_for_9 = np.linspace(-12,12,10**4)
-#x2_for_9 = np.linspace(-12, boundry_condition, 10**4)
-#y1_for_9 = np.sqrt(12**2 - (x2_for_9**2))
-#y2_for_9 = -1* np.sqrt(12**2 - (x1_for_9**2))
-#ax91.plot(x2_for_9, y1_for_9, "r-")
-#ax91.plot(x1_for_9, y2_for_9, "r-")
+#Comment out the lines below to print the historgram faster
+fig100, ax100 = plt.subplots()
+line100, = ax100.plot([], [], 'o')
+ax100.set_xlim(-20, 20)
+ax100.set_ylim(-20,20)
+x1_for_10 = np.linspace(-radius_of_bounds,radius_of_bounds,10**4)
+x2_for_10 = np.linspace(-radius_of_bounds, boundry_condition, 10**4)
+y1_for_10 = np.sqrt(radius_of_bounds**2 - (x2_for_10**2))
+y2_for_10 = -1* np.sqrt(radius_of_bounds**2 - (x1_for_10**2))
+ax100.plot(x2_for_10, y1_for_10, "r-")
+ax100.plot(x1_for_10, y2_for_10, "r-")
+ax100.set_ylabel('Position in y')
+ax100.set_xlabel('Position in x')
 
 
 
@@ -106,11 +107,10 @@ Number_of_Prisoners = 1  # As the number of prisoners increase the time to print
 #Number_of_Steps = 1 # Since were running it until they leave we dont know how many steps it will take
 pos=np.zeros([Number_of_Prisoners, 2])
 
+ax100.set_title(f'Movement of {Number_of_Prisoners} prisoners in circular domain of radius {radius_of_bounds} with a small gap')
 
 # This one is quicker but its vulnerable to the edge case as described in the assignment document figure 1
-
 #Uncomment it to see it 
-
 # For task 10, it may be quicker to use this one and sacrifice the edge cases
 
 #while len(pos[:,0]) > 0:
@@ -160,6 +160,7 @@ escape_times = []
 to_be_removed = []
 step_number = 0
 
+
 for a in range(1, 6):
     pos=np.zeros([Number_of_Prisoners, 2])
     escape_times = []
@@ -208,10 +209,10 @@ for a in range(1, 6):
                    while (np.linalg.norm(np.add(pos[n, :], new_maybe_correct_step)) >= 12 ):
                        new_maybe_correct_step = new_step(1)
                    pos[n,:] = np.add(pos[n,:], new_maybe_correct_step)
-    #    line91.set_data(pos[:, 0], pos[:, 1])
-    #    fig91.canvas.draw()
-    #    fig91.canvas.flush_events()   ## IF you want to see it uncomment the 4 lines
-    #    plt.pause(0.0001)
+        line100.set_data(pos[:, 0], pos[:, 1])
+        fig100.canvas.draw()
+        fig100.canvas.flush_events()   ## IF you want to see it uncomment the 4 lines
+        plt.pause(0.0001)
     Mean_escape_time_list.append(np.mean(escape_times))
     Median_escape_time_list.append(np.median(escape_times))
     gapsizes.append(0.1 * a * np.pi)

@@ -20,6 +20,7 @@ Random_N_2pi = 2 * np.pi * np.random.rand()
 
 #Add documentation and maybe add case where if not an integer give error
 def get_random_radian(N):
+    '''Input must be an integer and output is an array of N columns with random radians'''
     radian_array =  2 * np.pi * np.random.rand(N)
     return radian_array
 

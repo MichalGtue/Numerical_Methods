@@ -76,27 +76,36 @@ Number_Of_Dimensions = 2
 
 # Prereqs
 
+
+
 radius_of_bounds = 12
+boundry_condition = radius_of_bounds*np.cos(0.1*np.pi)
+
+#Comment out the lines below to print the historgram faster
 fig91, ax91 = plt.subplots()
 line91, = ax91.plot([], [], 'o')
 ax91.set_xlim(-20, 20)
 ax91.set_ylim(-20,20)
-
-boundry_condition = radius_of_bounds*np.cos(0.1*np.pi)
-#
 x1_for_9 = np.linspace(-radius_of_bounds,radius_of_bounds,10**4)
 x2_for_9 = np.linspace(-radius_of_bounds, boundry_condition, 10**4)
 y1_for_9 = np.sqrt(radius_of_bounds**2 - (x2_for_9**2))
 y2_for_9 = -1* np.sqrt(radius_of_bounds**2 - (x1_for_9**2))
 ax91.plot(x2_for_9, y1_for_9, "r-")
 ax91.plot(x1_for_9, y2_for_9, "r-")
+ax91.set_ylabel('Position in y')
+ax91.set_xlabel('Position in x')
 
 
 
 escape_times = []
 to_be_removed = []
-Number_of_Prisoners = 1000 ## Set to ten now but you can change it to a different number, bigger number = much slower
+Number_of_Prisoners = 10 ## Set to ten now but you can change it to a different number, bigger number = much slower
 #Number_of_Steps = 1 # Since were running it until they leave we dont know how many steps it will take
+
+## Also comment out this line
+ax91.set_title(f'Movement of {Number_of_Prisoners} prisoners in circular domain of radius {radius_of_bounds} with a small gap')
+
+
 pos=np.zeros([Number_of_Prisoners, 2])
 step_number = 0
 
@@ -194,7 +203,7 @@ fig91, ax91 = plt.subplots(1,1)
 number_of_bins = 10
 
 logbins = np.logspace(np.log10(np.min(escape_times)),np.log10(np.max(escape_times)),number_of_bins+1)
-ax91.set_title('Figure 9.1: Animation for a random 500 step path of 1000 prisoners bounded by a fence with a gap from 0 to 0.1 radians', size=10, weight='bold')
+ax91.set_title(f'Figure 9.1: Histogram of mean escape times of {Number_of_Prisoners} prisoners bounded by a fence with a gap from 0 to 0.1 radians', size=10, weight='bold')
 ax91.set_xlabel('Prisoners position in x direction')
 ax91.set_ylabel('Prisoners position in y direction')
 ax91.hist(escape_times, bins=logbins)

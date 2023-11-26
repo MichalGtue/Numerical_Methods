@@ -35,7 +35,7 @@ def get_xy_velocities(N):
     return random_x_y
 
 
-# Prereq from previous tasks
+
 
 #Task 4 
 
