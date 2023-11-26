@@ -80,19 +80,19 @@ pos=np.zeros([Number_of_Prisoners, 2])
 Task_3_x = pos[:,0]
 Task_3_y = pos[:,1]
 #Making the figure itself
+boundry_condition = 12*np.cos(0.1*np.pi)
 
+fig, ax = plt.subplots()
+line, = ax.plot([], [], 'o')
+ax.set_xlim(-20, 20)
+ax.set_ylim(-20,20)
+x1_for_8 = np.linspace(-12,12,10**4)
+x2_for_8 = np.linspace(-12, boundry_condition, 10**4)
+y1_for_8 = np.sqrt(12**2 - (x2_for_8**2))
+y2_for_8 = -1* np.sqrt(12**2 - (x1_for_8**2))
+ax.plot(x2_for_8, y1_for_8)
+ax.plot(x1_for_8, y2_for_8)
 
-#fig, ax = plt.subplots()
-#line, = ax.plot([], [], 'o')
-#ax.set_xlim(-20, 20)
-#ax.set_ylim(-20,20)
-#x1_for_8 = np.linspace(-12,12,10**4)
-#x2_for_8 = np.linspace(-12, boundry_condition, 10**4)
-#y1_for_8 = np.sqrt(12**2 - (x2_for_8**2))
-#y2_for_8 = -1* np.sqrt(12**2 - (x1_for_8**2))
-#ax.plot(x2_for_8, y1_for_8)
-#ax.plot(x1_for_8, y2_for_8)
-#
 
 
 
@@ -120,10 +120,11 @@ boundry_condition_for_checking = 12*sympy.cos(0.1*sympy.pi)
 f1 = sympy.Piecewise((sympy.sqrt(12**2 - x_for_checking**2), x_for_checking >= boundry_condition_for_checking), (0, True))
 
 step_number=0
+radius_of_bounds = 12
 
-while len(pos[:,0]) > 0:
+for u in range(0,1000): # This makes it so that 
     step_number = step_number + 1
-    for p in range(len(pos[:, 0])):
+    for p in range(len(pos[:, 0])):  ## Check if any prisoner is in 13, 2 and remove it 
         if pos [p, 0] == 13 and pos[p,1] == 2:
             to_be_removed.append(p)
             escape_times.append(step_number-1)
@@ -132,33 +133,49 @@ while len(pos[:,0]) > 0:
     pos_ini = pos.copy()
     pos = np.add(pos, new_step(len(pos[:,0])))
     for n in range(len(pos[:,0])):
-        if np.linalg.norm(pos[n,:]) >= 12:
-            if pos[n,0] > 11:
+        if np.linalg.norm(pos[n,:]) >= radius_of_bounds: # Check if they hit the boundry
+            if pos[n,0] > boundry_condition - 0.7:  # Can be removed but its much slower without
                 slope_for_testing = (pos[n,1]-pos_ini[n,1])/(pos[n,0]-pos_ini[n,0])
                 y_intercept_for_testing = pos[n,1] - (slope_for_testing)*pos[n,0]
-                f2 = slope_for_testing * x_for_checking + y_intercept_for_testing
+                f2 = slope_for_testing * x_for_checking + y_intercept_for_testing  ## Draw a straight line between new point and initial point
                 solution_to_be_tested = sympy.solve(f1 - f2, x_for_checking)
                 if len(solution_to_be_tested)==1 and solution_to_be_tested[0] >= boundry_condition:
-                   pos[n,:] = [13,2]
+                   pos[n,:] = [13,2]      ## 13, 2 is just an arbitrary position outside the domain and its a unique position and we know that we can remove a prisoner if their position is 13,2 
                 elif len(solution_to_be_tested) == 2 and solution_to_be_tested[1] >= boundry_condition:
                    pos[n,:] = [13,2]
                 else:
                    pos[n,:] = pos_ini[n,:]
                    new_maybe_correct_step = new_step(1)
-                   while (np.linalg.norm(np.add(pos[n, :], new_maybe_correct_step)) >= 12 ):
-                       new_maybe_correct_step = new_step(1)
-                   pos[n,:] = np.add(pos[n,:], new_maybe_correct_step)   
+                   number_of_tries = 0  ## To make it a bit faster we only give them 5 tries to make a new move otherwise we send them back to their original position
+                   while (np.linalg.norm(np.add(pos[n, :], new_maybe_correct_step)) >= radius_of_bounds ):
+                       new_maybe_correct_step = new_step(1)#
+            #           number_of_tries = number_of_tries + 1
+                       if number_of_tries == 1:
+                           break
+                   if number_of_tries != 1:
+                       pos[n,:] = np.add(pos[n,:], new_maybe_correct_step)       
+                   else:
+                       pos[n,:] = pos_ini[n,:]              
             else:
                pos[n,:] = pos_ini[n,:]
-               new_maybe_correct_step = new_step(1)
-               while (np.linalg.norm(np.add(pos[n, :], new_maybe_correct_step)) >= 12 ):
-                   new_maybe_correct_step = new_step(1)
-               pos[n,:] = np.add(pos[n,:], new_maybe_correct_step)
-#    line.set_data(pos[:, 0], pos[:, 1])
-#    fig.canvas.draw()
-#    fig.canvas.flush_events()
+#               new_maybe_correct_step = new_step(1)
+#               number_of_tries = 0
+#               while (np.linalg.norm(np.add(pos[n, :], new_maybe_correct_step)) >= 12 ):
+#                   new_maybe_correct_step = new_step(1)
+#                   number_of_tries = number_of_tries + 1
+#                   if number_of_tries == 1:
+#                          break
+#               if number_of_tries != 1:
+#                    pos[n,:] = np.add(pos[n,:], new_maybe_correct_step)       
+#               else:
+#                    pos[n,:] = pos_ini[n,:]      
+#               pos[n,:] = np.add(pos[n,:], new_maybe_correct_step)
+    line.set_data(pos[:, 0], pos[:, 1])
+    fig.canvas.draw()
+    fig.canvas.flush_events()
 #    plt.pause(0.01)
 
+plt.show()
 print(escape_counter, escape_times)
 
 

@@ -112,7 +112,7 @@ to_be_removed = []
 
 
 
-Number_of_Prisoners = 1
+Number_of_Prisoners = 1000
 Number_of_Steps = 1
 pos=np.zeros([Number_of_Prisoners, 2])
 step_number = 0
@@ -138,18 +138,24 @@ while len(pos[:,0]) > 0:
                while (np.linalg.norm(np.add(pos[n, :], new_maybe_correct_step)) >= 12 ):
                    new_maybe_correct_step = new_step(1)
                pos[n,:] = np.add(pos[n,:], new_maybe_correct_step)
-    line.set_data(pos[:, 0], pos[:, 1])
-    fig.canvas.draw()
-    fig.canvas.flush_events()
-    plt.pause(0.000000000001)
+#    line.set_data(pos[:, 0], pos[:, 1])
+#    fig.canvas.draw()
+#    fig.canvas.flush_events()
+#    plt.pause(0.000000000001)
 ##### Remove the above '#' to see the plots. I commented them out cause its makes the simulation much longer
+
 
 fig91, ax91 = plt.subplots(1,1)
 
+number_of_bins = 15
 
-ax91.hist(escape_times, bins=10)
+logbins = np.logspace(np.log10(np.min(escape_times)),np.log10(np.max(escape_times)),number_of_bins+1)
+ax91.set_title('Figure 9.1: Animation for a random 500 step path of 1000 prisoners bounded by a fence with a gap from 0 to 0.1 radians', size=10, weight='bold')
+ax91.set_xlabel('Prisoners position in x direction')
+ax91.set_ylabel('Prisoners position in y direction')
+ax91.hist(escape_times, bins=logbins)
+plt.xscale('log')
 
+plt.axvline(x = 1675.1462200196254, color = 'b', label = 'axvline - full height')
 
 plt.show()
-
-print(np.mean(escape_times), np.median(escape_times))
