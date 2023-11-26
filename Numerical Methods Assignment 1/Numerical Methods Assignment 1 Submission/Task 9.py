@@ -50,11 +50,10 @@ def new_step(N):
     return rand_array
 
 
-Number_of_Steps = 500
-Number_of_Prisoners = 1000
-
-pos=np.zeros([Number_of_Prisoners, 2])
-
+#Number_of_Steps = 500
+#Number_of_Prisoners = 1000
+#pos=np.zeros([Number_of_Prisoners, 2])
+#Relics from previous tasks
 
 #Task 4 graph 1
 
@@ -78,12 +77,11 @@ Number_Of_Dimensions = 2
 # Prereqs
 
 radius_of_bounds = 12
-
 fig91, ax91 = plt.subplots()
 line91, = ax91.plot([], [], 'o')
 ax91.set_xlim(-20, 20)
 ax91.set_ylim(-20,20)
-#
+
 boundry_condition = radius_of_bounds*np.cos(0.1*np.pi)
 #
 x1_for_9 = np.linspace(-radius_of_bounds,radius_of_bounds,10**4)
@@ -97,7 +95,7 @@ ax91.plot(x1_for_9, y2_for_9, "r-")
 
 escape_times = []
 to_be_removed = []
-Number_of_Prisoners = 1000
+Number_of_Prisoners = 10 ## Set to ten now but you can change it to a different number, bigger number = much slower
 #Number_of_Steps = 1 # Since were running it until they leave we dont know how many steps it will take
 pos=np.zeros([Number_of_Prisoners, 2])
 step_number = 0

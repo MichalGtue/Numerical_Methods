@@ -36,6 +36,7 @@ ax21.set_ylabel('Frequency of random radian value (in 10^6)')
 ax21.set_ylim([1.5*10**6,2.5*10**6])
 
 plt.show()
+plt.savefig("plot2.png")
 #Mean
 Random_Radian_f_mean = np.mean(get_random_radian(Random_radian_big_number))
 
