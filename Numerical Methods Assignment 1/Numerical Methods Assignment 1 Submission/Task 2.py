@@ -20,7 +20,7 @@ Random_N_2pi = 2 * np.pi * np.random.rand()
 
 #Add documentation and maybe add case where if not an integer give error
 def get_random_radian(N):
-    radian_array = Random_N_2pi = 2 * np.pi * np.random.rand(N)
+    radian_array =  2 * np.pi * np.random.rand(N)
     return radian_array
 
 
@@ -43,5 +43,5 @@ Random_Radian_f_mean = np.mean(get_random_radian(Random_radian_big_number))
 #Standard Deviatio
 Random_Radian_f_stdev = np.std(get_random_radian(Random_radian_big_number))
 
-print('The randon radian array ', Random_radian_big_number, ' has a median of', Random_Radian_f_mean, 'and its standard deviation is', Random_Radian_f_stdev, '.')
+print('The random radian array of size',Random_radian_big_number, 'has a median of', Random_Radian_f_mean, 'and its standard deviation is', Random_Radian_f_stdev, '.')
 

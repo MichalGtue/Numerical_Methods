@@ -55,17 +55,15 @@ pos=np.zeros([Number_of_Prisoners, 2])
 
 #Task 4 graph 1
 
-#Uncomment the bottom lines if you want to see the graph of prisoners
-#fig41, ax41 = plt.subplots()
-#line41, = ax41.plot([], [], 'o')
-#plt.show(block=False)
-#ax41.set_xlim(-50, 50)
-#ax41.set_ylim(-50,50)
-#ax41.set_title('Path of 1000 prisoners after 500 steps')
-#ax41.set_xlabel('x position')
-#ax41.set_ylabel('y position')
-
-
+#Comment out the lines below to hide the graph
+fig41, ax41 = plt.subplots()
+line41, = ax41.plot([], [], 'o')
+plt.show(block=False)
+ax41.set_xlim(-50, 50)
+ax41.set_ylim(-50,50)
+ax41.set_title('Path of 1000 prisoners after 500 steps')
+ax41.set_xlabel('x position')
+ax41.set_ylabel('y position')
 
 
 
@@ -89,7 +87,7 @@ Number_Of_Dimensions = 2
 for i in range(Number_of_Steps):
     pos = np.add(pos, new_step(Number_of_Prisoners))
     if i == 99:
-        pos_after_100_steps = pos       #Kinda ugly but it works
+        pos_after_100_steps = pos       
     if i == 199:
         pos_after_200_steps = pos
     if i == 299:
@@ -98,11 +96,11 @@ for i in range(Number_of_Steps):
         pos_after_400_steps = pos
     current_d = mean_square_displacement_f(pos) / (2* Number_Of_Dimensions * (i+1))
     dcoeff_vs_time[i, :] = [i + 1, current_d]
-#    line41.set_data(pos[:, 0], pos[:, 1])
-#    fig41.canvas.draw()
-#    fig41.canvas.flush_events()
-#    plt.pause(0.001)
-#Also uncomment the lines above to see 
+    line41.set_data(pos[:, 0], pos[:, 1])
+    fig41.canvas.draw()
+    fig41.canvas.flush_events()
+    plt.pause(0.001)
+#Also comment the lines above to hide the graph
 
 
 
