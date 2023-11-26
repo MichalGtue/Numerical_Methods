@@ -95,7 +95,7 @@ ax91.plot(x1_for_9, y2_for_9, "r-")
 
 escape_times = []
 to_be_removed = []
-Number_of_Prisoners = 10 ## Set to ten now but you can change it to a different number, bigger number = much slower
+Number_of_Prisoners = 1000 ## Set to ten now but you can change it to a different number, bigger number = much slower
 #Number_of_Steps = 1 # Since were running it until they leave we dont know how many steps it will take
 pos=np.zeros([Number_of_Prisoners, 2])
 step_number = 0
@@ -142,7 +142,7 @@ f1 = sympy.Piecewise((sympy.sqrt(radius_of_bounds**2 - x_for_checking**2), x_for
 # To change number of prisoners use the code that a couple of lines above
 # Its quite slow with # of prisoners > 10000
 
-while len(pos[:,0]) > 0: # This makes it so that 
+while len(pos[:,0]) > 0: # This makes it so that the code keeps running as long as there is a prisoner insisde the bounds
     step_number = step_number + 1
     for p in range(len(pos[:, 0])):  ## Check if any prisoner is in 13, 2 and remove it 
         if pos [p, 0] == 13 and pos[p,1] == 2:
