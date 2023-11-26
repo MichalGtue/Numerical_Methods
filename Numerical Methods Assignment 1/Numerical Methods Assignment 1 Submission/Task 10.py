@@ -79,12 +79,13 @@ Number_Of_Dimensions = 2
 # Prereqs
 
 #Uncomment to see the movement of the prisoners
-#This makes the simulation much slower
 
 radius_of_bounds = 12
 boundry_condition = radius_of_bounds*np.cos(0.1*np.pi)
 
 #Comment out the lines below to print the historgram faster
+#This makes the simulation much slower
+
 fig100, ax100 = plt.subplots()
 line100, = ax100.plot([], [], 'o')
 ax100.set_xlim(-20, 20)

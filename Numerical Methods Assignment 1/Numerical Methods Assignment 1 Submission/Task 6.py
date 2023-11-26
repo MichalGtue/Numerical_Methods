@@ -53,7 +53,7 @@ Number_of_Prisoners = 1000
 pos=np.zeros([Number_of_Prisoners, 2])
 
 
-#Task 4 graph 1
+
 
 #Comment out the lines below to hide the graph
 fig41, ax41 = plt.subplots()
@@ -141,6 +141,6 @@ hist2d65 = ax65.hist2d(pos[:, 0], pos[:, 1], bins=15, cmap=cm.plasma)
 ax65.set_title('Figure 6.5: Histogram for prisoner positions after the last step', size=12, weight='bold')
 plt.colorbar(hist2d65[3], ax=ax65)
 
-#################################################### MAYBE ADD BIG TITLE
+
 
 plt.show()
