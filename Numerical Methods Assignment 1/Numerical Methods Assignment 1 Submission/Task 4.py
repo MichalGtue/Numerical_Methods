@@ -91,3 +91,5 @@ plt.colorbar(hist2d42[3], ax=ax42)
 ax42.set_xlabel('Position in the x direction')
 ax42.set_ylabel('Position in the y direction')
 ax42.set_title('Figure 4.2: 2D Histogram for the 500 step paths of 1000 prisoners', size=10, weight='bold')
+
+plt.show()

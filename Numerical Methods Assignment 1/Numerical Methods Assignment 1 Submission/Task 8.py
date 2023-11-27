@@ -35,9 +35,6 @@ def get_xy_velocities(N):
     return random_x_y
 
 
-# Prereq from previous tasks
-
-#Task 4 
 
 def new_step(N):
     pos = np.zeros([N, 2])
@@ -74,7 +71,6 @@ pos=np.zeros([Number_of_Prisoners, 2])
 
 
 
-#Prereq from previous tasks
 
 def mean_square_displacement_f(j):
     displacement = np.array([])
