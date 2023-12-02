@@ -54,6 +54,133 @@ def forwardsubstitution(L,d):
     for row in range(N):
         y[row] = (d[row] - np.sum(L[row,:row] * y[:row])) / L[row,row]
 
+    return y
+
+#Taken from it_methods.py
+def jacobi(A, b, tol=1e-2):
+    
+    # Set initial guess
+    x = b + 1e-16
+        
+    # Initialize variables
+    x_diff = 1
+    N = A.shape[0]
+    it_jac = 1
+    
+    # While not converged or max_it not reached
+    while (x_diff > tol and it_jac < 1000):
+        x_old = x.copy()
+        for i in range(N):
+            s = 0
+            for j in range(N):
+                if j != i:
+                    # Sum off-diagonal*x_old
+                    s += A[i,j] * x_old[j]
+            # Compute new x value
+            x[i] = (b[i] - s) / A[i,i]
+            
+        # Increase number of iterations
+        it_jac += 1
+        x_diff = np.linalg.norm(A@x - b)/np.linalg.norm(b)
+        
+    # Print number of iterations
+    #print(it_jac)
+    
+    return x, it_jac
+
+def jacobi_vec(A, b, tol=1e-2, itmax=1000): 
+    # Set initial guess
+    x = b + 1e-16
+        
+    # Initialize variables
+    x_diff = 1
+    N = A.shape[0]
+    it_jac = 1
+    
+    # While not converged or max_it not reached
+    while (x_diff > tol and it_jac < 1000):
+        x_old = x.copy()
+        for i in range(N):
+            s = 0
+            j_indices = np.concatenate((np.arange(0,i), np.arange(i+1, N)))
+            s += A[i,j_indices] @  x_old[j_indices]
+            # Compute new x value
+            x[i] = (b[i] - s) / A[i,i]
+            
+        # Increase number of iterations
+        it_jac += 1
+        x_diff = np.linalg.norm(A@x - b)/np.linalg.norm(b)
+        
+    # Print number of iterations
+    #print(it_jac)
+    
+    return x, it_jac
+
+def gaussseidel(A, b, tol=1e-2):
+    # Set initial guess
+    x = b + 1e-16
+        
+    # Initialize variables
+    x_diff = 1
+    N = A.shape[0]
+    it_gaussseidel = 1
+    
+    # While not converged or max_it not reached
+    while (x_diff > tol and it_gaussseidel < 1000):
+        x_old = x.copy()
+        for i in range(N):
+            s = 0
+            s2 = 0
+            for j in range(N):
+                if j < i:
+                    # Sum off-diagonal*x_old
+                    s += A[i,j] * x[j]
+                if j > i:
+                    # Second summation
+                    s2 += A[i,j] * x_old[j]
+            # Compute new x value
+            x[i] = (b[i] - s - s2) / A[i,i]
+            
+        # Increase number of iterations
+        it_gaussseidel += 1
+        x_diff = np.linalg.norm(A@x - b)/np.linalg.norm(b)
+        
+    # Print number of iterations
+    #print(it_gaussseidel)
+    
+    return x, it_gaussseidel
+
+def gaussseidel_vec(A, b, tol=1e-2):
+    # Set initial guess
+    x = b + 1e-16
+        
+    # Initialize variables
+    x_diff = 1
+    N = A.shape[0]
+    it_gaussseidel = 1
+    
+    # While not converged or max_it not reached
+    while (x_diff > tol and it_gaussseidel < 1000):
+        x_old = x.copy()
+        for i in range(N):
+            s = 0
+            s2 = 0
+            j_indices_new = np.arange(0,i)
+            j_indices_old = np.arange(i+1, N)
+            s += A[i,j_indices_new] @  x[j_indices_new]
+            s2 += A[i,j_indices_old] @  x_old[j_indices_old]
+            # Compute new x value
+            x[i] = (b[i] - s - s2) / A[i,i]
+            
+        # Increase number of iterations
+        it_gaussseidel += 1
+        x_diff = np.linalg.norm(A@x - b)/np.linalg.norm(b)
+        
+    # Print number of iterations
+    #print(it_gaussseidel)
+    
+    return x, it_gaussseidel
+
 #Define the values of the Q's (given in km^-3 / yr)
 Q_SH = 72
 Q_MH = 38
@@ -98,3 +225,43 @@ Time_taken_gauss = time.time() - start_time_gauss
 
 #LU decomposition
 
+
+
+start_time_lu = time.time()
+P, L, U = lu(M) 
+d = P @ sol_vec
+y= forwardsubstitution(L, d)
+x = backsubstitution_v1(U, y)
+end_time_lu = time.time() - start_time_lu
+
+
+#Jacobi (Function taken from lecture 5)
+# First the non-vectorized
+start_time_Jacobi = time.time()
+jacobi_sol, jacobi_number_of_iterations = jacobi(M, sol_vec)
+end_time_Jacobi = time.time() - start_time_Jacobi
+
+
+#Then the vectorized
+start_time_Jacobi_vec = time.time()
+jacobi_sol_vec, jacobi_number_of_iterations_vec = jacobi_vec(M, sol_vec)
+end_time_Jacobi_vec = time.time() - start_time_Jacobi_vec
+
+#Gauss-Seidel
+#First the non-vectorized
+
+start_time_gaussseidel = time.time()
+gaussseidel_sol, gaussseidel_number_of_iterations = gaussseidel(M, sol_vec)
+end_time_gaussseidel = time.time() - start_time_gaussseidel
+
+
+
+
+#Then the vectorized
+start_time_gaussseidel_vec = time.time()
+gaussseidel_sol_vec, gaussseidel_number_of_iterations_vec = gaussseidel_vec(M, sol_vec)
+end_time_gaussseidel_vec = time.time() - start_time_gaussseidel_vec
+
+
+
+#print(f"Time for various solvers given in seconds, np.solve:{Time_taken_solver}, Gaussian elimination:{Time_taken_gauss}, LU decomposition:{end_time_lu}, Jacobi (not vectorized):{end_time_Jacobi}, Jacobi (Vectorized):{end_time_gaussseidel_vec}, Gauss-Seidel (not vectorized):{end_time_gaussseidel}, Gauss-seidel (vectorized):{end_time_gaussseidel_vec}")
