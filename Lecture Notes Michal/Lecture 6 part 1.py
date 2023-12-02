@@ -32,3 +32,5 @@ def direct_iteration(func, x, itmax=20):
 
 
 direct_iteration(fnc1, 4, 15)
+
+#Converges is g prime of xi is lessthan or equalm to 1
