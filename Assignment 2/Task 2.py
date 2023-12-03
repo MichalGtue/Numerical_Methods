@@ -1,8 +1,9 @@
 #Libraries
 import numpy as np
+import timeit
 import time
 from scipy.linalg import lu 
-
+import pandas as pd
 
 # Functions taken from gaussjordan.py (Given in lecture 4)
 def swap_rows(mat,i1,i2):
@@ -218,29 +219,27 @@ Time_taken_solver = time.time() - start_time_solver # Difference in times to get
 #Gaussian Elimination
 #Using code provided in Lecture 4 (gaussjordan.py)
 
-start_time_gauss = time.time()
-Gauss_M, Gauss_SolVec = gaussian_eliminate_v2(M,sol_vec)
-backsubstitution_v1(Gauss_M, Gauss_SolVec)
-Time_taken_gauss = time.time() - start_time_gauss
+Time_taken_gauss = timeit.timeit(lambda: backsubstitution_v1(*gaussian_eliminate_v2(M, sol_vec)), number=1) # * asterisk used to get the outputs of the gauss_eliminate_v2 function
 
 #LU decomposition
 
 
 
-start_time_lu = time.time()
+
 P, L, U = lu(M) 
 d = P @ sol_vec
 y= forwardsubstitution(L, d)
-x = backsubstitution_v1(U, y)
-end_time_lu = time.time() - start_time_lu
-
+lu_function = lambda: backsubstitution_v1( U,y) # time.time() prints out 0.0 otherwise
+end_time_lu = timeit.timeit( lu_function ,number=1)
 
 #Jacobi (Function taken from lecture 5)
 # First the non-vectorized
-start_time_Jacobi = time.time()
-jacobi_sol, jacobi_number_of_iterations = jacobi(M, sol_vec)
-end_time_Jacobi = time.time() - start_time_Jacobi
 
+
+jacobi_code = lambda:  jacobi(M, sol_vec)
+end_time_Jacobi = timeit.timeit(jacobi_code, number=1)
+
+jacobi_sol, jacobi_number_of_iterations = jacobi(M, sol_vec) #Yes code is ran twice but it runs so quickly that it doesnt matter. Plus again here using time.time() would print 0.0
 
 #Then the vectorized
 start_time_Jacobi_vec = time.time()
@@ -250,18 +249,42 @@ end_time_Jacobi_vec = time.time() - start_time_Jacobi_vec
 #Gauss-Seidel
 #First the non-vectorized
 
-start_time_gaussseidel = time.time()
+
 gaussseidel_sol, gaussseidel_number_of_iterations = gaussseidel(M, sol_vec)
-end_time_gaussseidel = time.time() - start_time_gaussseidel
+
+gaussseidel_function = lambda:gaussseidel(M,sol_vec)
+end_time_gaussseidel = timeit.timeit(gaussseidel_function, number=1)
 
 
 
 
 #Then the vectorized
-start_time_gaussseidel_vec = time.time()
+
 gaussseidel_sol_vec, gaussseidel_number_of_iterations_vec = gaussseidel_vec(M, sol_vec)
-end_time_gaussseidel_vec = time.time() - start_time_gaussseidel_vec
+
+gaussseidel_function_vec = lambda:gaussseidel_vec(M, sol_vec)
+end_time_gaussseidel_vec = timeit.timeit(gaussseidel_function_vec, number=1)
 
 
+print(f"Time for various solvers given in seconds, np.solve:{Time_taken_solver}, Gaussian elimination:{Time_taken_gauss}, LU decomposition:{end_time_lu}, Jacobi (not vectorized):{end_time_Jacobi} with {jacobi_number_of_iterations} iterations, Jacobi (Vectorized):{end_time_gaussseidel_vec} with {jacobi_number_of_iterations_vec} iterations, Gauss-Seidel (not vectorized):{end_time_gaussseidel} with {gaussseidel_number_of_iterations} iterations, Gauss-seidel (vectorized):{end_time_gaussseidel_vec} with {gaussseidel_number_of_iterations_vec} iterations")
 
 print(f"Time for various solvers given in seconds, np.solve:{Time_taken_solver}, Gaussian elimination:{Time_taken_gauss}, LU decomposition:{end_time_lu}, Jacobi (not vectorized):{end_time_Jacobi}, Jacobi (Vectorized):{end_time_gaussseidel_vec}, Gauss-Seidel (not vectorized):{end_time_gaussseidel}, Gauss-seidel (vectorized):{end_time_gaussseidel_vec}")
+
+#To generate table
+#Columns
+
+def accuracy_checker(A,B):
+    equality = False
+    if A == B:
+        equality = True
+        return equality
+    else:
+        return B-A
+
+
+rows = [['np.solve', Time_taken_solver, 'N/A', 'N/A'], ['Gaussian Elimination', Time_taken_gauss, 'N/A', 'N/A'], ['LU Decomposition', end_time_lu, 'N/A', 'N/A'], ['Jacobi not vectorized', end_time_Jacobi, jacobi_number_of_iterations, accuracy_checker(jacobi(M, sol_vec)[0], np.linalg.solve(M,sol_vec))]]
+
+
+df = pd.DataFrame(rows, columns = ['Solution method', 'Time taken (s)', 'Number of iterations', 'Accuracy'])
+
+print(df)
