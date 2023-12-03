@@ -264,4 +264,4 @@ end_time_gaussseidel_vec = time.time() - start_time_gaussseidel_vec
 
 
 
-#print(f"Time for various solvers given in seconds, np.solve:{Time_taken_solver}, Gaussian elimination:{Time_taken_gauss}, LU decomposition:{end_time_lu}, Jacobi (not vectorized):{end_time_Jacobi}, Jacobi (Vectorized):{end_time_gaussseidel_vec}, Gauss-Seidel (not vectorized):{end_time_gaussseidel}, Gauss-seidel (vectorized):{end_time_gaussseidel_vec}")
+print(f"Time for various solvers given in seconds, np.solve:{Time_taken_solver}, Gaussian elimination:{Time_taken_gauss}, LU decomposition:{end_time_lu}, Jacobi (not vectorized):{end_time_Jacobi}, Jacobi (Vectorized):{end_time_gaussseidel_vec}, Gauss-Seidel (not vectorized):{end_time_gaussseidel}, Gauss-seidel (vectorized):{end_time_gaussseidel_vec}")
