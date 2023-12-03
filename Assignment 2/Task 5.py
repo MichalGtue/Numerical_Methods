@@ -42,11 +42,6 @@ Q_MO = 100
 
 
 ## For PFR Graph
-
-
-
-
-
 # Making the matrix
 
 PFR_matrix = np.zeros((1005,1005))
