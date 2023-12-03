@@ -54,23 +54,30 @@ for Q_MO in Q_MO_inputs: # Calculate the concentraions in the lakes at various b
 
 
 #Making figures
-fig = plt.figure(figsize=(8,7))
+fig = plt.figure(figsize=(10,10))
 ax1 = plt.subplot(2, 2, 1)
 ax1.plot(Q_MO_inputs, conc_lake_michigan_values)
-ax1.set_title("Concentraion in lake Michigan at various bypass flowrates")
+ax1.set_title("Concentration of PCB ([kg/yr]) in lake Michigan against bypass flowrates", size=8)
+ax1.set_xlabel('Concentration of PCB ([kg/yr])')
+ax1.set_ylabel('Bypass Flowrate [km**3/yr]')
 
 ax2 = plt.subplot(2,2,2)
 ax2.plot(Q_MO_inputs, conc_lake_huron_values)
-ax2.set_title("Concentraion in lake Huron at various bypass flowrates")
+ax2.set_title("Concentration of PCB ([kg/yr]) in lake Huron against bypass flowrates", size=8)
+ax2.set_xlabel('Concentration of PCB ([kg/yr])')
+ax2.set_ylabel('Bypass Flowrate [km**3/yr]')
 
 ax3 = plt.subplot(2,2,3)
 ax3.plot(Q_MO_inputs, conc_lake_erie_values)
-ax3.set_title("Concentraion in lake Michigan at various bypass flowrates")
-
+ax3.set_title("Concentration of PCB ([kg/yr]) in lake Michigan against bypass flowrates", size=8)
+ax3.set_xlabel('Concentration of PCB ([kg/yr])')
+ax3.set_ylabel('Bypass Flowrate [km**3/yr]')
 
 ax4 = plt.subplot(2,2,4)
 ax4.plot(Q_MO_inputs, conc_lake_ontario_values)
-ax4.set_title("Concentraion in lake Ontario at various bypass flowrates")
+ax4.set_title("Concentration of PCB ([kg/yr]) in lake Ontario against bypass flowrates", size=8)
+ax4.set_xlabel('Concentration of PCB ([kg/yr])')
+ax4.set_ylabel('Bypass Flowrate [km**3/yr]')
 
 
 plt.show()
