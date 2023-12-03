@@ -82,3 +82,4 @@ ax4.set_ylabel('Bypass Flowrate [km**3/yr]')
 
 plt.show()
 
+print(np.linalg.solve(M,sol_vec))
