@@ -82,28 +82,28 @@ radius_of_bounds = 12
 boundry_condition = radius_of_bounds*np.cos(0.1*np.pi)
 
 #Comment out the lines below to print the historgram faster
-fig91, ax91 = plt.subplots()
-line91, = ax91.plot([], [], 'o')
-ax91.set_xlim(-20, 20)
-ax91.set_ylim(-20,20)
-x1_for_9 = np.linspace(-radius_of_bounds,radius_of_bounds,10**4)
-x2_for_9 = np.linspace(-radius_of_bounds, boundry_condition, 10**4)
-y1_for_9 = np.sqrt(radius_of_bounds**2 - (x2_for_9**2))
-y2_for_9 = -1* np.sqrt(radius_of_bounds**2 - (x1_for_9**2))
-ax91.plot(x2_for_9, y1_for_9, "r-")
-ax91.plot(x1_for_9, y2_for_9, "r-")
-ax91.set_ylabel('Position in y')
-ax91.set_xlabel('Position in x')
+#fig91, ax91 = plt.subplots()
+#line91, = ax91.plot([], [], 'o')
+#ax91.set_xlim(-20, 20)
+#ax91.set_ylim(-20,20)
+#x1_for_9 = np.linspace(-radius_of_bounds,radius_of_bounds,10**4)
+#x2_for_9 = np.linspace(-radius_of_bounds, boundry_condition, 10**4)
+#y1_for_9 = np.sqrt(radius_of_bounds**2 - (x2_for_9**2))
+#y2_for_9 = -1* np.sqrt(radius_of_bounds**2 - (x1_for_9**2))
+#ax91.plot(x2_for_9, y1_for_9, "r-")
+#ax91.plot(x1_for_9, y2_for_9, "r-")
+#ax91.set_ylabel('Position in y')
+#ax91.set_xlabel('Position in x')
 
 
 
 escape_times = []
 to_be_removed = []
-Number_of_Prisoners = 10 ## Set to ten now but you can change it to a different number, bigger number = much slower
+Number_of_Prisoners = 1500 ## Set to ten now but you can change it to a different number, bigger number = much slower
 #Number_of_Steps = 1 # Since were running it until they leave we dont know how many steps it will take
 
 ## Also comment out this line
-ax91.set_title(f'Movement of {Number_of_Prisoners} prisoners in circular domain of radius {radius_of_bounds} with a small gap')
+#ax91.set_title(f'Movement of {Number_of_Prisoners} prisoners in circular domain of radius {radius_of_bounds} with a small gap')
 
 
 pos=np.zeros([Number_of_Prisoners, 2])
@@ -152,6 +152,7 @@ f1 = sympy.Piecewise((sympy.sqrt(radius_of_bounds**2 - x_for_checking**2), x_for
 # Its quite slow with # of prisoners > 10000
 
 while len(pos[:,0]) > 0: # This makes it so that the code keeps running as long as there is a prisoner insisde the bounds
+    print(len(pos[:,0]))
     step_number = step_number + 1
     for p in range(len(pos[:, 0])):  ## Check if any prisoner is in 13, 2 and remove it 
         if pos [p, 0] == 13 and pos[p,1] == 2:
@@ -191,10 +192,10 @@ while len(pos[:,0]) > 0: # This makes it so that the code keeps running as long 
                while (np.linalg.norm(np.add(pos[n, :], new_maybe_correct_step)) >= 12 ):
                    new_maybe_correct_step = new_step(1)
                pos[n,:] = np.add(pos[n,:], new_maybe_correct_step)
-    line91.set_data(pos[:, 0], pos[:, 1])
-    fig91.canvas.draw()
-    fig91.canvas.flush_events()
-    plt.pause(0.0001)
+#    line91.set_data(pos[:, 0], pos[:, 1])
+#    fig91.canvas.draw()
+#    fig91.canvas.flush_events()
+#    plt.pause(0.0001)
 
 ## To make the histogram print faster, comment out the 4 lines above
 
@@ -204,8 +205,8 @@ number_of_bins = 10
 
 logbins = np.logspace(np.log10(np.min(escape_times)),np.log10(np.max(escape_times)),number_of_bins+1)
 ax91.set_title(f'Figure 9.1: Histogram of mean escape times of {Number_of_Prisoners} prisoners bounded by a fence with a gap from 0 to 0.1 radians', size=10, weight='bold')
-ax91.set_xlabel('Prisoners position in x direction')
-ax91.set_ylabel('Prisoners position in y direction')
+ax91.set_xlabel('Escape times')
+ax91.set_ylabel('Frequency')
 ax91.hist(escape_times, bins=logbins)
 plt.xscale('log')
 

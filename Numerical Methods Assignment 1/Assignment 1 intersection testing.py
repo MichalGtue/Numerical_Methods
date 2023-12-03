@@ -18,6 +18,7 @@ f3= 2*x-20 ## Intersects x axis and exit
 
 f4 = x
 
+
 f5 = 2*x -15
 solution = sympy.solve(f1 - f3, x)
 
@@ -35,6 +36,7 @@ elif len(solution) == 2 and solution[1] >= boundry_condition:
 
 print(len(solution))
 
+print(solution)
 #print(f2)
 #sol2 = sympy.solve(f4-f3, x)
 

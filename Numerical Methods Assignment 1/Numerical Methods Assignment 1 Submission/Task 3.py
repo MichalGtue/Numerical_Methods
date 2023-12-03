@@ -38,7 +38,7 @@ def get_xy_velocities(N):
 
 #Here range is the number of steps
 #I found vstack which adds the new step to the position array as a new row
-for N in range(1, 1000):  
+for N in range(1, 1001):  
     Current_Step = get_xy_velocities(N)
     pos = np.vstack((pos, pos[-1, :] + Current_Step)) # New row = old row plus new step
 

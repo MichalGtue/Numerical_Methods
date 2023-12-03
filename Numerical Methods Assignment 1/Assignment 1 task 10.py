@@ -16,5 +16,3 @@ def mean_escape_time(r, s):
 
 print(mean_escape_time(12, 0.5))
 
-
-print(np.array(range(1, 6)))
