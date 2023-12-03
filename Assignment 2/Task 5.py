@@ -65,4 +65,8 @@ for i in range(999):
 x = np.linspace(1, 1000, 1000)
 ax1 = plt.subplot(1,1,1)
 ax1.plot(x, np.linalg.solve(PFR_matrix,new_sol_vec)[5:])
+ax1.set_title("Figure 5.1: Concentration profile of PCB in the PFR", size=11, weight='bold')
+ax1.set_xlabel('PFR Tank Number')
+ax1.set_ylabel('Concentration of PCB ([kg/yr]')
+
 plt.show()
