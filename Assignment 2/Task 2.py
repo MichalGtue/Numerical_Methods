@@ -210,10 +210,9 @@ sol_vec = np.array([S_in, S_in_M, S_in_H,S_in_E, S_in_O])
 
 
 #Using a normal the solver from numpy
-start_time_solver = time.time() # Start time
-np.linalg.solve(M,sol_vec)
-Time_taken_solver = time.time() - start_time_solver # Difference in times to get time taken
 
+solver_code = lambda: np.linalg.solve(M,sol_vec)
+Time_taken_solver = timeit.timeit(solver_code, number=1)
 
 
 #Gaussian Elimination
@@ -242,9 +241,11 @@ end_time_Jacobi = timeit.timeit(jacobi_code, number=1)
 jacobi_sol, jacobi_number_of_iterations = jacobi(M, sol_vec) #Yes code is ran twice but it runs so quickly that it doesnt matter. Plus again here using time.time() would print 0.0
 
 #Then the vectorized
-start_time_Jacobi_vec = time.time()
+
 jacobi_sol_vec, jacobi_number_of_iterations_vec = jacobi_vec(M, sol_vec)
-end_time_Jacobi_vec = time.time() - start_time_Jacobi_vec
+
+Jacobi_vec_code = lambda: jacobi_vec(M, sol_vec)
+end_time_Jacobi_vec = timeit.timeit(Jacobi_vec_code, number=1)
 
 #Gauss-Seidel
 #First the non-vectorized
@@ -266,25 +267,29 @@ gaussseidel_function_vec = lambda:gaussseidel_vec(M, sol_vec)
 end_time_gaussseidel_vec = timeit.timeit(gaussseidel_function_vec, number=1)
 
 
-print(f"Time for various solvers given in seconds, np.solve:{Time_taken_solver}, Gaussian elimination:{Time_taken_gauss}, LU decomposition:{end_time_lu}, Jacobi (not vectorized):{end_time_Jacobi} with {jacobi_number_of_iterations} iterations, Jacobi (Vectorized):{end_time_gaussseidel_vec} with {jacobi_number_of_iterations_vec} iterations, Gauss-Seidel (not vectorized):{end_time_gaussseidel} with {gaussseidel_number_of_iterations} iterations, Gauss-seidel (vectorized):{end_time_gaussseidel_vec} with {gaussseidel_number_of_iterations_vec} iterations")
 
-print(f"Time for various solvers given in seconds, np.solve:{Time_taken_solver}, Gaussian elimination:{Time_taken_gauss}, LU decomposition:{end_time_lu}, Jacobi (not vectorized):{end_time_Jacobi}, Jacobi (Vectorized):{end_time_gaussseidel_vec}, Gauss-Seidel (not vectorized):{end_time_gaussseidel}, Gauss-seidel (vectorized):{end_time_gaussseidel_vec}")
+#Uncomment to see the output as as text
+#print(f"Time for various solvers given in seconds, np.solve:{Time_taken_solver}, Gaussian elimination:{Time_taken_gauss}, LU decomposition:{end_time_lu}, Jacobi (not vectorized):{end_time_Jacobi} with {jacobi_number_of_iterations} iterations, Jacobi (Vectorized):{end_time_gaussseidel_vec} with {jacobi_number_of_iterations_vec} iterations, Gauss-Seidel (not vectorized):{end_time_gaussseidel} with {gaussseidel_number_of_iterations} iterations, Gauss-seidel (vectorized):{end_time_gaussseidel_vec} with {gaussseidel_number_of_iterations_vec} iterations")
 
 #To generate table
 #Columns
 
 def accuracy_checker(A,B):
     equality = False
-    if A == B:
+    if np.array_equal(A,B):
         equality = True
         return equality
     else:
-        return B-A
+        return equality
 
 
-rows = [['np.solve', Time_taken_solver, 'N/A', 'N/A'], ['Gaussian Elimination', Time_taken_gauss, 'N/A', 'N/A'], ['LU Decomposition', end_time_lu, 'N/A', 'N/A'], ['Jacobi not vectorized', end_time_Jacobi, jacobi_number_of_iterations, accuracy_checker(jacobi(M, sol_vec)[0], np.linalg.solve(M,sol_vec))]]
+
+
+
+rows = [['np.solve', Time_taken_solver, 'N/A', 'N/A'], ['Gaussian Elimination', Time_taken_gauss, 'N/A', 'N/A'], ['LU Decomposition', end_time_lu, 'N/A', 'N/A'], ['Jacobi not vectorized', end_time_Jacobi, jacobi_number_of_iterations, accuracy_checker(jacobi(M, sol_vec)[0], np.linalg.solve(M,sol_vec))], ['Jacobi Vectorized', end_time_Jacobi_vec, jacobi_number_of_iterations_vec, accuracy_checker(jacobi_vec(M, sol_vec)[0], np.linalg.solve(M,sol_vec))], ['Gauss-Seidel not vectorized', end_time_gaussseidel, gaussseidel_number_of_iterations, accuracy_checker(gaussseidel(M, sol_vec)[0], np.linalg.solve(M,sol_vec))], ['Gauss-Seidel Vectorized', end_time_gaussseidel_vec, gaussseidel_number_of_iterations_vec, accuracy_checker(gaussseidel_vec(M, sol_vec)[0], np.linalg.solve(M,sol_vec))]]
 
 
 df = pd.DataFrame(rows, columns = ['Solution method', 'Time taken (s)', 'Number of iterations', 'Accuracy'])
+df['Time taken (s)'] = df['Time taken (s)'].apply(lambda x: f'{x:.11f}')
 
 print(df)
