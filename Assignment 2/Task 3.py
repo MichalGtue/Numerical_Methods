@@ -20,15 +20,24 @@ S_in_H = 630
 S_in_E = 2750
 S_in_O = 3820
 
+#Volumes (km^3)
+
+V_S = 12000
+V_M = 4900
+V_H = 3500
+V_E = 480
+V_O = 1640
+
+#Defining k1
+k1 = 0.00584
+
 #Generating our coefficient matrix
-M = np.array([[Q_SH,0,0,0,0], [0,Q_MH,0,0,0], [-Q_SH, -Q_MH, Q_HE, 0, 0], [0,0,-Q_HE, Q_EO, 0], [0,0,0,-Q_EO,Q_OO]])
+M = np.array([[Q_SH + k1*V_S,0,0,0,0], [0,Q_MH + k1*V_M,0,0,0], [-Q_SH, -Q_MH, Q_HE + k1*V_H, 0, 0], [0,0,-Q_HE, Q_EO + k1*V_E, 0], [0,0,0,-Q_EO,Q_OO + k1*V_E]])
 #print(M) #Uncomment to see the coefficient matrix
 
 
-k1= 0.00584
+#Solution Vector
+sol_vec = np.array([S_in, S_in_M, S_in_H,S_in_E, S_in_O])
 
-def sunlight_break_down():
-    
-    # first order function
-    r=k1*Cx
-        
+
+print(np.linalg.solve(M, sol_vec))
