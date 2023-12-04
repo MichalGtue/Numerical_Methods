@@ -69,7 +69,7 @@ def percentage_error(a, b):
 rows = [['Riemann Sum', riemann_area, end_time_riemann, percentage_error(riemann_area, actual_result)], ['Trapezoid Rule', trapezoid_area, end_time_trapezoid, percentage_error(trapezoid_area, actual_result)], ['Simpson Rule', simpson_area, end_time_simpson, percentage_error(simpson_area, actual_result)]]
 
 
-df = pd.DataFrame(rows, columns = ['Solution method', 'Calculated Result', 'Time taken (s)', 'Percentage error from expected value'])
+df = pd.DataFrame(rows, columns = ['Solution method', 'Total discharge into lake superior (kg)', 'Time taken (s)', 'Percentage error from expected value'])
 
 
 print(df)
