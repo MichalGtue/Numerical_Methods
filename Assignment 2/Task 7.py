@@ -14,15 +14,6 @@ def find_max(f,a,b):
     minimize_result = scipy.optimize.minimize_scalar(lambda x: -f((b-a)*x), bounds=[0,1], method='bounded') #Finds maximum of a function. According to information found online it has to be bound from 0 to 1 thus the function is shrunk.
     return -minimize_result.fun # Returns the maximum y value of a function.
 
-def find_min(f,a,b):
-    '''Finds the minimum of a function on a given domain.
-    First argument is your function, second is the lowerbound, and third is the upperbound.'''
-    minimize_result = scipy.optimize.fmin(lambda x: f((b-a)*x), bounds=[0,1], method='bounded') #Finds maximum of a function. According to information found online it has to be bound from 0 to 1 thus the function is shrunk.
-    return minimize_result.fun # Returns the minimum y value of a function.
-
-find_min(f,0,12)
-
-
 
 #From gdc, y max ~= 18.394515656
 #print(find_max(f,0,12)) #Uncomment in case you want to verify that the function works
@@ -37,7 +28,7 @@ def monte_carlo(func, a, b, N=1000):
     y_max = find_max(func, a, b)
     for i in range(N):
         x_rand = np.random.uniform(a,b) ## random number on the given domain
-        y_rand = np.random.uniform(0,y_max) ## Theoeretically any upperbound could be chosen but that may skew the results
+        y_rand = np.random.uniform(0,y_max) ## Area of the shape lies between y = 0 and y = ymax
         if y_rand < f(x_rand):
             approx_area_counter += 1
     approx_area = (y_max*(b-a)*approx_area_counter) / N
