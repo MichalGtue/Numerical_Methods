@@ -234,12 +234,12 @@ Time_taken_gauss = timeit.timeit(lambda: backsubstitution_v1(*gaussian_eliminate
 
 
 
-
-P, L, U = lu(M) 
-d = P @ sol_vec
-y= forwardsubstitution(L, d)
-lu_function = lambda: backsubstitution_v1( U,y) # time.time() prints out 0.0 otherwise
-end_time_lu = timeit.timeit( lu_function ,number=1)
+def LU_function_for_timing():
+    P, L, U = lu(M) 
+    d = P @ sol_vec
+    y= forwardsubstitution(L, d)
+    lu_function = lambda: backsubstitution_v1( U,y) # time.time() prints out 0.0 otherwise
+end_time_lu = timeit.timeit(LU_function_for_timing ,number=1)
 
 #Jacobi (Function taken from lecture 5)
 # First the non-vectorized
@@ -296,7 +296,7 @@ def accuracy_checker(A,B):
 
 
 
-rows = [['np.solve', Time_taken_solver, 'N/A', 'N/A'], ['Gaussian Elimination', Time_taken_gauss, 'N/A', 'N/A'], ['LU Decomposition', end_time_lu, 'N/A', 'N/A'], ['Jacobi not vectorized', end_time_Jacobi, jacobi_number_of_iterations, accuracy_checker(jacobi(M, sol_vec)[0], np.linalg.solve(M,sol_vec))], ['Jacobi Vectorized', end_time_Jacobi_vec, jacobi_number_of_iterations_vec, accuracy_checker(jacobi_vec(M, sol_vec)[0], np.linalg.solve(M,sol_vec))], ['Gauss-Seidel not vectorized', end_time_gaussseidel, gaussseidel_number_of_iterations, accuracy_checker(gaussseidel(M, sol_vec)[0], np.linalg.solve(M,sol_vec))], ['Gauss-Seidel Vectorized', end_time_gaussseidel_vec, gaussseidel_number_of_iterations_vec, accuracy_checker(gaussseidel_vec(M, sol_vec)[0], np.linalg.solve(M,sol_vec))]]
+rows = [['np.linalg.solve', Time_taken_solver, 'N/A', 'N/A'], ['Gaussian Elimination', Time_taken_gauss, 'N/A', 'N/A'], ['LU Decomposition', end_time_lu, 'N/A', 'N/A'], ['Jacobi not Vectorized', end_time_Jacobi, jacobi_number_of_iterations, accuracy_checker(jacobi(M, sol_vec)[0], np.linalg.solve(M,sol_vec))], ['Jacobi Vectorized', end_time_Jacobi_vec, jacobi_number_of_iterations_vec, accuracy_checker(jacobi_vec(M, sol_vec)[0], np.linalg.solve(M,sol_vec))], ['Gauss-Seidel not Vectorized', end_time_gaussseidel, gaussseidel_number_of_iterations, accuracy_checker(gaussseidel(M, sol_vec)[0], np.linalg.solve(M,sol_vec))], ['Gauss-Seidel Vectorized', end_time_gaussseidel_vec, gaussseidel_number_of_iterations_vec, accuracy_checker(gaussseidel_vec(M, sol_vec)[0], np.linalg.solve(M,sol_vec))]]
 
 
 df = pd.DataFrame(rows, columns = ['Solution method', 'Time taken (s)', 'Number of iterations', 'Accuracy'])
@@ -305,4 +305,4 @@ df['Time taken (s)'] = df['Time taken (s)'].apply(lambda x: f'{x:.11f}')
 print(df)
 
 
-print(backsubstitution_v1(*gaussian_eliminate_v2(M, sol_vec)))
+df.to_csv('out.zip', index=False)
