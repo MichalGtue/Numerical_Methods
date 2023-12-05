@@ -1,7 +1,6 @@
 #Libraries
 import numpy as np
 import timeit
-import time
 from scipy.linalg import lu 
 import pandas as pd
 
@@ -304,3 +303,6 @@ df = pd.DataFrame(rows, columns = ['Solution method', 'Time taken (s)', 'Number 
 df['Time taken (s)'] = df['Time taken (s)'].apply(lambda x: f'{x:.11f}')
 
 print(df)
+
+
+print(backsubstitution_v1(*gaussian_eliminate_v2(M, sol_vec)))
