@@ -1,6 +1,7 @@
 #Libraries
 import numpy as np
 import scipy
+from scipy import optimize
 import pandas as pd
 
 #Same function as in task 6
