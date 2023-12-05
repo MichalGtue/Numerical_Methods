@@ -107,7 +107,7 @@ Superior_list = []
 Huron_list = []
 Erie_list = []
 Ontario_list = []
-for j in range(41): # 
+for j in range(81): # 
     x_task_10.append(160 + j/4) # Will be needed later to generate our plots
     sol_vec = np.array([160 + j/4, S_in_M, S_in_H,S_in_E, S_in_O])
     new_sol_vec[:5] = sol_vec
@@ -132,5 +132,8 @@ axer.plot(x_task_10, Erie_list)
 axont = plt.subplot(2,2,4)
 axont.plot(x_task_10, Ontario_list)
 
+def derivative(q,w):
+    return (w[-1]-w[0])/(q[-1]-q[0])
 
+print(derivative(Superior_list, x_task_10), derivative(Huron_list, x_task_10),derivative(Erie_list, x_task_10),derivative(Ontario_list, x_task_10),)
 plt.show()
