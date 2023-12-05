@@ -37,7 +37,7 @@ V_tank = 1*10**-9
 
 
 # Not given in the question so taken as 100
-Q_MO = 100
+Q_MO = 20
 
 
 
@@ -60,6 +60,8 @@ for i in range(999):
     PFR_matrix[6+i, 5+i] = Q_MO 
     PFR_matrix[6+i, 6+i] = -(Q_MO + V_tank*k2)
 
+solution = np.linalg.solve(PFR_matrix, new_sol_vec)
+print(solution[0:5]) # Prints the concentraion of the PCBs in the lakes
 
 
 x = np.linspace(1, 1000, 1000)

@@ -12,16 +12,17 @@ p = sympy.Symbol('y', real=True) #y already used for list as well
 x = list ( range (1 ,12 ,2) )
 y = [13.40 ,15.00 ,22.0 ,16.70 ,10.60 ,8.30]
 
-def Lagrange_interpolation(x,y):
+def Lagrange_interpolation(g,h):
     '''Returns the Lagrange polynomial using Lagrange interpolation.
-    Arguments x and y both of which must be lists'''
+    Arguments g and h both of which must be lists'''
+    assert len(g) == len(h), "Every x coordinate must have a corresponding y coordinate"
     output_storage = 0
-    for k in range(len(x)):
+    for k in range(len(g)):
         polynomial_storage = 1  ## Defining polynomial storage and resetting after every k
-        for i in range(len(x)):
+        for i in range(len(g)):
             if i!=k:
-                polynomial_storage = polynomial_storage * (a-x[i])/(x[k]-x[i])
-        output_storage = output_storage + y[k]*polynomial_storage
+                polynomial_storage = polynomial_storage * (a-g[i])/(g[k]-g[i])
+        output_storage = output_storage + h[k]*polynomial_storage
     output_storage = sympy.simplify(output_storage) #This line is not exactly necessary but the function become really ugly otherwise
     return output_storage
 
