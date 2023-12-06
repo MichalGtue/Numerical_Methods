@@ -31,6 +31,7 @@ V_O = 1640
 #Defining k1
 k1 = 0.00584
 
+
 #Generating our coefficient matrix
 M = np.array([[Q_SH + k1*V_S,0,0,0,0], [0,Q_MH + k1*V_M,0,0,0], [-Q_SH, -Q_MH, Q_HE + k1*V_H, 0, 0], [0,0,-Q_HE, Q_EO + k1*V_E, 0], [0,0,0,-Q_EO,Q_OO + k1*V_E]])
 #print(M) #Uncomment to see the coefficient matrix
