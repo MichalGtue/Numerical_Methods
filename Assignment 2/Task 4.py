@@ -54,7 +54,7 @@ for Q_MO in Q_MO_inputs: # Calculate the concentraions in the lakes at various b
 
 
 #Making figures
-fig = plt.figure(figsize=(10,10))
+fig = plt.figure(figsize=(15,10))
 ax1 = plt.subplot(2, 2, 1)
 ax1.plot(Q_MO_inputs, conc_lake_michigan_values)
 ax1.set_title("Figure 4.1: Concentration of PCB ([kg/yr]) in lake Michigan against bypass flowrates", size=8, weight='bold')
