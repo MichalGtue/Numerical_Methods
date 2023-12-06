@@ -1,6 +1,7 @@
 #Libraries
 import numpy as np
 import sympy
+from scipy import interpolate
 import matplotlib.pyplot as plt
 import scipy
 
