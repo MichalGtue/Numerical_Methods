@@ -44,7 +44,4 @@ plt.title('Various interpolation techniques on the Measured PCB discharge rate',
 plt.xlabel("Month")
 plt.ylabel("Discharge rate of PCB (kg/month)")
 fig.legend()
-#plt.show()
-
-print(scipy.integrate.quad(lambda x: scipy.interpolate.splev(x, spline_eq), 0, 12))
-print(scipy.integrate.quad(function, 0, 12))
+plt.show()

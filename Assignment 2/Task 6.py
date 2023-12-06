@@ -1,7 +1,6 @@
 import numpy as np
 import timeit
 import pandas as pd
-import time
 
 def f(t):
     return -0.1 * t**3 + 0.58 * t**2 * np.cosh((-1)/(t+1)) + np.exp(t/2.7) + 9.6

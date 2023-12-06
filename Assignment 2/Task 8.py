@@ -4,8 +4,6 @@ import sympy
 import matplotlib.pyplot as plt
 #Defining symbols
 a = sympy.Symbol('x', real=True) #x is already used for the list
-p = sympy.Symbol('y', real=True) #y already used for list as well
-
 
 
 #From assignment document

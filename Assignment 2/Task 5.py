@@ -46,13 +46,11 @@ Q_MO = 20
 
 PFR_matrix = np.zeros((1005,1005))
 new_sol_vec = np.zeros(1005)
-
 M = np.array([[Q_SH + k1*V_S,0,0,0,0], [0,Q_MH + k1*V_M + Q_MO,0,0,0], [-Q_SH, -Q_MH, Q_HE + k1*V_H, 0, 0], [0,0,-Q_HE, Q_EO + k1*V_E, 0], [0, 0,0,-Q_EO,Q_OO + k1*V_E]])
 PFR_matrix[:5, :5] = M # Update the new matrix 
 PFR_matrix[4, -1] = -Q_MO # Inflow from the last PFR
 sol_vec = np.array([S_in, S_in_M, S_in_H,S_in_E, S_in_O])
 new_sol_vec[:5] = sol_vec
-
 PFR_matrix[5, 1] = Q_MO # First PFR is dependent on the concentration of lake Michigan
 PFR_matrix[5, 5] = -(Q_MO + V_tank*k2)
 

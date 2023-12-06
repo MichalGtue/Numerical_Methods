@@ -3,6 +3,7 @@ import numpy as np
 import sympy
 import matplotlib.pyplot as plt
 import scipy
+import pandas as pd
 
 #Prerequisites from the previous task
 a = sympy.Symbol('x', real=True) #x is already used for the list
@@ -118,7 +119,8 @@ for j in range(81): #
     Ontario_list.append(ont)
 
 
-fig = plt.figure()
+fig = plt.figure(figsize=(12,10))
+fig.suptitle('PCB concentration in various lakes at different inlet concentration to Lake Superior', size=10, weight='bold')
 
 axsup = plt.subplot(2,2,1)
 axsup.plot(x_task_10, Superior_list)
@@ -132,8 +134,36 @@ axer.plot(x_task_10, Erie_list)
 axont = plt.subplot(2,2,4)
 axont.plot(x_task_10, Ontario_list)
 
+#y labels
+axont.set_ylabel('PCB concentration (kg/km^3)')
+axer.set_ylabel('PCB concentration (kg/km^3)')
+axhur.set_ylabel('PCB concentration (kg/km^3)')
+axsup.set_ylabel('PCB concentration (kg/km^3)')
+
+#x labels
+axont.set_xlabel('PCB source of Lake Superior (kg/year)')
+axer.set_xlabel('PCB source of Lake Superior (kg/year)')
+axhur.set_xlabel('PCB source of Lake Superior (kg/year)')
+axsup.set_xlabel('PCB source of Lake Superior (kg/year)')
+
+#axis titles
+axont.set_title('Lake Ontario')
+axer.set_title('Lake Erie')
+axhur.set_title('Lake Huron')
+axsup.set_title('Lake Superior')
+
+
+plt.show()
+
+
 def derivative(q,w):
+    '''Returns the derivative of a linear function. First argument is the x list and second arument is the y list'''
     return (w[-1]-w[0])/(q[-1]-q[0])
 
 print(derivative(Superior_list, x_task_10), derivative(Huron_list, x_task_10),derivative(Erie_list, x_task_10),derivative(Ontario_list, x_task_10),)
-plt.show()
+
+rows = [['Lake Superior', derivative(x_task_10, Superior_list)], ['Lake Huron', derivative(x_task_10, Huron_list)], ['Lake Erie', derivative(x_task_10, Erie_list)], ['Lake Ontario', derivative(x_task_10, Ontario_list)]]
+
+df = pd.DataFrame(rows, columns = ['Lake', 'Rate of change'])
+
+print(df)

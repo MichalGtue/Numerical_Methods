@@ -39,8 +39,6 @@ conc_lake_huron_values = []
 conc_lake_erie_values = []
 conc_lake_ontario_values = []
 
-
-
 #Lake Superior is not included because its independent of the lake Michigan
 for Q_MO in Q_MO_inputs: # Calculate the concentraions in the lakes at various bypass flowrates
     M = np.array([[Q_SH + k1*V_S,0,0,0,0], [0,Q_MH + k1*V_M + Q_MO,0,0,0], [-Q_SH, -Q_MH, Q_HE + k1*V_H, 0, 0], [0,0,-Q_HE, Q_EO + k1*V_E, 0], [0,-Q_MO,0,-Q_EO,Q_OO + k1*V_E]])
