@@ -35,6 +35,9 @@ y_for_plotting_lagrange = function(x_for_plotting)
 #The actual new code starts here
 spline_eq = scipy.interpolate.splrep(x,y)
 y_for_plotting_spline = scipy.interpolate.splev(x_for_plotting, spline_eq)
+#According to the discussions on canvas, we were not asked to make the function ourselves
+
+
 
 #Plotting
 fig = plt.subplot()
