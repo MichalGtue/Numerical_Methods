@@ -235,6 +235,7 @@ Time_taken_gauss = timeit.timeit(lambda: backsubstitution_v1(*gaussian_eliminate
 
 
 def LU_function_for_timing():
+    '''Function only written for task 2 for timing LU decomposition. This function only serves one purpose.'''
     P, L, U = lu(M) 
     d = P @ sol_vec
     y= forwardsubstitution(L, d)
@@ -303,6 +304,3 @@ df = pd.DataFrame(rows, columns = ['Solution method', 'Time taken (s)', 'Number 
 df['Time taken (s)'] = df['Time taken (s)'].apply(lambda x: f'{x:.11f}')
 
 print(df)
-
-
-df.to_csv('out.zip', index=False)

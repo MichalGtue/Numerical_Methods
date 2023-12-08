@@ -3,6 +3,8 @@ import numpy as np
 import sympy
 import matplotlib.pyplot as plt
 import scipy
+import scipy.interpolate
+import scipy.integrate
 import pandas as pd
 
 #Prerequisites from the previous task
@@ -159,8 +161,6 @@ plt.show()
 def derivative(q,w):
     '''Returns the derivative of a linear function. First argument is the x list and second arument is the y list'''
     return (w[-1]-w[0])/(q[-1]-q[0])
-
-print(derivative(Superior_list, x_task_10), derivative(Huron_list, x_task_10),derivative(Erie_list, x_task_10),derivative(Ontario_list, x_task_10),)
 
 rows = [['Lake Superior', derivative(x_task_10, Superior_list)], ['Lake Huron', derivative(x_task_10, Huron_list)], ['Lake Erie', derivative(x_task_10, Erie_list)], ['Lake Ontario', derivative(x_task_10, Ontario_list)]]
 
