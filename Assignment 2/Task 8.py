@@ -34,7 +34,7 @@ y_for_plotting = function(x_for_plotting)
 fig = plt.subplot()
 ax1 = fig.plot(x, y, marker='o', linestyle='None')
 ax2 = fig.plot(x_for_plotting, y_for_plotting)
-fig.set_title("Figure 4.1: Concentration of PCB ([kg/yr]) in lake Michigan against bypass flowrates", size=8, weight='bold')
+fig.set_title("Figure 8.1: Concentration of PCB ([kg/yr]) in lake Michigan against bypass flowrates", size=8, weight='bold')
 fig.set_xlabel('Concentration of PCB ([kg/yr])')
 fig.set_ylabel('Bypass Flowrate [km**3/yr]')
 
