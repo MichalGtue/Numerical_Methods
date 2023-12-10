@@ -10,6 +10,9 @@ import pandas as pd
 
 
 #Functions
+# We know that we could use for example "import Task 6" to get the functions but we wanted to make sure that
+# the code runs properly on all devices.
+# Thus we simply copy-pasted the funtions into this file to make sure that the correctors can run the code perfectly
 def f(t):
     return -0.1 * t**3 + 0.58 * t**2 * np.cosh((-1)/(t+1)) + np.exp(t/2.7) + 9.6
 
