@@ -3,13 +3,13 @@ import numpy as np
 import sympy
 import matplotlib.pyplot as plt
 import scipy
-import scipy.interpolate
-import scipy.integrate
+import scipy.interpolate ## I know it seems redundant to import scipy and scipy.interpolate separetly but otherwise the code does not run on the TU/e laptop 
+import scipy.integrate ## Same as comment above 
 import pandas as pd
 
 #Prerequisites from the previous task
 a = sympy.Symbol('x', real=True) #x is already used for the list
-p = sympy.Symbol('y', real=True) #y already used for list as well
+## No need for a y
 #From assignment document
 x = list ( range (1 ,12 ,2) )
 y = [13.40 ,15.00 ,22.0 ,16.70 ,10.60 ,8.30]
