@@ -1,8 +1,0 @@
-Solution method,Time taken (s),Number of iterations,Accuracy
-np.solve,0.00072799996,N/A,N/A
-Gaussian Elimination,0.00020789995,N/A,N/A
-LU Decomposition,0.00003820006,N/A,N/A
-Jacobi not vectorized,0.00016400008,5,True
-Jacobi Vectorized,0.00023190002,5,True
-Gauss-Seidel not vectorized,0.00003659993,2,True
-Gauss-Seidel Vectorized,0.00008180004,2,True
