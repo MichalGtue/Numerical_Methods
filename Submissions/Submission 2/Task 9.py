@@ -7,7 +7,7 @@ import scipy
 
 #Prerequisites from the previous task, needed to plot the lagrange interpolant
 a = sympy.Symbol('x', real=True) #x is already used for the list
-
+p = sympy.Symbol('y', real=True) #y already used for list as well
 #From assignment document
 x = list ( range (1 ,12 ,2) )
 y = [13.40 ,15.00 ,22.0 ,16.70 ,10.60 ,8.30]
