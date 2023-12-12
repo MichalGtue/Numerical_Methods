@@ -1,8 +1,0 @@
-Solution method,Time taken (s),Number of iterations,Accuracy
-np.linalg.solve,0.00062850001,N/A,N/A
-Gaussian Elimination,0.00028879999,N/A,N/A
-LU Decomposition,0.00022090005,N/A,N/A
-Jacobi not Vectorized,0.00016300008,5,True
-Jacobi Vectorized,0.00026870007,5,True
-Gauss-Seidel not Vectorized,0.00004249997,2,True
-Gauss-Seidel Vectorized,0.00008190004,2,True
