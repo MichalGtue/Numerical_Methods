@@ -83,7 +83,7 @@ k2 = 2 * 10**7
 V_tank = 1*10**-9
 
 
-# From discussions
+# Not given in the question so taken as 100
 Q_MO = 20
 
 

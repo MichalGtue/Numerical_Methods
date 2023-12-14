@@ -217,7 +217,9 @@ M = np.array([[Q_SH,0,0,0,0], [0,Q_MH,0,0,0], [-Q_SH, -Q_MH, Q_HE, 0, 0], [0,0,-
 sol_vec = np.array([S_in, S_in_M, S_in_H,S_in_E, S_in_O])
 #print(sol_vec) #Uncomment to see the Solution Vector
 
-#Using the solver from numpy
+
+
+#Using a normal the solver from numpy
 
 solver_code = lambda: np.linalg.solve(M,sol_vec)
 Time_taken_solver = timeit.timeit(solver_code, number=1)
@@ -265,6 +267,9 @@ gaussseidel_sol, gaussseidel_number_of_iterations = gaussseidel(M, sol_vec)
 gaussseidel_function = lambda:gaussseidel(M,sol_vec)
 end_time_gaussseidel = timeit.timeit(gaussseidel_function, number=1)
 
+
+
+
 #Then the vectorized
 
 gaussseidel_sol_vec, gaussseidel_number_of_iterations_vec = gaussseidel_vec(M, sol_vec)
@@ -278,6 +283,7 @@ end_time_gaussseidel_vec = timeit.timeit(gaussseidel_function_vec, number=1)
 #print(f"Time for various solvers given in seconds, np.solve:{Time_taken_solver}, Gaussian elimination:{Time_taken_gauss}, LU decomposition:{end_time_lu}, Jacobi (not vectorized):{end_time_Jacobi} with {jacobi_number_of_iterations} iterations, Jacobi (Vectorized):{end_time_gaussseidel_vec} with {jacobi_number_of_iterations_vec} iterations, Gauss-Seidel (not vectorized):{end_time_gaussseidel} with {gaussseidel_number_of_iterations} iterations, Gauss-seidel (vectorized):{end_time_gaussseidel_vec} with {gaussseidel_number_of_iterations_vec} iterations")
 
 #To generate table
+#Columns
 
 def accuracy_checker(A,B):
     equality = False

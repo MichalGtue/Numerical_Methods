@@ -1,12 +1,10 @@
 #Libraries
 import numpy as np
 import sympy
-from scipy import interpolate
 import matplotlib.pyplot as plt
-import scipy
-
-#Prerequisites from the previous task, needed to plot the lagrange interpolant
+#Defining symbols
 a = sympy.Symbol('x', real=True) #x is already used for the list
+
 
 #From assignment document
 x = list ( range (1 ,12 ,2) )
@@ -25,27 +23,19 @@ def Lagrange_interpolation(g,h):
         output_storage = output_storage + h[k]*polynomial_storage
     output_storage = sympy.simplify(output_storage) #This line is not exactly necessary but the function become really ugly otherwise
     return output_storage
-#Needed to generate the plots of the lagrange interpolant
+
 function = sympy.lambdify(a, Lagrange_interpolation(x,y))
+
+
+# Plotting
 x_for_plotting = np.linspace(0, 12, 1000)
-y_for_plotting_lagrange = function(x_for_plotting)
+y_for_plotting = function(x_for_plotting)
 
-
-
-#The actual new code starts here
-spline_eq = scipy.interpolate.splrep(x,y)
-y_for_plotting_spline = scipy.interpolate.splev(x_for_plotting, spline_eq)
-#According to the discussions on canvas, we were not asked to make the function ourselves
-
-
-
-#Plotting
 fig = plt.subplot()
 ax1 = fig.plot(x, y, marker='o', linestyle='None')
-ax2 = fig.plot(x_for_plotting, y_for_plotting_lagrange, label='Lagrange Interpolation')
-ax3 = fig.plot(x_for_plotting, y_for_plotting_spline, label='Spline Interpolation')
-plt.title('Various interpolation techniques on the Measured PCB discharge rate', size=10, weight='bold')
-plt.xlabel("Month")
-plt.ylabel("Discharge rate of PCB (kg/month)")
-fig.legend()
+ax2 = fig.plot(x_for_plotting, y_for_plotting)
+fig.set_title("Figure 8.1: Concentration of PCB ([kg/yr]) in lake Michigan against bypass flowrates", size=8, weight='bold')
+fig.set_xlabel('Concentration of PCB ([kg/yr])')
+fig.set_ylabel('Bypass Flowrate [km**3/yr]')
+
 plt.show()
