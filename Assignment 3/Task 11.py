@@ -2,10 +2,15 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.integrate
 
-# Taking code from task 8
+# Taking code from task 10
+# Needed later
+
 l1_value = 1
 l2_value = 1
-def der_system_task10(t, x, m1=1, m2=1, l1=l1_value, l2=l2_value):
+m1_value = 1
+m2_value = 1
+
+def der_system_task10(t, x, m1=m1_value, m2=m2_value, l1=l1_value, l2=l2_value):
     '''Solves the following system of equations: \n
     dCadt = -A*exp(-Ea/RT) * Ca^3 \n
     dTdt = (deltaH * -A*exp(-Ea/RT) * Ca^3)/(rho*Cp) \n
@@ -48,37 +53,12 @@ approx_sol = midpoint_rule(der_system_task10, tspan, ini_cond_vec) #Midpoint use
 
 
 
-x_1st = np.sin(approx_sol[1][:,0])*l1_value #Like the first node of the double pendulum
-y_1st = -np.cos(approx_sol[1][:,0])*l1_value
-
-x_2 = np.sin(approx_sol[1][:,0])*l1_value + np.sin(approx_sol[1][:,2])*l2_value
-y_2 = -np.cos(approx_sol[1][:,0])*l1_value - np.cos(approx_sol[1][:,2])*l2_value
-
-x_connector = [0, x_1st[-1], x_2[-1]]
-y_connector = [0, y_1st[-1], y_2[-1]]
 
 
-fig, ax = plt.subplots(figsize=(8,8))
-plt.plot(x_1st, y_1st, label='Path of second node')
-plt.plot(x_2, y_2, label='Path of second node')
-plt.xlabel('Position in x')
-plt.ylabel('Position in y')
-plt.xlim(-2,2)
-plt.ylim(-2,2)
 
 
-#Animating the path taken
-line, = ax.plot(x_1st, y_1st, marker='o')
 
-plt.show(block=False)
 
-x_connector = [0, x_1st[-1], x_2[-1]]
-y_connector = [0, y_1st[-1], y_2[-1]]
-
-for i in range(len(approx_sol[1][:,0])):
-    line.set_data([0, x_1st[i], x_2[i]], [0, y_1st[i], y_2[i]])
-    fig.canvas.draw()
-    fig.canvas.flush_events()
-    plt.pause(0.001)
-
-plt.show()
+# from:
+# http://www.physics.umd.edu/hep/drew/pendulum2.html
+# We can get the equations for the kinetic and potential energy
