@@ -63,6 +63,8 @@ plt.plot(x_1st, y_1st, label='Path of second node')
 plt.plot(x_2, y_2, label='Path of second node')
 plt.xlabel('Position in x')
 plt.ylabel('Position in y')
+plt.title(f'theta1={ini_cond_vec[0]: .4f}, omega1={ini_cond_vec[1]}, theta2={ini_cond_vec[2]: .4f}, omega2={ini_cond_vec[3]}', fontsize=10)
+plt.suptitle(f'Path of double pendulum', weight='bold')
 plt.xlim(-2,2)
 plt.ylim(-2,2)
 
