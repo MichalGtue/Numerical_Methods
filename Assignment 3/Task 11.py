@@ -51,14 +51,22 @@ tspan = [0,10]
 approx_sol = midpoint_rule(der_system_task10, tspan, ini_cond_vec) #Midpoint used because its better than euler and easy to implement :)
 
 
-
-
-
-
-
-
-
-
 # from:
 # http://www.physics.umd.edu/hep/drew/pendulum2.html
 # We can get the equations for the kinetic and potential energy
+# the time derivative in terms of theta1 is simply omega1
+
+KE = 0.5 * (m1_value+m2_value) * l1_value**2 * approx_sol[1][:,1]**2 + 0.5 * m2_value* l2_value**2 * approx_sol[1][:,3]**2 + m2_value*l1_value*l2_value * approx_sol[1][:,1] * approx_sol[1][:,3] * np.cos(approx_sol[1][:,0] - approx_sol[1][:,2])
+
+PE = -(m1_value+m2_value) * 9.81 *l1_value *np.cos(approx_sol[1][:,0]) - m2_value*9.81*l2_value*np.cos(approx_sol[1][:,2])
+
+
+## Correcting for the zero of energy
+PE += (m1_value+m2_value)*9.81*(l1_value+l2_value)
+
+fig = plt.figure()
+plt.plot(approx_sol[0], KE, label='Kinetic Energy')
+plt.plot(approx_sol[0], PE, label='Potential Energy')
+plt.plot(approx_sol[0], KE + PE, label='Sum of both')
+plt.legend()
+plt.show()
