@@ -40,7 +40,7 @@ def midpoint_rule(fun,tspan, y0, number_of_points=1000):
     return t, y
 
 #(theta1, omega1, theta2, omega2)
-ini_cond_vec = [7*np.pi/180, 1, np.pi, 1] # Initial conditions a vector
+ini_cond_vec = [7*np.pi/180, 1, 0.9*np.pi, 1] # Initial conditions a vector
 tspan = [0,10]
 
 approx_sol = midpoint_rule(der_system_task10, tspan, ini_cond_vec) #Midpoint used because its better than euler and easy to implement :)
