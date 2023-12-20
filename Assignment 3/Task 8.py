@@ -15,6 +15,7 @@ T0 = 313
 R = 8.3145 
 
 
+
 def der_system_task6(t, x):
     '''Solves the following system of equations: \n
     dCadt = -A*exp(-Ea/RT) * Ca^3 \n
@@ -27,8 +28,8 @@ def der_system_task6(t, x):
     return dxdt
 
 
-def first_order_euler_system(fun,tspan, y0, number_of_points=100):
-    '''Applies the first order explicit euler method on the system of two differential equations for task 7. \n
+def midpoint_rule(fun,tspan, y0, number_of_points=100):
+    '''Applies the midpoint rule on the system of two differential equations for task 7. \n
     fun = function 
     y0 = vector of initial conditions
     optional:\n
@@ -39,13 +40,20 @@ def first_order_euler_system(fun,tspan, y0, number_of_points=100):
     y[0,0] = y0[0] ## Setting up the initial conditions
     y[0,1] = y0[1]
     for i in range(number_of_points):
-        y[i+1,:] = y[i,:] + dt * fun(t[i], y[i,:])
+        k1 = fun(t[i], y[i,:])
+        k2 = fun(t[i] + dt*0.5, y[i,:] + 0.5*dt*k1)
+        y[i+1,:] = y[i,:] + dt * k2
     return t, y
+
+
+# Same plotting but now with the midpoint rule.
+# Code copied from task 7
+
 
 ini_cond_vec = [c0, T0] # Initial conditions a vector
 tspan = [0,1000]
 
-approx_sol = first_order_euler_system(der_system_task6, tspan, ini_cond_vec)
+approx_sol = midpoint_rule(der_system_task6, tspan, ini_cond_vec)
 
 solution = scipy.integrate.solve_ivp(der_system_task6, tspan, ini_cond_vec)
 
@@ -54,17 +62,16 @@ ax1 = plt.subplot(1,2,1)
 ax2 = plt.subplot(1,2,2)
 
 ax1.plot(solution.t, solution.y[0], label='Scipy solve_ivp')
-ax1.plot(approx_sol[0], approx_sol[1][:,0], label='First Order Euler')
+ax1.plot(approx_sol[0], approx_sol[1][:,0], label='Midpoint rule')
 ax1.set_ylabel('Concentration of A (mol/L)')
 ax1.set_xlabel('Time (s)')
 ax1.set_title('Concentration over time for component A')
 ax1.legend()
 ax2.plot(solution.t, solution.y[1],'r',  label='Scipy solve_ivp')
-ax2.plot(approx_sol[0], approx_sol[1][:,1], label='First Order Euler')
+ax2.plot(approx_sol[0], approx_sol[1][:,1], label='Midpoint rule')
 ax2.set_title('Temperature over time')
 ax2.set_xlabel('Time (s)')
 ax2.set_ylabel('Tempertature (K)')
 fig.suptitle('Solution to the system of ODEs', weight='bold')
 ax2.legend()
 plt.show()
-

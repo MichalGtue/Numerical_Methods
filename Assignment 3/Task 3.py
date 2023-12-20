@@ -48,3 +48,19 @@ plt.ylim(0.85, 1.2)
 plt.legend()
 plt.show()
 #Slight deviations but we need to zoom in quite close to see
+
+# For difference over time 
+y_analytical_scipyxvalues = third_order_analytical(x_scipy_plotting, initial_conc, 0.01)
+
+diff = []
+
+for i in range(len(x_scipy_plotting)):
+    difference = y_analytical_scipyxvalues[i] -  y_scipy_plotting[i]
+    diff.append(difference)
+
+fig3 = plt.figure(figsize=(8,7))
+plt.plot(x_scipy_plotting, diff)
+plt.xlabel('Time(s)')
+plt.ylabel('Analytical - solve_ivp')
+plt.title('Difference between analytical and numerical solution', weight='bold')
+plt.show()
