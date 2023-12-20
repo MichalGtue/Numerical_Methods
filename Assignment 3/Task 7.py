@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.integrate
 
+# Taking the code from task 6
 #Initialize the variables
 
 A = 3.1
@@ -25,23 +26,12 @@ def der_system_task6(t, x):
     dxdt[1] = (deltaH * -1*A * np.exp((-Ea)/(R*x[1])) * x[0]**3)/(rho*Cp)
     return dxdt
 
-ini_cond_vec = [c0, T0] # Initial conditions a vector
-tspan = [0,1000]
 
-solution = scipy.integrate.solve_ivp(der_system_task6, tspan, ini_cond_vec)
-
-fig = plt.figure(figsize=(10,5))
-ax1 = plt.subplot(1,2,1)
-ax2 = plt.subplot(1,2,2)
-
-ax1.plot(solution.t, solution.y[0])
-ax2.plot(solution.t, solution.y[1])
-ax1.set_ylabel('Concentration of A (mol/L)')
-ax1.set_xlabel('Time (s)')
-ax1.set_title('Concentration over time for component A')
-ax2.set_title('Temperature over time')
-ax2.set_xlabel('Time (s)')
-ax2.set_ylabel('Tempertature (K)')
-fig.suptitle('Solution to the system of ODEs', weight='bold')
-
-plt.show()
+def first_order_euler_system(fun,tspan, y0, number_of_points=100):
+    dt = (tspan[1] - tspan[0])/number_of_points
+    t = np.linspace(tspan[0], tspan[1], number_of_points+1)
+    y = np.zeros(number_of_points+1)
+    y[0] = y0 ## Setting up the initial conditions
+    for i in range(number_of_points):
+        y[i+1] = y[i] + dt * fun(t[i], y[i])
+    return t, y
