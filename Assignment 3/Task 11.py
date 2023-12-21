@@ -63,6 +63,11 @@ PE = -(m1_value+m2_value) * 9.81 *l1_value *np.cos(approx_sol[1][:,0]) - m2_valu
 
 ## Correcting for the zero of energy
 PE += (m1_value+m2_value)*9.81*(l1_value+l2_value)
+## Without this correction we would see that the potential energy would be negative and that the sum of energies would be negative. 
+## Here we set the zero of energy to the lowest possible point the pendulum can reach.
+## With l1=1 and l2=1 the lowest point would be y=-2. Thus, we must correct for this.
+
+
 
 fig = plt.figure()
 plt.plot(approx_sol[0], KE, label='Kinetic Energy')
@@ -74,3 +79,5 @@ plt.title(f'theta1={ini_cond_vec[0]: .4f}, omega1={ini_cond_vec[1]}, theta2={ini
 plt.suptitle('Potential and Kinetic Energy of the Double Pendulum')
 plt.legend()
 plt.show()
+## We can see that the graph matches expectations and the total energy is conserved.
+## Moreover, the shape of the graphs alligns with the expectations that as kinetic energy increases potential decreases and vice versa.
