@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+#Functions from previous tasks
 def first_order_euler(fun, tspan, y0, number_of_points=100000):
     '''Explicit first order euler solver for ODEs.\n
     fun = derivative function \n

@@ -22,7 +22,7 @@ def der_system_task6(t, x):
     x = vector where first position is the concentration and second is the temperature \n'''
     dxdt = np.zeros(2) # two equations
     dxdt[0] = -1*A * np.exp((-Ea)/(R*x[1])) * x[0]**3 ## Represents dcadt
-    dxdt[1] = (deltaH * -1*A * np.exp((-Ea)/(R*x[1])) * x[0]**3)/(rho*Cp)
+    dxdt[1] = (deltaH * -1*A * np.exp((-Ea)/(R*x[1])) * x[0]**3)/(rho*Cp) #Represents dTdt
     return dxdt
 
 ini_cond_vec = [c0, T0] # Initial conditions a vector

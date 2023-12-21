@@ -18,7 +18,7 @@ def first_order_euler(fun, tspan, y0, number_of_points=100000):
         y[i+1] = y[i] + dt * fun(t[i], y[i])
     return t, y
 
-def third_order_derivative(t, Ca, k=0.01): # I know that the assignemnt does not require us to add k as an argument but I wanted the function to be as universal as possible
+def third_order_derivative(t, Ca, k=0.01): 
     '''Returns the concentration over time for a third order chemical reaction. 
     t = time in secons
     Ca = concentration of component a (a -> b)
@@ -37,20 +37,20 @@ def third_order_analytical(t, c0, k3):
 
 # Based on the lecture slides we expect a first order rate of convergence 
 
-initial_conc = 5
+initial_conc = 5 # Same initial conc as before
 
-N = np.linspace(100, 100000, 10, dtype=int)
+N = np.linspace(100, 100000, 10, dtype=int) # We need dtype=int because we need an integer number of points for the function
 solution_list = []
 error_list = []
 #all comparing at t=4
 compare_time = 4
-rate_of_convergence = ['N/A']
+rate_of_convergence = ['N/A'] # First element is N/A because it doesnt make sense to calculate the rate of convergence for the first point
 for i in range(len(N)):
-    approx_sol_general = first_order_euler(third_order_derivative, [0, 4], initial_conc, N[i])
+    approx_sol_general = first_order_euler(third_order_derivative, [0, 4], initial_conc, N[i]) 
     approx_sol = approx_sol_general[1][-1]  # Gets the last y value corresponding to t = 4
     exact_sol = third_order_analytical(4, initial_conc, 0.01)
     solution_list.append(approx_sol)
-    rel_error = np.abs((approx_sol - exact_sol)/exact_sol)
+    rel_error = np.abs((approx_sol - exact_sol)/exact_sol) # Relative error calculation. No specific type of error was asked to calculate. 
     error_list.append(rel_error)
     if i > 0:  # Doesn't make sense to calculate for the first point
         r = (np.log(error_list[i]/error_list[i-1]))/(np.log(N[i-1] / N[i]))

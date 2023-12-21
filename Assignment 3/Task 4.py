@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-def first_order_euler(fun, tspan, y0, number_of_points=100000):
+def first_order_euler(fun, tspan, y0, number_of_points=100000): # 100_000 corresponds to to a dt of 0.001 as asked in the question
     '''Explicit first order euler solver for ODEs.\n
     fun = derivative function \n
     tspan = supply the time span as a vector ie [0,10] \n
@@ -18,7 +18,7 @@ def first_order_euler(fun, tspan, y0, number_of_points=100000):
 # I know I could use something like "from Task 1 import third_order_derivative" but I want to make sure that the code runs on all devices always.
 # For some people importing from other files doesn't work.
 
-def third_order_derivative(t, Ca, k=0.01): # I know that the assignemnt does not require us to add k as an argument but I wanted the function to be as universal as possible
+def third_order_derivative(t, Ca, k=0.01): 
     '''Returns the concentration over time for a third order chemical reaction. 
     t = time in secons
     Ca = concentration of component a (a -> b)
@@ -37,7 +37,7 @@ def third_order_analytical(t, c0, k3):
 
 # Same as task 3
 initial_conc = 5
-t_max = 100 # For tmax = 100 number of points must be 100 000 to have a dt of 0.001
+t_max = 100 # For tmax = 100, the number of points must be 100 000 to have a dt of 0.001
 x_plotting = np.linspace(0, t_max, 1000)
 y_analytical = third_order_analytical(x_plotting, initial_conc, 0.01)
 solution_euler = first_order_euler(third_order_derivative, [0, t_max], initial_conc)

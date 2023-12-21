@@ -2,6 +2,7 @@ import scipy.integrate
 import matplotlib.pyplot as plt ## For plotting 
 import numpy as np
 
+# Functions from previous sections
 def third_order_derivative(t, Ca, k3=0.01): # I know that the assignemnt does not require us to add k as an argument but I wanted the function to be as universal as possible
     '''Returns the concentration over time for a third order chemical reaction. 
     t = time in secons
@@ -18,13 +19,16 @@ def third_order_analytical(t, c0, k3):
     Ca = (1/(c0**(-2) + 2*k3*t))**0.5 ## Analytical solution
     return Ca
 
+# Initializing variables
 initial_conc = 5
-t_max = 100
-x_plotting = np.linspace(0, t_max, 1000)
+t_max = 100 # not sure what a 'reasonable' time frame is but at t_max=100 we can see the overall shape of the curve and that it tends towards 0
+x_plotting = np.linspace(0, t_max, 1000) # For generating the output figure for the analytical solution
 y_analytical = third_order_analytical(x_plotting, initial_conc, 0.01)
 y_scipy = scipy.integrate.solve_ivp(lambda t, Ca: third_order_derivative(t, Ca), [0, t_max], [initial_conc])
 y_scipy_plotting = y_scipy.y[0]
-x_scipy_plotting = y_scipy.t
+x_scipy_plotting = y_scipy.t # the 't' variable corresponds to the x axis
+
+#Figure output code
 fig = plt.figure()
 plt.plot(x_plotting, y_analytical, 'r', label="Analytical Solution")
 plt.plot(x_scipy_plotting, y_scipy_plotting, 'b', label='Scipy solve_ivp')
@@ -51,6 +55,8 @@ plt.show()
 
 # For difference over time 
 y_analytical_scipyxvalues = third_order_analytical(x_scipy_plotting, initial_conc, 0.01)
+# New calculation because scipy does not use a linspace
+
 
 diff = []
 

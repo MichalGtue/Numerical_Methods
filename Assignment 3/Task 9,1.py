@@ -23,6 +23,8 @@ def third_order_analytical(t, c0, k3):
     return Ca
 
 ## We need to slightly modify it so that it only solves for one method
+
+## We see a simplified version of the master function because we only solve one ODE at a time not a system
 def midpoint_rule(fun,tspan, y0, number_of_points=100):
     '''Applies the midpoint rule on the system of two differential equations for task 7. \n
     fun = function 
