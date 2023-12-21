@@ -69,4 +69,4 @@ for i in range(len(N)):
 df = pd.DataFrame(rows, columns = ['N_t', 'Calculated solution', 'epsilon_rel', 'Rate of Convergence'])
 print(df)
 
-# Rate approaches 2
+# Rate approaches 2. This behaviour is expected.
