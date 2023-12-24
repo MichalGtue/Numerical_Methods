@@ -20,7 +20,7 @@ def der_system_task10(t, x, m1=1, m2=1, l1=l1_value, l2=l2_value):
     return dxdt
 
 
-def master_function(fun,tspan, y0, method='rk2', number_of_points=100):
+def master_function(fun,tspan, y0, method='rk2', number_of_points=1000):
     '''General function to solve system of differential equations. Does not work on single differential equations. \n
     fun = function 
     y0 = vector of initial conditions
@@ -58,7 +58,7 @@ def master_function(fun,tspan, y0, method='rk2', number_of_points=100):
     return t, y
 
 #(theta1, omega1, theta2, omega2)
-ini_cond_vec = [7*np.pi/180, 1, 0.9*np.pi, 1] # Initial conditions a vector
+ini_cond_vec = [7*np.pi/180, 1, 0.89*np.pi, 1] # Initial conditions a vector
 tspan = [0,10]
 
 approx_sol = master_function(der_system_task10, tspan, ini_cond_vec, method='rk4') 
@@ -91,7 +91,6 @@ plt.ylim(-2,2)
 line, = ax.plot(x_1st, y_1st, marker='o')
 
 plt.show(block=False)
-
 x_connector = [0, x_1st[-1], x_2[-1]]
 y_connector = [0, y_1st[-1], y_2[-1]]
 
@@ -99,6 +98,7 @@ for i in range(len(approx_sol[1][:,0])):
     line.set_data([0, x_1st[i], x_2[i]], [0, y_1st[i], y_2[i]])
     fig.canvas.draw()
     fig.canvas.flush_events()
-    plt.pause(0.001)
+#    plt.pause(0.00000000001)
+# Uncomment above like to slow down the animation
 
 plt.show()
