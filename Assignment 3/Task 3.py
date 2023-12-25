@@ -70,3 +70,6 @@ plt.xlabel('Time(s)')
 plt.ylabel('Analytical - solve_ivp')
 plt.title('Difference between analytical and numerical solution', weight='bold')
 plt.show()
+
+print(f'Maximum deviation between analytical and Scipy solution: {np.abs(min(diff))}')
+## Only prints the absolute value.

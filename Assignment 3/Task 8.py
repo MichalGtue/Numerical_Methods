@@ -35,7 +35,7 @@ def master_function(fun,tspan, y0, method='rk2', number_of_points=100):
     y0 = vector of initial conditions
     optional:\n
     method = You can select the method with which your system of differential equations will be evaluated. Default set to second order Runge-Kutta. \n
-    Supported methods : midpoint method ('midpoint'), euler method ('euler'), Classical second order Runge-Kutta ('rk2'), classical fourth order Runge-Kutta ('rk4').
+    Supported methods : midpoint method ('midpoint'), euler method ('euler'), Classical second order Runge-Kutta ('rk2'), classical fourth order Runge-Kutta ('rk4'). \n
     number_of_points = how many steps. Default set to 100. Increasing this reduces error but increases computation time. '''
     dt = (tspan[1] - tspan[0])/number_of_points
     t = np.linspace(tspan[0], tspan[1], number_of_points+1)

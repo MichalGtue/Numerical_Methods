@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-def first_order_euler(fun, tspan, y0, number_of_points=100000): # 100_000 corresponds to to a dt of 0.001 as asked in the question
+def first_order_euler(fun, tspan, y0, number_of_points=100_000): # 100_000 corresponds to to a dt of 0.001 as asked in the question
     '''Explicit first order euler solver for ODEs.\n
     fun = derivative function \n
     tspan = supply the time span as a vector ie [0,10] \n
