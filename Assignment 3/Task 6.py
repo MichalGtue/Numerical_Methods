@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 import scipy.integrate
 
 #Initialize the variables
-
 A = 3.1
 rho = 1.25 # kg * m^-3
 Cp = 1200 # J * kg^-1 * K^-1
@@ -27,7 +26,6 @@ def der_system_task6(t, x):
 
 ini_cond_vec = [c0, T0] # Initial conditions a vector
 tspan = [0,1000]
-
 solution = scipy.integrate.solve_ivp(der_system_task6, tspan, ini_cond_vec)
 
 fig = plt.figure(figsize=(10,5))

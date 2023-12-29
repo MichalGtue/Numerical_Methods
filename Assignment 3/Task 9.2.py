@@ -42,10 +42,10 @@ initial_conc = 5
 t_max = 100
 x_plotting = np.linspace(0, t_max, 1000)
 y_analytical = third_order_analytical(x_plotting, initial_conc, 0.01)
-solution_midpoint_13 = midpoint_rule(third_order_derivative, [0, t_max], initial_conc, 13)
-solution_midpoint_14 = midpoint_rule(third_order_derivative, [0, t_max], initial_conc, 14)
-solution_midpoint_15 = midpoint_rule(third_order_derivative, [0, t_max], initial_conc, 15)
-solution_midpoint_20 = midpoint_rule(third_order_derivative, [0, t_max], initial_conc, 20)
+solution_midpoint_13 = midpoint_rule(third_order_derivative, [0, t_max], initial_conc, 13) # dt ~= 7.69
+solution_midpoint_14 = midpoint_rule(third_order_derivative, [0, t_max], initial_conc, 14) # dt ~= 7.14
+solution_midpoint_15 = midpoint_rule(third_order_derivative, [0, t_max], initial_conc, 15) # dt ~= 6.67
+solution_midpoint_20 = midpoint_rule(third_order_derivative, [0, t_max], initial_conc, 20) # dt ~= 5
 solution_midpoint_50 = midpoint_rule(third_order_derivative, [0, t_max], initial_conc, 50)
 solution_midpoint_100 = midpoint_rule(third_order_derivative, [0, t_max], initial_conc, 100)
 

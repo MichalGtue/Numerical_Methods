@@ -11,7 +11,7 @@ def der_system_task10(t, x, m1=1, m2=1, l1=l1_value, l2=l2_value):
     dTdt = (deltaH * -A*exp(-Ea/RT) * Ca^3)/(rho*Cp) \n
     t =  vector for time span \n
     x = vector (theta1, omega1, theta2, omega2) \n'''
-    dxdt = np.zeros(4) # two equations
+    dxdt = np.zeros(4) # 4 equations
     delta = x[2] - x[0]
     dxdt[0] = x[1]
     dxdt[1] = (m2 * l1 * (x[1]**2) * np.sin(delta)*np.cos(delta) + m2 * 9.81*np.sin(x[2])*np.cos(delta) + m2*l2*(x[3]**2) * np.sin(delta) - (m1+m2)*9.81*np.sin(x[0]))/((m1+m2)*l2 - m2*l2*(np.cos(delta))**2)
