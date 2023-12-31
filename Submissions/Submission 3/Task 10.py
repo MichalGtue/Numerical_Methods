@@ -6,7 +6,9 @@ import scipy.integrate
 l1_value = 1
 l2_value = 1
 def der_system_task10(t, x, m1=1, m2=1, l1=l1_value, l2=l2_value):
-    '''Solves the system of differential equations for a double pendulum \n
+    '''Solves the following system of equations: \n
+    dCadt = -A*exp(-Ea/RT) * Ca^3 \n
+    dTdt = (deltaH * -A*exp(-Ea/RT) * Ca^3)/(rho*Cp) \n
     t =  vector for time span \n
     x = vector (theta1, omega1, theta2, omega2) \n'''
     dxdt = np.zeros(4) # 4 equations
@@ -58,6 +60,7 @@ def master_function(fun,tspan, y0, method='rk2', number_of_points=1000):
 #(theta1, omega1, theta2, omega2)
 ini_cond_vec = [7*np.pi/180, 1, 0.89*np.pi, 1] # Initial conditions a vector
 tspan = [0,10]
+
 approx_sol = master_function(der_system_task10, tspan, ini_cond_vec, method='rk4') 
 ## For the approx solution don't use euler. It is unreliable and unsteady
 

@@ -1,15 +1,23 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.integrate
+import pandas as pd
+import time
+# Taking code from task 10
+# Needed later
 
-# Taking code from task 8
 l1_value = 1
 l2_value = 1
-def der_system_task10(t, x, m1=1, m2=1, l1=l1_value, l2=l2_value):
-    '''Solves the system of differential equations for a double pendulum \n
+m1_value = 1
+m2_value = 1
+
+def der_system_task10(t, x, m1=m1_value, m2=m2_value, l1=l1_value, l2=l2_value):
+    '''Solves the following system of equations: \n
+    dCadt = -A*exp(-Ea/RT) * Ca^3 \n
+    dTdt = (deltaH * -A*exp(-Ea/RT) * Ca^3)/(rho*Cp) \n
     t =  vector for time span \n
     x = vector (theta1, omega1, theta2, omega2) \n'''
-    dxdt = np.zeros(4) # 4 equations
+    dxdt = np.zeros(4) # two equations
     delta = x[2] - x[0]
     dxdt[0] = x[1]
     dxdt[1] = (m2 * l1 * (x[1]**2) * np.sin(delta)*np.cos(delta) + m2 * 9.81*np.sin(x[2])*np.cos(delta) + m2*l2*(x[3]**2) * np.sin(delta) - (m1+m2)*9.81*np.sin(x[0]))/((m1+m2)*l2 - m2*l2*(np.cos(delta))**2)
@@ -18,7 +26,7 @@ def der_system_task10(t, x, m1=1, m2=1, l1=l1_value, l2=l2_value):
     return dxdt
 
 
-def master_function(fun,tspan, y0, method='rk2', number_of_points=1000):
+def master_function(fun,tspan, y0, method='rk2', number_of_points=100):
     '''General function to solve system of differential equations. Does not work on single differential equations. \n
     fun = function 
     y0 = vector of initial conditions
@@ -56,46 +64,19 @@ def master_function(fun,tspan, y0, method='rk2', number_of_points=1000):
     return t, y
 
 #(theta1, omega1, theta2, omega2)
-ini_cond_vec = [7*np.pi/180, 1, 0.89*np.pi, 1] # Initial conditions a vector
-tspan = [0,10]
-approx_sol = master_function(der_system_task10, tspan, ini_cond_vec, method='rk4') 
-## For the approx solution don't use euler. It is unreliable and unsteady
+
+for i in range(1,5):
+    ini_cond_vec = [7*np.pi/180, 1, 0.9-0.01*i*np.pi, 1] # Initial conditions a vector
+    tspan = [0,5]
+    approx_sol = master_function(der_system_task10, tspan, ini_cond_vec, 'midpoint', 2000) #Midpoint used because its better than euler and easy to implement :)
+    x_2 = np.sin(approx_sol[1][:,0])*l1_value + np.sin(approx_sol[1][:,2])*l2_value
+    y_2 = -np.cos(approx_sol[1][:,0])*l1_value - np.cos(approx_sol[1][:,2])*l2_value
+    plt.plot(x_2, y_2, label=f'Theta2 = {0.9-0.01*i*np.pi: .4f}')
 
 
-
-x_1st = np.sin(approx_sol[1][:,0])*l1_value #Like the first node of the double pendulum
-y_1st = -np.cos(approx_sol[1][:,0])*l1_value
-
-x_2 = np.sin(approx_sol[1][:,0])*l1_value + np.sin(approx_sol[1][:,2])*l2_value
-y_2 = -np.cos(approx_sol[1][:,0])*l1_value - np.cos(approx_sol[1][:,2])*l2_value
-
-x_connector = [0, x_1st[-1], x_2[-1]]
-y_connector = [0, y_1st[-1], y_2[-1]]
-
-
-fig, ax = plt.subplots(figsize=(8,8))
-plt.plot(x_1st, y_1st, label='Path of second node')
-plt.plot(x_2, y_2, label='Path of second node')
 plt.xlabel('Position in x')
 plt.ylabel('Position in y')
-plt.title(f'theta1={ini_cond_vec[0]: .4f}, omega1={ini_cond_vec[1]}, theta2={ini_cond_vec[2]: .4f}, omega2={ini_cond_vec[3]}', fontsize=10)
-plt.suptitle(f'Path of double pendulum', weight='bold')
-plt.xlim(-2,2)
-plt.ylim(-2,2)
-
-
-#Animating the path taken
-line, = ax.plot(x_1st, y_1st, marker='o')
-
-plt.show(block=False)
-x_connector = [0, x_1st[-1], x_2[-1]]
-y_connector = [0, y_1st[-1], y_2[-1]]
-
-for i in range(len(approx_sol[1][:,0])):
-    line.set_data([0, x_1st[i], x_2[i]], [0, y_1st[i], y_2[i]])
-    fig.canvas.draw()
-    fig.canvas.flush_events()
-#    plt.pause(0.00000000001)
-# Uncomment above like to slow down the animation
+plt.suptitle(f'Path of double pendulum at various values of theta2', weight='bold')
+plt.legend(loc='upper right')
 
 plt.show()
