@@ -33,9 +33,9 @@ y_for_plotting = function(x_for_plotting)
 
 fig = plt.subplot()
 ax1 = fig.plot(x, y, marker='o', linestyle='None')
-ax2 = fig.plot(x_for_plotting, y_for_plotting)
-ax1.set_title("Figure 4.1: Concentration of PCB ([kg/yr]) in lake Michigan against bypass flowrates", size=8, weight='bold')
-ax1.set_xlabel('Concentration of PCB ([kg/yr])')
-ax1.set_ylabel('Bypass Flowrate [km**3/yr]')
+ax1 = fig.plot(x_for_plotting, y_for_plotting)
+plt.title('Figure 8.1: Lagrange interpolation on a data set interpolation ranmge [0,12]', size=8, weight='bold')
+plt.xlabel('x range')
+plt.ylabel('y range')
 
 plt.show()
