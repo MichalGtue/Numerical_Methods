@@ -24,7 +24,7 @@ phiv = 6.3e-4 #volumetric flow rate
 D = 1e-3
 cL = 1 # Inlet conc
 cR = 0 
-t_end = 10 # 4 sec
+t_end = 4 # 4 sec
 x_end = 1 # Length
 kR = 1.2 
 
@@ -92,4 +92,9 @@ for n in range(Nt):
 
 plt.show()
 
-print(simpson_rule(x,c))
+sum_conc = simpson_rule(x,c) #Conc. given in mol/m^3
+#To get sum of moles we need to multiply by the total volume
+
+sum_moles = sum_conc * np.pi * (diam/2)**2 * x_end
+
+print(f'The total amount of moles lost is {sum_moles}')

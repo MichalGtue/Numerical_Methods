@@ -47,7 +47,7 @@ plt.title(f"Time: {t:5.3f} s", fontsize = 16)
 plt.xlabel('Axial position', fontsize = 14)
 plt.ylabel('Concentration', fontsize=14)
 plt.xlim(0, x_end)
-plt.ylim(0, max(cL, cR))
+plt.ylim(0, max(cL, cR)+0.2)
 plt.grid
 iplot = 0
 
@@ -58,9 +58,12 @@ for n in range(Nt):
 
     rxn = reaction(c_old)
     for i in range(1, Nx):
-        c[i] = c_old[i] + Fo *c_old[i-1] -2*Fo*c_old[i] + Fo*c_old[i+1] - u*dt*((c[i+1]-c[i-1])/(2*dx)) + rxn[i]*dt
+        if dx*i < 0.1 or dx*i>0.9:
+            c[i] = c_old[i] + Fo *c_old[i-1] -2*Fo*c_old[i] + Fo*c_old[i+1] - u*dt*((c[i+1]-c[i-1])/(2*dx))
+        else:
+            c[i] = c_old[i] + Fo *c_old[i-1] -2*Fo*c_old[i] + Fo*c_old[i+1] - u*dt*((c[i+1]-c[i-1])/(2*dx)) + rxn[i]*dt
     c[Nx] = c[Nx-1]
-
+ 
     iplot += 1
     if (iplot % 10 == 0):
         plt.title(f"Time = {t:5.3f} s")
