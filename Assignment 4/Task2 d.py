@@ -5,7 +5,7 @@ import scipy.sparse.linalg as spss
 
 # Getting all the variables
 Nx = 100 ## Grid points
-Nt = 1000 # Time steps
+Nt = 200 # Time steps
 diam = 0.04 # Diameter
 phiv = 6.3e-4 #volumetric flow rate
 D = 1e-3
@@ -52,7 +52,7 @@ plt.grid
 iplot = 0
 
 
-A = sps.diags([-Co, (1+Co+kR*dt)], [-1, 0], shape=(Nx+1, Nx+1))
+A = sps.diags([-(Co+Fo), (1+Co+2*Fo+kR*dt), -Fo], [-1, 0, 1], shape=(Nx+1, Nx+1))
 A = sps.csr_matrix(A)
 A[0,0]=1
 A[0,1] = 0
@@ -69,7 +69,7 @@ for n in range(Nt):
     c = spss.spsolve(A, b)
 
     iplot += 1
-    if (iplot % 10 == 0):
+    if (iplot % 4 == 0):
         plt.title(f"Time = {t:5.3f} s")
         line[0].set_ydata(c)
         figure.canvas.draw()
