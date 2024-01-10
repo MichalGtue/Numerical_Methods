@@ -58,6 +58,9 @@ A[0,0]=1
 A[0,1] = 0
 A[Nx, Nx] = 1
 A[Nx, Nx-1] = -1
+for i in range(1, Nx):
+    if dx*i < 0.1 or dx*i>0.9:
+        A[i, i] = A[i,i] - kR*dt ## Taking away the reaction term  
 
 for n in range(Nt):
     t += dt
