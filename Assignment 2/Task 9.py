@@ -7,7 +7,7 @@ import scipy
 
 #Prerequisites from the previous task, needed to plot the lagrange interpolant
 a = sympy.Symbol('x', real=True) #x is already used for the list
-p = sympy.Symbol('y', real=True) #y already used for list as well
+
 #From assignment document
 x = list ( range (1 ,12 ,2) )
 y = [13.40 ,15.00 ,22.0 ,16.70 ,10.60 ,8.30]
@@ -35,6 +35,9 @@ y_for_plotting_lagrange = function(x_for_plotting)
 #The actual new code starts here
 spline_eq = scipy.interpolate.splrep(x,y)
 y_for_plotting_spline = scipy.interpolate.splev(x_for_plotting, spline_eq)
+#According to the discussions on canvas, we were not asked to make the function ourselves
+
+
 
 #Plotting
 fig = plt.subplot()
