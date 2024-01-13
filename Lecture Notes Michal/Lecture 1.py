@@ -1,3 +1,4 @@
+
 import numpy as np
 
 print(np.__version__)
@@ -78,3 +79,5 @@ for p in my_list_1:
     if p%5 != 0:
         not_div.append(p)
 print(not_div)
+
+
