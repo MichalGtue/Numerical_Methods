@@ -88,7 +88,7 @@ for i in range(1, Nx):
         A_new[i, i] = A_new[i,i] + kR*dt
 
 ## Change the first and last elements of a
-
+ 
 c_diff = []
 t_list_plotting = []
 for n in range(Nt):
@@ -102,7 +102,7 @@ for n in range(Nt):
     else:
         c = spss.spsolve(A_new,b)
         t_list_plotting.append(t-5)
-        c_diff.append(np.sum(np.abs(c_old-c)))
+        c_diff.append(np.abs(simpson_rule(x, c_old) - simpson_rule(x, c)))
     if t > 5.05 and t < 5.051:
         c_505 = np.abs(np.copy(c))
     elif t > 5.1 and t < 5.101:
@@ -112,7 +112,7 @@ for n in range(Nt):
     elif t > 5.2 and t < 5.201:
         c_52 = np.abs(np.copy(c))
     iplot += 1
-    if (iplot % 500 == 0):
+    if (iplot % 1000 == 0):
         plt.title(f"Time = {t:5.3f} s")
         line[0].set_ydata(c)
         figure.canvas.draw()
@@ -131,7 +131,7 @@ plt.title("Cooncentration outflow", fontsize=16)
 plt.xlabel('Time taken', fontsize=14)
 plt.ylabel('Concentration', fontsize=14)
 plt.xlim(0, x_end)
-plt.ylim(-1, max(cL, cR))
+plt.ylim(0, max(cL, cR))
 plt.legend()
 plt.grid()
 plt.show()
@@ -140,9 +140,9 @@ plt.show()
 figure, ax = plt.subplots(figsize=(10, 5))
 ax.plot(t_list_plotting, c_diff)
 plt.title("Concentration at various times", fontsize=16)
-plt.xlabel('Axial position', fontsize=14)
+plt.xlabel('Time', fontsize=14)
 plt.ylabel('Concentration', fontsize=14)
 plt.grid()
 plt.show()
 
-print(simpson_rule(t_list_plotting, c_diff)* np.pi * (diam/2)**2 * x_end)
+print(f"Total molar outflow = {simpson_rule(t_list_plotting, c_diff)* np.pi * (diam/2)**2 * x_end}")

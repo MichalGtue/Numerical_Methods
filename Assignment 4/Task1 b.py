@@ -25,8 +25,8 @@ Fo = D * dt / dx**2
 
 # Courant number
 Co = u* dt /dx
-#print(Co)
-#Uncomment to see that Co is less than 1
+print(Co)
+#Uncomment to see that Co is greater than 1
 
 x = np.linspace(0,x_end, Nx+1)
 c = np.zeros(Nx+1)
@@ -59,9 +59,9 @@ for n in range(Nt):
     rxn = reaction(c_old)
     for i in range(1, Nx):
         if dx*i < 0.1 or dx*i>0.9:
-            c[i] = c_old[i] + Fo *c_old[i-1] -2*Fo*c_old[i] + Fo*c_old[i+1] - Co*0.5*(c_old[i]-c_old[i-1]) # No reaction
+            c[i] = c_old[i] + Fo *c_old[i-1] -2*Fo*c_old[i] + Fo*c_old[i+1] - Co*(c_old[i]-c_old[i-1]) # No reaction
         else:
-            c[i] = c_old[i] + Fo *c_old[i-1] -2*Fo*c_old[i] + Fo*c_old[i+1] - Co*0.5*(c_old[i]-c_old[i-1]) + rxn[i]*dt
+            c[i] = c_old[i] + Fo *c_old[i-1] -2*Fo*c_old[i] + Fo*c_old[i+1] - Co*(c_old[i]-c_old[i-1]) + rxn[i]*dt
     c[Nx] = c[Nx-1]
 
     iplot += 1
