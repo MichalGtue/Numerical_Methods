@@ -61,7 +61,7 @@ for d in range(len(Nx)):
         c = spss.spsolve(A, b)
 
         iplot += 1
-        if (iplot % 1000 == 0):
+        if (iplot % 2000 == 0):
             plt.title(f"Time = {t:5.3f} s, Nx[d] = {Nx[d]}")
             line[0].set_ydata(c)
             figure.canvas.draw()
@@ -72,11 +72,3 @@ for d in range(len(Nx)):
             line[0].set_ydata(c)
             plt.savefig(f'{Nx[d]}.png', format='png')
             plt.show()
-
-
-
-
-
-plt.show()
-
-

@@ -4,8 +4,10 @@ import pandas as pd
 # Simpson rule from assignment 2 task 6 slighly modified
 def simpson_rule(xlist, ylist):
     '''Calculates the area of a function using the Simpson rule. \n
-    Takes 3 arguments, first the function, then the lower integration bound, and finally the upper integration bound. \n
-    Optional 4th argument to specify number of intervals (default set to 20)'''
+    xlist = List of x values \n
+    ylist = List of y values'''
+    if len(xlist) != len(ylist):
+        return "Error, lists must be of equal size"
     sum = 0
     dx = (xlist[1]-xlist[0])
     for i in range(len(ylist)):

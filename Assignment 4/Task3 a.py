@@ -4,8 +4,10 @@ import matplotlib.pyplot as plt
 # Simpson rule from assignment 2 task 6 slighly modified
 def simpson_rule(xlist, ylist):
     '''Calculates the area of a function using the Simpson rule. \n
-    Takes 3 arguments, first the function, then the lower integration bound, and finally the upper integration bound. \n
-    Optional 4th argument to specify number of intervals (default set to 20)'''
+    xlist = List of x values \n
+    ylist = List of y values'''
+    if len(xlist) != len(ylist):
+        return "Error, lists must be of equal size"
     sum = 0
     dx = (xlist[1]-xlist[0])
     for i in range(len(ylist)):
@@ -35,12 +37,6 @@ for i in range(len(N)):
         r = (np.log(error_list[i]/error_list[i-1]))/(np.log(N[i-1] / N[i]))
         rate_of_convergence.append(r)
 
-rows = []
-for i in range(len(N)):
-    rows.append([N[i], solution_list[i], error_list[i], rate_of_convergence[i]])
-
-df = pd.DataFrame(rows, columns = ['N_t', 'Calculated solution', 'epsilon_rel', 'Rate of Convergence'])
-print(df)
 
 
 
