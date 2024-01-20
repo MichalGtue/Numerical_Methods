@@ -5,8 +5,10 @@ import scipy.sparse.linalg as spss
 
 def simpson_rule(xlist, ylist):
     '''Calculates the area of a function using the Simpson rule. \n
-    Takes 3 arguments, first the function, then the lower integration bound, and finally the upper integration bound. \n
-    Optional 4th argument to specify number of intervals (default set to 20)'''
+    xlist = List of x values \n
+    ylist = List of y values'''
+    if len(xlist) != len(ylist):
+        return "Error, lists must be of equal size"
     sum = 0
     dx = (xlist[1]-xlist[0])
     for i in range(len(ylist)):
@@ -18,7 +20,7 @@ def simpson_rule(xlist, ylist):
 
 # Getting all the variables
 Nx = 100 ## Grid points
-Nt = 10000 # Time steps
+Nt = 1000 # Time steps
 diam = 0.04 # Diameter
 phiv = 6.3e-4 #volumetric flow rate
 D = 1e-3
@@ -85,7 +87,7 @@ for n in range(Nt):
     c = spss.spsolve(A, b)
 
     iplot += 1
-    if (iplot % 100 == 0):
+    if (iplot % 4 == 0):
         plt.title(f"Time = {t:5.3f} s")
         line[0].set_ydata(c)
         figure.canvas.draw()
@@ -97,7 +99,5 @@ plt.show()
 
 sum_conc = simpson_rule(x,c) #Conc. given in mol/m^3
 #To get sum of moles we need to multiply by the total volume
-
 sum_moles = sum_conc * np.pi * (diam/2)**2 * x_end
-
 print(f'The total amount of moles lost is {sum_moles}')

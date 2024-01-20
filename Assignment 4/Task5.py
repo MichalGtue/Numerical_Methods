@@ -2,11 +2,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.sparse as sps
 import scipy.sparse.linalg as spss
-
 def simpson_rule(xlist, ylist):
     '''Calculates the area of a function using the Simpson rule. \n
-    Takes 3 arguments, first the function, then the lower integration bound, and finally the upper integration bound. \n
-    Optional 4th argument to specify number of intervals (default set to 20)'''
+    xlist = List of x values \n
+    ylist = List of y values'''
+    if len(xlist) != len(ylist):
+        return "Error, lists must be of equal size"
     sum = 0
     dx = (xlist[1]-xlist[0])
     for i in range(len(ylist)):
@@ -62,7 +63,7 @@ plt.title(f"Time: {t:5.3f} s", fontsize = 16)
 plt.xlabel('Axial position', fontsize = 14)
 plt.ylabel('Concentration', fontsize=14)
 plt.xlim(0, x_end)
-plt.ylim(0, max(cL, cR))
+plt.ylim(0, max(cL, cR)+1.1)
 plt.grid
 iplot = 0
 
@@ -79,8 +80,6 @@ for i in range(1, Nx):
 
 A_new = sps.diags([(Fo), -(1+Co_nit+2*Fo+kR*dt), Fo+Co_nit], [-1, 0, 1], shape=(Nx+1, Nx+1))
 A_new = sps.csr_matrix(A_new)
-#A_new[0,0]= 1
-#A_new[0,1] = 1
 A_new[Nx, Nx] = 1
 A_new[Nx, Nx-1] = 0
 for i in range(1, Nx):
@@ -88,21 +87,23 @@ for i in range(1, Nx):
         A_new[i, i] = A_new[i,i] + kR*dt
 
 ## Change the first and last elements of a
-
+ 
 c_diff = []
 t_list_plotting = []
+time_conc_is_0 = 0
 for n in range(Nt):
     t += dt
     c_old = np.copy(c) ## doing c_old = c then modification of c_old will also modify c
     b = c_old
-    b[Nx] = 0
+    b[Nx] = 0 
     if n*dt<5: # Backflow turned on at 5 sec
-        c[0] = cL
+        c[0] = cL 
         c = spss.spsolve(A, b)
+        c[0] = cL + np.sin(t*np.pi)*0.3
     else:
         c = spss.spsolve(A_new,b)
         t_list_plotting.append(t-5)
-        c_diff.append(np.sum(np.abs(c_old-c)))
+        c_diff.append(np.abs(simpson_rule(x, c_old) - simpson_rule(x, c)))
     if t > 5.05 and t < 5.051:
         c_505 = np.abs(np.copy(c))
     elif t > 5.1 and t < 5.101:
@@ -111,8 +112,14 @@ for n in range(Nt):
         c_515 = np.abs(np.copy(c))
     elif t > 5.2 and t < 5.201:
         c_52 = np.abs(np.copy(c))
+    elif t>5.5 and t < 5.501:
+        c_55 = np.abs(np.copy(c))
+    if np.max(np.abs(c)) < 1e-6 and time_conc_is_0 == 0: ## So that it only gets the first time the conc. is below the value
+        time_conc_is_0 = t
+        print(f'Time taken for the concentration to reach 0 = {time_conc_is_0}s. Nitrogen flow turned on at t=5s')
+
     iplot += 1
-    if (iplot % 500 == 0):
+    if (iplot % 1000 == 0):
         plt.title(f"Time = {t:5.3f} s")
         line[0].set_ydata(c)
         figure.canvas.draw()
@@ -127,11 +134,12 @@ ax.plot(x, c_51, label='t = 5.1 s')
 ax.plot(x, c_505, label='t = 5.05 s')
 ax.plot(x, c_515, label='t = 5.15 s')
 ax.plot(x, c_52, label='t = 5.2 s')
+ax.plot(x, c_55, label='t = 5.5 s')
 plt.title("Concentration outflow", fontsize=14)
-plt.xlabel('Time taken', fontsize=10)
+plt.xlabel('Axial Position', fontsize=10)
 plt.ylabel('Concentration', fontsize=10)
 plt.xlim(0, x_end)
-plt.ylim(-1, max(cL, cR))
+plt.ylim(0, 1.5)
 plt.legend()
 plt.grid()
 plt.show()
@@ -139,10 +147,10 @@ plt.show()
 
 figure, ax = plt.subplots(figsize=(10, 5))
 ax.plot(t_list_plotting, c_diff)
-plt.title("Concentration at various times", fontsize=16)
-plt.xlabel('Axial position', fontsize=14)
+plt.title("Outflow concentration over time", fontsize=16)
+plt.xlabel('Time', fontsize=14)
 plt.ylabel('Concentration', fontsize=14)
 plt.grid()
 plt.show()
 
-print(simpson_rule(t_list_plotting, c_diff)* np.pi * (diam/2)**2 * x_end)
+print(f"Total molar outflow = {simpson_rule(t_list_plotting, c_diff)* np.pi * (diam/2)**2 * x_end}")
